@@ -26,3 +26,5 @@ router.get('/', function(req, res){
     res.send(200).send(locations);
   });
 });
+
+module.exports = router;
