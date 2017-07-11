@@ -23,7 +23,7 @@ router.post('/', function(req, res){
 router.get('/', function(req, res){
   Location.find({}, function(err, locations){
     if(err) return res.status(500).send("There was a problem finding the locations");
-    res.send(200).send(locations);
+    res.status(200).send(locations);
   });
 });
 
