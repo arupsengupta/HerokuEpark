@@ -21,7 +21,7 @@ router.post('/', function(req, res){
 
 //return all the locations in the database
 router.get('/', function(req, res){
-  Location.find({}, function(req, locations){
+  Location.find({}, function(err, locations){
     if(err) return res.status(500).send("There was a problem finding the locations");
     res.send(200).send(locations);
   });
