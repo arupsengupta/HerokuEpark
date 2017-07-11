@@ -8,6 +8,8 @@ app.use(function(req, res, next){
 });
 
 var UserController = require('./User/UserController');
+var LocationController = require('./Location/LocationController');
 app.use('/users', UserController);
+app.use('/location',LocationController);
 
 module.exports = app;
