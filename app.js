@@ -3,8 +3,6 @@ var server = require('http').Server(app);
 var db = require('./db');
 var io = require('socket.io')(server);
 
-server.listen(3000);
-
 io.on('connection',function(socket){
   console.log('hello');
   socket.emit('news', {hello : 'world'});
