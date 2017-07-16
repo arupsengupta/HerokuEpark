@@ -7,7 +7,10 @@ var server = app.listen(port, function(){
 
 var io = require('socket.io')(server);
 
+var mysocket;
+
 io.on('connection',function(socket){
+  mysocket = socket;
   console.log('hello');
   socket.emit('news', {hello : 'world'});
   socket.on('other event',function(data){
@@ -16,6 +19,6 @@ io.on('connection',function(socket){
 });
 
 app.use('/changeMarker', function(req, res){
-  socket.emit('test', 'changeMarker');
+  mysocket.emit('test', 'changeMarker');
   res.status(200).send('OK');
 });
