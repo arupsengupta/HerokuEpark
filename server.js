@@ -14,3 +14,8 @@ io.on('connection',function(socket){
     console.log(data);
   });
 });
+
+app.use('/changeMarker', function(req, res){
+  socket.emit('test', 'changeMarker');
+  res.status(200).send('OK');
+});
