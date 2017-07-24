@@ -9,7 +9,7 @@ var LocationSchema = new mongoose.Schema({
   },
   address: String,
   hourly_price: Number,
-  parking_slot: [{id: String, isBooked: Boolean}]
+  parking_slot: [{status:String}]
 });
 
 mongoose.model('Location',LocationSchema);
