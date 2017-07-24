@@ -24,7 +24,7 @@ router.post('/', function(req, res){
     var locArr = [];
     for(var i=0; i<req.body.parking_slot; i++){
       var obj = {
-        isBooked : false
+        status: "available"
       };
       locArr.push(obj);
     }
