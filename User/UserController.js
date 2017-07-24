@@ -11,7 +11,9 @@ router.post('/', function(req, res){
   User.create({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    phone: req.body.phone,
+    vehicle_no: req.body.number,
+    password: req.body.pwd
   },
   function(err, user){
     if(err) return res.status(500).send("There was a problem adding information to the database");
@@ -24,6 +26,18 @@ router.get('/', function(req, res){
   User.find({}, function(err, users){
     if(err) return res.status(500).send("There was a problem finding the users");
     res.status(200).send(users);
+  });
+});
+
+router.post('/login',function(req, res){
+  User.find({phone: req.body.phone}, function(err, users){
+    if(err) return res.status(500).send("There was a problem finfing the usre");
+    console.log(users[0].password + ', '+ req.body.pwd);
+    if(users[0].password === req.body.pwd){
+      res.status(200).send(users[0]);
+    }else{
+      res.status(401).send("Unauthorized User");
+    }
   });
 });
 
