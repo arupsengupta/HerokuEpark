@@ -11,7 +11,7 @@ var BookingSchema = new mongoose.Schema({
     value : Number,
     matched : {type: Boolean, default: false}
   },
-	date: {type: Date, default:Date.now},
+	date: {type: Date, default:new Date()},
   status: String
 });
 
