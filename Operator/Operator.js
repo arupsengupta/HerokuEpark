@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
-var OperatorSchema = mongoose.Schema({
+var OperatorSchema = new mongoose.Schema({
 	name : String,
 	contact : String,
 	parking_id : String,
-	password : String
+	pass : String
 });
 
 mongoose.model('Operator',OperatorSchema);
