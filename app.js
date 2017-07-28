@@ -14,6 +14,8 @@ var UserController = require('./User/UserController');
 var LocationController = require('./Location/LocationController');
 var SensorController = require('./Sensor/SensorController');
 var BookingController = require('./Booking/BookingController');
+var OperatorController = require('./Operator/OperatorController');
+
 app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'public','index.html'));
 });
@@ -21,5 +23,6 @@ app.use('/users', UserController);
 app.use('/location',LocationController);
 app.use('/pushData', SensorController);
 app.use('/booking', BookingController);
+app.use('/operator', OperatorController);
 
 module.exports = app;
