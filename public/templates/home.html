@@ -1,0 +1,169 @@
+ <div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <div>
+                    <span style="float: left; margin-left: 2vw;"><img src="img/Logo.png" style="width : 4em;"/></span>
+                    <span><a href="#home" class="navbar-brand" style="font-family : Segoe UI;font-size: 21px;font-weight: 500;">ePark Admin</a></span>
+                </div>
+                    
+            </div>
+           
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#home" style="font-family : Segoe UI;"><i class="fa fa-dashboard fa-fw"></i> Home Page</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#contacts" style="font-family : Segoe UI;"><i class="fa fa-table fa-fw"></i> Emergency Contacts</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-table fa-fw"></i> Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="font-family : Segoe UI;">Overall Parking Status</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-automobile fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{parkingSlotCount}}</div>
+                                    <div style="font-family : Segoe UI; font-size : 18px;">Parking Slots</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Sector 5, Salt Lake</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-feed fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{totalSensorCount}}</div>
+                                    <div style="font-family : Segoe UI; font-size : 18px;">Parking Sensors</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Last Count : 09-July-2017</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-thumbs-up fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{healthySensorCount}}</div>
+                                    <div style="font-family : Segoe UI; font-size : 18px;">Working Sensors</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Last Update : 12:00pm</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-thumbs-down fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{faultySensorCount}}</div>
+                                    <div style="font-family : Segoe UI; font-size : 18px;">Damaged Sensors</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                       
+                         <div class="panel panel-default" ng-repeat="results in result">
+				                        <div class="panel-heading">
+				                            <div style="font-family : Segoe UI; font-size : 19px; font-weight:500;">{{results.name}} <span style="font-size: 13px; margin-left: 1vw; color: darkslategrey;">(Location ID : <span style="color : tomato;">{{results._id}}</span>)</span></div><br/>
+				                            <div>
+				                                 <img src="img/wallet.png" style="width : 2em;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Hourly Rate : </span><span style="font-size: 20px;color: green;"> ₹{{results.hourly_price}}/hour</span>
+				                                 <img src="img/slot.png" style="width : 2em; margin-left: 4vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Total Slots : </span><span style="font-size: 20px;color: green;">{{results.number_of_slot}}</span>
+				                                 <img src="img/booked.png" style="width : 2em; margin-left: 4vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Booked Slots : </span><span style="font-size: 20px;color: green;">{{results.booked_slot}}</span>
+				                            </div>
+				                        </div>
+				                        <!-- /.panel-heading -->
+				                        <div class="panel-body">
+				                            <div class="table-responsive">
+				                                <table class="table table-striped table-bordered table-hover">
+				                                    <thead>
+				                                        <tr>
+				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor ID</th>
+				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor Booking Status</th>
+				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor Health</th>
+				                                            <th style="text-align : center; font-family: Segoe UI;">Disable Sensor</th>
+				                                        </tr>
+				                                    </thead>
+				                                    <tbody>
+				                                        <tr ng-repeat="slot in parkingSlot">
+				                                            <td style="text-align : center; font-family: Segoe UI;">{{slot._id}}</td>
+				                                            <td style="text-align : center; font-family: Segoe UI;">{{slot.status}}</td>
+				                                            <td style="text-align : center;"><img ng-src="{{imageSource}}" style="width : 2em;"/></td>
+				                                            <td style="text-align : center;" ng-click="deleteSensor(slot._id)"><img src="img/remove.png" style="width : 2em;"></td>
+				                                        </tr>
+				                                    </tbody>
+				                                </table>
+				                       </div>
+				              </div>
+         </div>
+</div>
