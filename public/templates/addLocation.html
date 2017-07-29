@@ -1,0 +1,132 @@
+<div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+                <div>
+                    <span style="float: left; margin-left: 2vw;"><img src="img/Logo.png" style="width : 4em;"/></span>
+                    <span><a href="#home" class="navbar-brand" style="font-family : Segoe UI;font-size: 21px;font-weight: 500;">ePark Admin</a></span>
+                </div>
+                    
+            </div>
+           
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#home" style="font-family : Segoe UI;"><i class="fa fa-dashboard fa-fw"></i> Home Page</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#addLocation" style="font-family : Segoe UI;"><i class="fa fa-plus-square fa-fw"></i> Location Details</a>
+                        </li>
+                        
+                        <li>
+                            <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-stop-circle fa-fw"></i> Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div id="page-wrapper" style="min-height : 70vw;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="font-family : Segoe UI;">Add new location</h1>
+                </div>
+            </div>
+            
+            <div class="col-lg-16">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="font-family: Segoe UI;text-align: center;font-size: 16px;">
+                            Enter the details in the form below
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                   <div class="form-group">
+								      <label class="control-label col-sm-2" for="email">Location Name:</label>
+								      <div class="col-sm-8">
+								        <input type="text" class="form-control" placeholder="Webel More, RDB Cinemas etc." ng-model="newLocation.name">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="pwd">Location Address:</label>
+								      <div class="col-sm-8">          
+								        <input type="text" class="form-control" placeholder="EP Block, Salt Lake, Kolkata-700064 etc." ng-model="newLocation.address">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="pwd">Latitude:</label>
+								      <div class="col-sm-2">          
+								        <input type="number" class="form-control" placeholder="22.5812" ng-model="newLocation.latitude">
+								      </div>
+								      <label class="control-label col-sm-2" for="pwd">Longitude:</label>
+								      <div class="col-sm-2">          
+								        <input type="number" class="form-control" placeholder="88.4310" ng-model="newLocation.longitude">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="pwd">Rate charged per hour (in ₹):</label>
+								      <div class="col-sm-2">          
+								        <input type="number" class="form-control" placeholder="20" ng-model="newLocation.rate">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="pwd">Number of sensor slots:</label>
+								      <div class="col-sm-2">          
+								        <input type="number" class="form-control" placeholder="10" ng-model="newLocation.numberOfSlots">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="pwd">Starting Time:</label>
+								      <div class="col-sm-2">
+								        <select class="form-control" ng-model="newLocation.startingTime" ng-options="x for x in startingTime"></select>
+								      </div>
+								      <label class="control-label col-sm-2" for="pwd">Starting Time:</label>
+								      <div class="col-sm-2">
+								        <select class="form-control" ng-model="newLocation.closingTime" ng-options="x for x in closingTime"></select>
+								      </div>
+								    </div>
+								    <div class="form-group" style="text-align : center; margin-top : 2em;">
+								       <button type="button" class="btn btn-success btn-lg" ng-click="createLocation();">Create new Location</button>
+								    </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" style="font-family: Segoe UI;text-align: center;">
+                            Ensure that the details that are entered are not erroneous. In case of erroneous entries, please update or delete the same below.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header" style="font-family : Segoe UI;">Existing Locations</h1>
+	                </div>
+                </div>
+                
+                <table class="table table-bordered table-striped">
+						    <thead>
+						      <tr>
+						        <th style="text-align : center; font-family : Segoe UI;">Location ID</th>
+						        <th style="text-align : center; font-family : Segoe UI;">Location Name</th>
+						        <th style="text-align : center; font-family : Segoe UI;">Action</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="locations in resultSet">
+						        <td style="text-align : center; font-family : Segoe UI;">{{locations._id}}</td>
+						        <td style="text-align : center; font-family : Segoe UI;">{{locations.name}}</td>
+						        <td style="text-align : center;" ng-click="deleteLocation(locations._id)"><img src="img/remove.png" style="cursor : pointer; width : 2em;"></td>
+						      </tr>
+						    </tbody>
+                </table>
+            
+         </div>   
+        
+</div>

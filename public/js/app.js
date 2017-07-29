@@ -11,7 +11,8 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl : 'templates/home.html',
 		controller : 'AdminController'
 	})
-    .when('/contacts', {
-		templateUrl : 'templates/contacts.html'
+    .when('/addLocation', {
+		templateUrl : 'templates/addLocation.html',
+		controller : 'AddLocationController'
 	});
 });

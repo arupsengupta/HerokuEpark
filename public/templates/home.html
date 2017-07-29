@@ -24,11 +24,11 @@
                         </li>
                         
                         <li>
-                            <a href="#contacts" style="font-family : Segoe UI;"><i class="fa fa-table fa-fw"></i> Emergency Contacts</a>
+                            <a href="#addLocation" style="font-family : Segoe UI;"><i class="fa fa-plus-square fa-fw"></i> Location Details</a>
                         </li>
                         
                         <li>
-                            <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-table fa-fw"></i> Sign Out</a>
+                            <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-stop-circle fa-fw"></i> Sign Out</a>
                         </li>
                     </ul>
                 </div>
@@ -79,7 +79,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">Last Count : 09-July-2017</span>
+                                <span class="pull-left">Last Count : {{currentDate}}</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -101,7 +101,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">Last Update : 12:00pm</span>
+                                <span class="pull-left">Last Update : {{currentTime}}</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -123,7 +123,7 @@
                         </div>
                         <a href="#">
                             <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
+                                <span class="pull-left">Last Update : {{currentTime}}</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -138,8 +138,10 @@
 				                            <div style="font-family : Segoe UI; font-size : 19px; font-weight:500;">{{results.name}} <span style="font-size: 13px; margin-left: 1vw; color: darkslategrey;">(Location ID : <span style="color : tomato;">{{results._id}}</span>)</span></div><br/>
 				                            <div>
 				                                 <img src="img/wallet.png" style="width : 2em;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Hourly Rate : </span><span style="font-size: 20px;color: green;"> ₹{{results.hourly_price}}/hour</span>
-				                                 <img src="img/slot.png" style="width : 2em; margin-left: 4vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Total Slots : </span><span style="font-size: 20px;color: green;">{{results.number_of_slot}}</span>
-				                                 <img src="img/booked.png" style="width : 2em; margin-left: 4vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Booked Slots : </span><span style="font-size: 20px;color: green;">{{results.booked_slot}}</span>
+				                                 <img src="img/slot.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Total Slots : </span><span style="font-size: 20px;color: green;">{{results.number_of_slot}}</span>
+				                                 <img src="img/booked.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Booked Slots : </span><span style="font-size: 20px;color: green;">{{results.booked_slot}}</span>
+				                                 <img src="img/open.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Opening Hours : </span><span style="font-size: 20px;color: green;">{{openingHours}}</span>
+				                                 <img src="img/close.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Closing Hours : </span><span style="font-size: 20px;color: green;">{{closingHours}}</span>
 				                            </div>
 				                        </div>
 				                        <!-- /.panel-heading -->
@@ -149,21 +151,90 @@
 				                                    <thead>
 				                                        <tr>
 				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor ID</th>
-				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor Booking Status</th>
 				                                            <th style="text-align : center; font-family: Segoe UI;">Sensor Health</th>
+				                                            <th style="text-align : center; font-family: Segoe UI;">Booking Information</th>
 				                                            <th style="text-align : center; font-family: Segoe UI;">Disable Sensor</th>
 				                                        </tr>
 				                                    </thead>
 				                                    <tbody>
 				                                        <tr ng-repeat="slot in parkingSlot">
-				                                            <td style="text-align : center; font-family: Segoe UI;">{{slot._id}}</td>
-				                                            <td style="text-align : center; font-family: Segoe UI;">{{slot.status}}</td>
+				                                            <td style="text-align : center; font-family: Segoe UI; cursor : pointer;">{{slot._id}}</td>
 				                                            <td style="text-align : center;"><img ng-src="{{imageSource}}" style="width : 2em;"/></td>
-				                                            <td style="text-align : center;" ng-click="deleteSensor(slot._id)"><img src="img/remove.png" style="width : 2em;"></td>
+				                                            <td style="text-align : center;"><button type="button" ng-click="getSlotDetails(results._id, slot._id);" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Check Sensor Booking</button></td>
+				                                            <td style="text-align : center; cursor : pointer;" ng-click="deleteSensor(slot._id)"><img src="img/remove.png" style="width : 2em;"></td>
 				                                        </tr>
 				                                    </tbody>
 				                                </table>
-				                       </div>
-				              </div>
-         </div>
+				                              </div>
+				                          </div>
+                             </div>
 </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" style="font-family : Segoe UI;">Sensor Booking Information</h4>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-success" ng-if="!bookingPresentFlag">
+		         <div style="font-size: 16px; font-family: Segoe UI; text-align: center; font-weight: 500;">There are currently no bookings to Sensor slot - {{slotIDDisplay}}.</div>
+		    </div>
+        
+            <table class="table" ng-if="bookingPresentFlag">
+				    <tbody>
+				      <tr class="success">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Sensor ID</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{slotIDDisplay}}</td>
+				      </tr>
+				      <tr class="active">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Sensor Booking Status</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookingStatus}}</td>
+				      </tr>
+				      <tr class="danger">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booking Start Time</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookingStartTime}}</td>
+				      </tr>
+				      <tr class="info">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booking Span</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookingSpan}} Hour(s)</td>
+				      </tr>
+				      <tr class="success">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Generated OTP for user</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{userOTP}}</td>
+				      </tr>
+				      <tr class="danger">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Has OTP been matched?</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{userOTPStatus}}</td>
+				      </tr>
+				      <tr class="warning">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booked User Name</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookedUserName}}</td>
+				      </tr>
+				      <tr class="active">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booked Vehicle No.</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookedVehicleNumber}}</td>
+				      </tr>
+				      <tr class="info">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booked User Email</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookedUserEmail}}</td>
+				      </tr>
+				      <tr class="success">
+				        <td style="text-align : center; font-family : Segoe UI; font-weight : 500;">Booked User Mobile</td>
+				        <td style="text-align : center; font-family : Segoe UI;">{{bookedUserMob}}</td>
+				      </tr>
+				    </tbody>
+			</table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
