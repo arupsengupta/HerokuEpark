@@ -41,6 +41,14 @@ router.get('/today', function(req, res){
   });
 });
 
+// get all booking for a location of current date
+router.get('/today/:parking_id', function(req, res){
+	Booking.find({date: Date.now(), parking_id: req.params.parking_id}, function(err, bookings){
+		if(err) return req.status(500).send("Cannot get booking details");
+		res.status(200).send(bookings);
+	});
+});
+
 // get all booking
 router.get('/', function(req, res){
   Booking.find({},function(err, bookings){

@@ -93,4 +93,13 @@ router.put('/:id', function(req, res){
   });
 });
 
+// delete location by id
+router.delete('/:id', function(req, res){
+	Location.findByIdAndRemove(req.params.id, function(err, location){
+		if(err) return res.status(500).send("Cannot remove location");
+		res.status(200).send(location);
+	});
+});
+
+
 module.exports = router;
