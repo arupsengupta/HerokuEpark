@@ -22,7 +22,7 @@ app.get('/',function(req,res){
 });
 app.use('/users', UserController);
 app.use('/location',LocationController);
-app.use('/pushData', SensorController);
+app.use('/device', SensorController);
 app.use('/booking', BookingController);
 app.use('/operator', OperatorController);
 
