@@ -4,7 +4,8 @@ var UserSchema = new mongoose.Schema({
   email: String,
   phone: String,
   vehicle_no: String,
-  password: String
+  password: String,
+  device_token: {type: String, default: ''}
 });
 mongoose.model('User', UserSchema);
 

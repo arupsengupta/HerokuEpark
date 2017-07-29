@@ -1,19 +1,42 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
+var request = require('request');
 
-router.use(bodyParser.urlencoded({extended: true}));
+var User = require('../User/User');
 
-var PushMap = require('./PushMap');
+//send push notification to a particular user by mobile number
+router.get('/:contact/:message', function(req, res){
+  var message = req.params.message;
+  User.find({phone: req.params.contact}, function(err, users){
+    if(err) return res.status(500).send('Error getting user details');
+    if(users.length == 0){
+      res.status(400).send('User not found');
+    }else {
+      var user = users[0];
 
-// enter a new map
-router.post('/', function(req, res){
-  PushMap.create({
-    user_id : req.body.user_id,
-    token : req.body.token
-  },
-  function(err, pushMap){
-    if(err) return res.status(500).send("Error saving data");
-    res.send(200).send(pushMap);
-  })
+      var body = {
+        "tokens" : [user.device_token],
+        "profile" : "fcm",
+        "notification": {
+          "message" : message
+        }
+      };
+
+      var options = {
+        method : 'POST',
+        url : 'https://api.ionic.io/push/notification',
+        headers : {
+          'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(body)
+      };
+
+      request(options, function(err, response){
+        if(err) throw err;
+        res.status(200).send('success');
+      });
+    }
+  });
 });
+
+module.exports = router;

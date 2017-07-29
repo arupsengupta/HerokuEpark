@@ -65,4 +65,12 @@ router.put('/:id', function(req, res){
   });
 });
 
+// insert device token for push notification
+router.put('/token/:id', function(req, res){
+  User.update({_id: req.params.id}, {device_token: req.body.value}, function(err, resp){
+    if(err) return res.status(500).send('Error saving device token');
+    res.status(200).send('Success');
+  });
+});
+
 module.exports = router;
