@@ -32,6 +32,14 @@ router.post('/',function(req, res){
   });
 });
 
+// change status booking by id
+router.put('/changeStatus/:booking_id', function(req, res){
+  Booking.update({_id : req.params.booking_id},{status: req.body.status, $set: {'otp.matched': true}}, function(err, booking){
+    if(err) return res.status(500).send('Error while changing status');
+    res.status(200).send(booking);
+  });
+});
+
 // get all booking of current date
 router.get('/today', function(req, res){
   //console.log(Date.now().toString());
