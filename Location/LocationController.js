@@ -62,7 +62,9 @@ router.get('/:id', function(req, res){
 router.get('/:id/:time/:hours', function(req, res){
   Location.findById(req.params.id, function(err, location){
     if(err) return res.status(500).send("Error occurred");
-    Booking.find({parking_id: location._id, active: true},
+    var currentDate = new Date();
+    console.log(currentDate.getDate());
+    Booking.find({parking_id: location._id, active: true, date: Date.now},
       function(err, bookings){
         if(err) return res.status(500).send("Error getting booking");
         for(var b=0; b<bookings.length;b++){

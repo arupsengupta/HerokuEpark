@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var DateOnly = require('mongoose-dateonly')(mongoose);
 var BookingSchema = new mongoose.Schema({
   user_id : String,
   parking_id : String,
@@ -11,7 +12,7 @@ var BookingSchema = new mongoose.Schema({
     value : Number,
     matched : {type: Boolean, default: false}
   },
-	date: {type: Date, default:new Date()},
+  date: {type: DateOnly, default: Date.now},
   status: String
 });
 

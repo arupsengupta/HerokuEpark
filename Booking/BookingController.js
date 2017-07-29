@@ -32,9 +32,18 @@ router.post('/',function(req, res){
   });
 });
 
+// get all booking of current date
+router.get('/today', function(req, res){
+  //console.log(Date.now().toString());
+  Booking.find({date: Date.now()} , function(err, bookings){
+    if(err) return res.status(500).send("Cannot read booking details");
+    res.status(200).send(bookings);
+  });
+});
+
 // get all booking
 router.get('/', function(req, res){
-  Booking.find({}, function(err, bookings){
+  Booking.find({},function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
     res.status(200).send(bookings);
   });
