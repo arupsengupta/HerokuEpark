@@ -19,6 +19,14 @@ router.post('/', function(req, res){
 	});
 });
 
+// operator login
+router.post('/login',function(req,res){
+	Operator.find({contact: req.body.contact, pass: req.body.pwd}, function(err, operator){
+		if(err) return res.status(500).send('Error occurred');
+		res.status(200).send(operator);
+	});
+});
+
 // get all operator
 router.get('/', function(req,res){
 	Operator.find({},function(err, operators){
