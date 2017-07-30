@@ -51,4 +51,12 @@ router.get('/token/op/:phone/:token', function(req, res){
   });
 });
 
+// remove an operator
+router.remove('/:id', function(req, res){
+	Operator.findByIdAndRemove(req.params.id, function(err, operator){
+		if(err) return res.status(500).send("Cannot remove operator");
+		res.status(200).send("Operator " + operator.name + " removed successfully");
+	});
+});
+
 module.exports = router;
