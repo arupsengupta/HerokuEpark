@@ -15,6 +15,35 @@ app.controller('LoginController', function($scope, $location){
 });
 
 
+app.controller('UserController', function($scope, $http, $window){
+	$scope.userArray = [];
+	
+	$http({
+		  method: 'GET',
+		  url: 'https://arupepark.herokuapp.com/users',
+		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+		}).then(function successCallback(response){
+			for(var i=0;i<response.data.length;i++){
+				$scope.userArray.push(response.data[i]);
+			}
+		}, function errorCallback(response){
+			 alert(JSON.stringify(response));
+		});	
+	
+	$scope.deleteUser = function(userID){
+		$http({
+			  method: 'DELETE',
+			  url: 'https://arupepark.herokuapp.com/users/' + userID
+		}).then(function successCallback(response){
+			alert("User account deleted succcessfully");
+			$window.location.reload();
+		}, function errorCallback(response){
+			alert("Error in deleting this user."); 
+		});	
+	};
+});
+
+
 app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.startingTime = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
 	
