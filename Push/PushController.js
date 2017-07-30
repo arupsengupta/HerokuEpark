@@ -41,7 +41,7 @@ router.get('/:contact/:message', function(req, res){
 
 router.get('/op/:contact/:message', function(req, res){
   var msg = req.params.message;
-  Operator.find({phone: req.params.contact}, function(err, operators){
+  Operator.find({contact: req.params.contact}, function(err, operators){
     if(err) return res.status(500).send('Error getting operator details');
     if(operators.length == 0){
       res.status(400).send('Operator not found');
