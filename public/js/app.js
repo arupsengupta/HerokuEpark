@@ -11,6 +11,10 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl : 'templates/home.html',
 		controller : 'AdminController'
 	})
+	.when('/user', {
+		templateUrl : 'templates/userDetails.html',
+		controller : 'UserController'
+	})
     .when('/addLocation', {
 		templateUrl : 'templates/addLocation.html',
 		controller : 'AddLocationController'
