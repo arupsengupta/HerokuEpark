@@ -39,4 +39,38 @@ router.get('/:contact/:message', function(req, res){
   });
 });
 
+router.get('op/:contact/:message', function(req, res){
+  var msg = req.params.message;
+  Operator.find({phone: req.params.contact}, function(err, operators){
+    if(err) return res.status(500).send('Error getting operator details');
+    if(operators.length == 0){
+      res.status(400).send('Operator not found');
+    }else {
+      var operator = operators[0];
+
+      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZGJmZTE1Zi0xM2VkLTQwYzQtOGZhYy0xYmNkMTkxZjAzMTUifQ.RipBfuggwGt3OOikSRhSfchThA8AzOMHKsCez2Csgus";
+
+      var options = {
+        method: 'POST',
+        url: 'https://api.ionic.io/push/notifications',
+        headers: {
+          'cache-control': 'no-cache',
+          authorization: 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          tokens: [ operator.device_token ],
+          profile: 'dev',
+          notification: { message: msg } },
+          json: true
+        };
+
+        request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          res.status(200).send('success');
+        });
+     }
+  });
+});
+
 module.exports = router;
