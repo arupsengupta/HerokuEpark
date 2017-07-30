@@ -44,7 +44,7 @@ router.get('/:id',function(req, res){
 });
 
 // insert device token for push notification (Operator App)
-router.get('/token/op/:phone/:token', function(req, res){
+router.get('/token/:phone/:token', function(req, res){
 	Operator.update({contact: req.params.phone}, {device_token: req.params.token}, function(err, resp){
     if(err) return res.status(500).send('Error saving device token');
     res.status(200).send('Success');
