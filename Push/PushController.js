@@ -3,6 +3,7 @@ var router = express.Router();
 var request = require('request');
 
 var User = require('../User/User');
+var Operator = require('../Operator/Operator');
 
 //send push notification to a particular user by mobile number
 router.get('/:contact/:message', function(req, res){
