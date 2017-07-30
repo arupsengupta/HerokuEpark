@@ -13,7 +13,13 @@ var BookingSchema = new mongoose.Schema({
     matched : {type: Boolean, default: false}
   },
   date: {type: DateOnly, default: Date.now},
-  status: String
+  status: {type: String, default: 'pending'},
+  type: {type: String, default: 'app'},
+  manualData : {
+    name: String,
+    reg_number : String,
+    contact: String
+  }
 });
 
 mongoose.model('Booking', BookingSchema);

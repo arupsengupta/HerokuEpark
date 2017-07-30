@@ -20,12 +20,17 @@ router.post('/',function(req, res){
     slot_id: req.body.slot_id,
     start_time: req.body.start_time,
     hours: req.body.hours,
-    active: true,
     otp: {
       value: otp,
       matched: false
     },
-    status: 'pending'
+    status: req.body.status,
+    type: req.body.type,
+    manualData: {
+      name: req.body.name,
+      reg_number: req.body.reg_number,
+      contact: req.body.contact
+    }
   },function(err, booking){
     if(err) return res.status(500).send("Cannot book");
     res.status(200).send(booking);
@@ -63,6 +68,14 @@ router.get('/', function(req, res){
     if(err) return res.status(500).send("Cannot read booking details");
     res.status(200).send(bookings);
   });
+});
+
+// delete a booking by its id
+router.delete('/:id', function(req, res){
+  Booking.findByIdAndRemove(req.params.id, function(err, booking){
+    if(err) return res.status(500).send("Cannot delete booking");
+    res.status(200).send("Deleted Successfully");
+  })
 });
 
 module.exports = router;
