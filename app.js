@@ -26,6 +26,6 @@ app.use('/location',LocationController);
 app.use('/device', SensorController);
 app.use('/booking', BookingController);
 app.use('/operator', OperatorController);
-app.use('/push', PushController);
+app.use('/push', PushController.router);
 
 module.exports = app;

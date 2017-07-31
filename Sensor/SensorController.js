@@ -2,7 +2,10 @@ var express = require('express');
 var router = express.Router();
 
 var SensorData = require('./Sensor');
-var BookingData = require('../Booking/Booking')
+var BookingData = require('../Booking/Booking');
+var Location = require('../Location/Location');
+var Operator = require('../Operator/Operator');
+var pushOp = require('../Push/PushController').pushOp;
 
 //get a new sensor data
 router.get('/pushData',function(req, res){
@@ -18,15 +21,28 @@ router.get('/pushData',function(req, res){
 });
 
 // update sensor status
-router.get('/update', function(req,res){
+router.get('/update', function(req,res,next){
 	var value = req.query.value;
 	// check whether value contains true
 	var flag = value.includes("true");
-	SensorData.update({location:req.query.locid, slot_id: req.query.slotid}, {status: flag}, function(err, SensorData){
-		if(err) return res.status(500);
-		res.status(200);
+	Location.findById(req.query.locid,function(err, location){
+		var slot = location.parking_arr[req.query.slotid]._id;
+		SensorData.update({location:req.query.locid, slot_id: slot}, {status: flag}, function(err, SensorData){
+			if(err) return res.status(500);
+			req.slot = parseInt(req.query.slotid) + 1;
+			req.flag = flag;
+			next();
+		});
 	});
-});
+}, function(req, res, next){
+	Operator.findOne({parking_id: req.query.locid},function(err, operator){
+		if(err) return res.status(500);
+		req.contact = operator.contact;
+		req.msg = req.flag ? 'A car has been arrived on slot number ' + req.slot : 'A car been removed from slot number ' + req.slot;
+		req.title = 'Car Arrived';
+		next();
+	});
+}, pushOp);
 
 // get all sensor data
 router.get('/view', function(req, res){
