@@ -8,8 +8,8 @@ var BookingData = require('../Booking/Booking')
 router.get('/pushData',function(req, res){
   SensorData.create({
     location: req.query.locid,
-    slot1: req.query.slotid,
-    slot2: req.query.value
+    slot_id: req.query.slotid,
+    status: req.query.value
   },
   function(err, sensorData){
     if(err) return res.status(500).send('error');
@@ -17,7 +17,19 @@ router.get('/pushData',function(req, res){
   });
 });
 
-router.get('/view', function(req, res){
+// update sensor status
+router.get('/update', function(req,res){
+	var value = req.query.value;
+	// check whether value contains true
+	var flag = value.includes("true");
+	SensorData.update({location:req.query.locid, slot_id: req.query.slotid}, {status: flag}, function(err, SensorData){
+		if(err) return res.status(500);
+		res.status(200);
+	});
+});
+
+// get all sensor data
+router.get('/view', fuWnction(req, res){
   SensorData.find({}, function(err, data){
     if(err) return res.status(500).send('error');
     return res.status(200).send(data);

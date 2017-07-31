@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var SensorSchema = new mongoose.Schema({
   location: String,
-  slot1: String,
-  slot2: String
+  slot_id: String,
+  status: Boolean
 });
 mongoose.model('SensorData', SensorSchema);
 
