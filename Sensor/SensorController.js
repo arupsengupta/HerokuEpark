@@ -29,7 +29,7 @@ router.get('/update', function(req,res){
 });
 
 // get all sensor data
-router.get('/view', fuWnction(req, res){
+router.get('/view', function(req, res){
   SensorData.find({}, function(err, data){
     if(err) return res.status(500).send('error');
     return res.status(200).send(data);
