@@ -106,7 +106,35 @@ var pushMessageOp = function(req, res, next){
      }
 });
 }
-  
+
+var bookMessageOp = function(req, res, next){
+  var msg = req.msg;
+
+      var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZGJmZTE1Zi0xM2VkLTQwYzQtOGZhYy0xYmNkMTkxZjAzMTUifQ.RipBfuggwGt3OOikSRhSfchThA8AzOMHKsCez2Csgus";
+
+      var options = {
+        method: 'POST',
+        url: 'https://api.ionic.io/push/notifications',
+        headers: {
+          'cache-control': 'no-cache',
+          authorization: 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          tokens: [ req.device_token ],
+          profile: 'dev',
+          notification: { message: msg } },
+          json: true
+        };
+
+        request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          res.status(200).send('success');
+        });
+
+}
+
 
 module.exports.router = router;
 module.exports.pushOp = pushMessageOp;
+module.exports.bookOp = bookMessageOp;

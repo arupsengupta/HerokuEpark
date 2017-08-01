@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended:true}));
 
 var Operator = require('./Operator');
+var bookMessageOp = require('../Push/PushController').bookOp;
 
 // create an operator
 router.post('/', function(req, res){
@@ -34,6 +35,16 @@ router.get('/', function(req,res){
 		res.status(200).send(operators);
 	});
 });
+
+// send notification to operator
+router.post('/notify', function(req, res, next){
+	Operator.findOne({parking_id: req.body.parking_id}, function(err, operator){
+		if(err) return res.status(500).send('Error getting parking operator');
+		req.msg = '<strong>New Booking : ' + req.body.reg_number + '</strong><br>From: ' + req.body.start + '' + req.body.ampm + ', hours: ' + req.body.hours + ', Slot: ', req.body.index;
+		req.device_token = operator.device_token;
+		next();
+	});
+}, bookMessageOp);
 
 // get an operator by its id
 router.get('/:id',function(req, res){

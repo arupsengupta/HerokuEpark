@@ -22,3 +22,6 @@ app.use('/changeMarker', function(req, res){
   mysocket.emit('test', 'changeMarker');
   res.status(200).send('OK');
 });
+
+
+module.exports = mysocket;

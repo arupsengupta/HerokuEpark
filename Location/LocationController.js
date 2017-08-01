@@ -75,7 +75,7 @@ router.get('/:id/:time/:hours', function(req, res){
                 // console.log(reqTime + reqHours);
             for(var i=0; i<location.parking_arr.length; i++){
               if(bookings[b].slot_id == location.parking_arr[i]._id){
-                location.parking_arr[i].status = "booked";
+                location.parking_arr[i].status = bookings[b].status;
               }
             }
           }

@@ -34,7 +34,7 @@ router.get('/update', function(req,res,next){
 			next();
 		});
 	});
-}, function(req, res, next){
+},function(req, res, next){
 	Operator.findOne({parking_id: req.query.locid},function(err, operator){
 		if(err) return res.status(500);
 		req.contact = operator.contact;

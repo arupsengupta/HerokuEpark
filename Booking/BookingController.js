@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var socket = require('../server');
 
 router.use(bodyParser.urlencoded({extended: true}));
 
@@ -41,6 +42,7 @@ router.post('/',function(req, res){
 router.put('/changeStatus/:booking_id', function(req, res){
   Booking.update({_id : req.params.booking_id},{status: req.body.status, $set: {'otp.matched': true}}, function(err, booking){
     if(err) return res.status(500).send('Error while changing status');
+    socket.emit('booked',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
     res.status(200).send(booking);
   });
 });
@@ -50,6 +52,14 @@ router.get('/today', function(req, res){
   //console.log(Date.now().toString());
   Booking.find({date: Date.now()} , function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
+    res.status(200).send(bookings);
+  });
+});
+
+// get all booking of an user
+router.get('/user/:id', function(req, res){
+  Booking.find({user_id: req.params.id}).populate('parking_id').sort({'_id': -1}).exec(function(err, bookings){
+    if(err) return res.status(500).send("Error getting booking details");
     res.status(200).send(bookings);
   });
 });
@@ -66,6 +76,7 @@ router.get('/today/:parking_id', function(req, res){
 router.get('/', function(req, res){
   Booking.find({},function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
+
     res.status(200).send(bookings);
   });
 });
