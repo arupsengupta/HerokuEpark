@@ -6,6 +6,7 @@ var server = app.listen(port, function(){
 });
 
 var io = require('socket.io')(server);
+app.io = io;
 
 var mysocket;
 
@@ -24,4 +25,4 @@ app.use('/changeMarker', function(req, res){
 });
 
 
-module.exports = mysocket;
+// module.exports = mysocket;
