@@ -62,14 +62,14 @@ router.get('/update', function(req,res,next){
   }]);*/
 
 
-  BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, active: true},function(err, booking){
+  BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, end_time: {$gte : time}, active: true},function(err, booking){
     if(err) return res.status(500).send('Error Occurred');
 	  console.log(booking);
     if(booking.length == 0){
         req.resp = 'false';
     }else {
         req.booking_id = booking[0]._id;
-        req.resp = booking[0].manualData.vehicle_no;
+        req.resp = booking[0].manualData.reg_number;
     }
 	console.log('PASS 2');
     next();
