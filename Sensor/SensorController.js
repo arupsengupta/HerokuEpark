@@ -89,9 +89,9 @@ router.get('/update', function(req,res,next){
 		req.title = 'Car Arrived';
     var date = new Date();
     if(req.flag){
-      req.app.io.emit('inprocess',{parking_id: req.query.locid, slot_id : req.query.slotid, start_time: date.getHours(), hours: 1});
+      req.app.io.emit('inprocess',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
     }else{
-      req.app.io.emit('vacant',{parking_id: req.query.locid, slot_id : req.query.slotid, start_time: date.getHours(), hours: 1});
+      req.app.io.emit('vacant',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
     }
 		next();
 	});
