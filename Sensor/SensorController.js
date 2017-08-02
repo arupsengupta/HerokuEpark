@@ -55,12 +55,6 @@ router.get('/update', function(req,res,next){
   var date = new Date();
   var time = date.getHours();
   var end = time+1;
-  /*BookingData.aggregate([{
-  	$project: {
-		
-	}
-  }]);*/
-
 
   BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, end_time: {$gte : time}, active: true},function(err, booking){
     if(err) return res.status(500).send('Error Occurred');
@@ -80,6 +74,7 @@ router.get('/update', function(req,res,next){
     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
       if(err) return res.status(500).send('Erron unbooking');
 			console.log('PASS 3');
+	    req.resp = 'unbooked';
     });
   }
       next();
