@@ -19,7 +19,11 @@ var BookingController = require('./Booking/BookingController');
 var OperatorController = require('./Operator/OperatorController');
 var PushController = require('./Push/PushController');
 var MailController = require('./Mail/MailController');
-// var unbookScheduler = require('./')
+var unbookScheduler = require('./Scheduler/Schedule');
+
+/* scheduler start */
+var j =  schedule.scheduleJob(unbookScheduler.cronExpr, unbookScheduler.func);
+/* scheduler end */
 
 app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'public','index.html'));
