@@ -40,7 +40,7 @@ router.get('/update', function(req,res,next){
   var date = new Date();
   var time = date.getHours();
   var end = time+1;
-  BookingData.find({parking_id: req.query.locid, slot_id: req.query.slotid, date: Date.now(), start_time: {$lte : time}, active: true}),function(err, booking){
+  BookingData.find({parking_id: req.query.locid, slot_id: req.query.slotid, date: Date.now(), start_time: {$lte : time}, active: true},function(err, booking){
     if(err) return res.status(500).send('Error Occurred');
     if(booking.length == 0){
         req.resp = 'false';
