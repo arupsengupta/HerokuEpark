@@ -74,10 +74,12 @@ router.get('/update', function(req,res,next){
     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
       if(err) return res.status(500).send('Erron unbooking');
 			console.log('PASS 3');
-	    req.resp = 'unbooked';
     });
+    if(!req.flag){
+      req.resp = 'unbooked';
+    }
   }
-      next();
+  next();
 },function(req, res, next){
 	Operator.findOne({parking_id: req.query.locid},function(err, operator){
 		if(err) return res.status(500);

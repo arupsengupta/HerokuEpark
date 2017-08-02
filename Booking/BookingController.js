@@ -2,6 +2,22 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
+var unbookFunc = function(req, res, next){
+  var date = new Date();
+  var hours = date.getHours();
+  Booking.update(
+    {date: Date.now(), end: {$lt : hours}, active: true},
+    {$set :
+      {status: 'completed', active: false}
+    },
+    {multi: true},
+    function(err, numAffected){
+      if(err) return res.status(500).send("Cannot unbook");
+      res.status(200).send(numAffected + " booking cancelled");
+    });
+};
+
+
 router.use(bodyParser.urlencoded({extended: true}));
 
 var Booking = require('./Booking');
@@ -73,9 +89,10 @@ router.get('/today/:parking_id', function(req, res){
 	});
 });
 
-// unbook all expired booking
-//router.get('/unbook',function(req,res){
-//	Booking.update({date:Date.now(), })
+//unbook all completed bookings
+router.get('/unbook', function(req, res, next){
+  next();
+},unbookFunc);
 
 // get all booking
 router.get('/', function(req, res){
@@ -93,6 +110,5 @@ router.delete('/:id', function(req, res){
     res.status(200).send("Deleted Successfully");
   })
 });
-
 
 module.exports = router;
