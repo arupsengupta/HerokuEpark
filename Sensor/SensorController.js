@@ -26,11 +26,13 @@ router.get('/update', function(req,res,next){
 	// check whether value contains true
 	var flag = value.includes("true");
 	Location.findById(req.query.locid,function(err, location){
+		if(location == null) return res.status(400).send("Location not found");
 		var slot = location.parking_arr[req.query.slotid]._id;
 		SensorData.update({location:req.query.locid, slot_id: slot}, {status: flag}, function(err, SensorData){
 			if(err) return res.status(500);
 			req.slot = parseInt(req.query.slotid) + 1;
 			req.flag = flag;
+			console.log('PASS 1');
 			next();
 		});
 	});
@@ -46,6 +48,7 @@ router.get('/update', function(req,res,next){
         req.booking_id = booking[0]._id;
         req.resp = booking[0].user_id.vehicle_no;
     }
+	console.log('PASS 2');
     next();
   });
 },function(req, res, next){
@@ -53,6 +56,7 @@ router.get('/update', function(req,res,next){
     console.log('Unbook started..');
     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
       if(err) return res.status(500).send('Erron unbooking');
+			console.log('PASS 3');
       next();
     });
   }
