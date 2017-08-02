@@ -35,11 +35,40 @@ router.get('/update', function(req,res,next){
 		});
 	});
 },function(req, res, next){
+  var date = new Date();
+  var time = date.getHours();
+  var end = time+1;
+  BookingData.find({parking_id: req.query.locid, slot_id: req.query.slotid, date: Date.now(), start_time: {$lte : time}, active: true}).populate('user_id').exec(function(err, booking){
+    if(err) return res.status(500).send('Error Occurred');
+    if(booking.length == 0){
+        req.resp = 'false';
+    }else {
+        req.booking_id = booking[0]._id;
+        req.resp = booking[0].user_id.vehicle_no;
+    }
+    next();
+  });
+},function(req, res, next){
+  if(req.resp !== 'false' && !req.flag){
+    console.log('Unbook started..');
+    BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
+      if(err) return res.status(500).send('Erron unbooking');
+      next();
+    });
+  }
+},function(req, res, next){
 	Operator.findOne({parking_id: req.query.locid},function(err, operator){
 		if(err) return res.status(500);
 		req.contact = operator.contact;
-		req.msg = req.flag ? 'A car has been arrived on slot number ' + req.slot : 'A car been removed from slot number ' + req.slot;
+		req.msg = req.flag ? 'A car has been arrived on slot number ' +
+              req.slot : 'A car been removed from slot number ' + req.slot;
 		req.title = 'Car Arrived';
+    var date = new Date();
+    if(req.flag){
+      req.app.io.emit('inprocess',{parking_id: req.query.locid, slot_id : req.query.slotid, start_time: date.getHours(), hours: 1});
+    }else{
+      req.app.io.emit('vacant',{parking_id: req.query.locid, slot_id : req.query.slotid, start_time: date.getHours(), hours: 1});
+    }
 		next();
 	});
 }, pushOp);

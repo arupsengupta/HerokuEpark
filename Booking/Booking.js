@@ -1,9 +1,10 @@
 var mongoose = require('mongoose');
 var DateOnly = require('mongoose-dateonly')(mongoose);
 var Location = require("../Location/Location");
+var User = require("../User/User");
 
 var BookingSchema = new mongoose.Schema({
-  user_id : String,
+  user_id : {type: String, reg: 'User'},
   parking_id : {type:String, ref:'Location'},
   slot_id : String,
   start_time : Number,

@@ -101,7 +101,7 @@ var pushMessageOp = function(req, res, next){
 
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
-          res.status(200).send('success');
+          res.status(200).send(req.resp);
         });
      }
 });
