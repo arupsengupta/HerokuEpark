@@ -75,9 +75,9 @@ router.get('/update', function(req,res,next){
       if(err) return res.status(500).send('Erron unbooking');
 			console.log('PASS 3');
     });
-    if(!req.flag){
-      req.resp = 'unbooked';
-    }
+  }
+  if(!req.flag){
+    req.resp = 'unbooked';
   }
   next();
 },function(req, res, next){

@@ -13,7 +13,8 @@ var unbookFunc = function(req, res, next){
     {multi: true},
     function(err, numAffected){
       if(err) return res.status(500).send("Cannot unbook");
-      res.status(200).send(numAffected + " booking cancelled");
+      console.log(numAffected);
+      res.status(200).send(numAffected.nModified + " booking cancelled");
     });
 };
 
