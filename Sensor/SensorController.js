@@ -20,6 +20,20 @@ router.get('/pushData',function(req, res){
   });
 });
 
+
+// testing
+router.get('/test',function(req,res){
+	BookingData.aggregate([
+		{$match : {$and :[
+			{parking_id: req.query.locid},
+			{slot_id:req.query.slotid},
+			{date: Date.now()}
+		]}}],function(err, bookings){
+		if(err) return res.status(500);
+		res.status(200).send(bookings);
+	});
+});
+
 // update sensor status
 router.get('/update', function(req,res,next){
 	var value = req.query.value;
@@ -35,13 +49,22 @@ router.get('/update', function(req,res,next){
 			console.log('PASS 1');
 			next();
 		});
+		req.slotid = slot;
 	});
 },function(req, res, next){
   var date = new Date();
   var time = date.getHours();
   var end = time+1;
-  BookingData.find({parking_id: req.query.locid, slot_id: req.query.slotid, date: Date.now(), start_time: {$lte : time}, active: true},function(err, booking){
+  /*BookingData.aggregate([{
+  	$project: {
+		
+	}
+  }]);*/
+
+
+  BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, active: true},function(err, booking){
     if(err) return res.status(500).send('Error Occurred');
+	  console.log(booking);
     if(booking.length == 0){
         req.resp = 'false';
     }else {
@@ -52,7 +75,7 @@ router.get('/update', function(req,res,next){
     next();
   });
 },function(req, res, next){
-  if(req.resp !== 'false' && !req.flag){
+  if(!req.flag && req.resp !== 'false'){
     console.log('Unbook started..');
     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
       if(err) return res.status(500).send('Erron unbooking');

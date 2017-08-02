@@ -13,12 +13,14 @@ function randomInt (low, high) {
 // create a new booking
 router.post('/',function(req, res){
   var otp = randomInt(1000, 9999);
+  var end = parseInt(req.body.start_time) + parseInt(req.body.hours);
 
   Booking.create({
     user_id: req.body.user_id,
     parking_id: req.body.parking_id,
     slot_id: req.body.slot_id,
     start_time: req.body.start_time,
+    end_time: end,
     hours: req.body.hours,
     otp: {
       value: otp,
@@ -71,6 +73,10 @@ router.get('/today/:parking_id', function(req, res){
 	});
 });
 
+// unbook all expired booking
+//router.get('/unbook',function(req,res){
+//	Booking.update({date:Date.now(), })
+
 // get all booking
 router.get('/', function(req, res){
   Booking.find({},function(err, bookings){
@@ -87,5 +93,6 @@ router.delete('/:id', function(req, res){
     res.status(200).send("Deleted Successfully");
   })
 });
+
 
 module.exports = router;

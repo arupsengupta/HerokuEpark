@@ -9,6 +9,7 @@ var BookingSchema = new mongoose.Schema({
   slot_id : String,
   start_time : Number,
   hours : Number,
+  end_time : Number,
   extra_mins : {type: Number, default: 0},
   active: {type: Boolean, default: true},
   otp: {
