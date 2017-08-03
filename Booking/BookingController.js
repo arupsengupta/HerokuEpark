@@ -41,6 +41,16 @@ router.post('/',function(req, res){
   });
 });
 
+
+// cancel a booking by user
+router.put('/:booking_id', function(req, res){
+	Booking.findByIdAndUpdate(req.params.booking_id, {status: 'cancelled', active: false}, function(err, result){
+		if(err) return res.status(500).send("Error occured while booking");
+		console.log('Booking has been cancelled by user');
+		res.status(200).send("success");
+	});
+});
+
 // change status booking by id
 router.put('/changeStatus/:booking_id', function(req, res){
   Booking.findByIdAndUpdate({_id : req.params.booking_id},{status: req.body.status, $set: {'otp.matched': true}}, {new : true}, function(err, booking){
