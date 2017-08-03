@@ -1,0 +1,187 @@
+<html>
+    <head>
+         <title>ePark Booking Receipt</title>
+    </head>
+
+    <body>
+			<div style="font-family:HelveticaNeue-Light,Arial,sans-serif;background-color:#eeeeee">
+				<table align="center" width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+			    <tbody>
+			        <tr>
+			        	<td>
+			                <table align="center" width="750px" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee" style="width:750px!important">
+			                <tbody>
+			                	<tr>
+			                    	<td>
+			                			<table width="690" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+			                            <tbody>
+			                            	<tr>
+			                                    <td colspan="3" height="80" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee" style="padding:0;margin:0;font-size:0;line-height:0">
+
+			                                        <table width="690" align="center" border="0" cellspacing="0" cellpadding="0">
+			                                        <tbody>
+			                                        	<tr>
+			                                            	<td width="30"></td>
+			                                                <td align="left" valign="middle" style="text-align : center; padding:0;margin:0;font-size:0;line-height:0"><img style="width : 25%;" src="https://firebasestorage.googleapis.com/v0/b/trialdb-b2ab2.appspot.com/o/Logo.png?alt=media&token=be7563c6-59b1-4785-a4b4-eea446fbd779" alt="ePark Logo"></td>
+			                                                <td width="30"></td>
+			                                            </tr>
+			                                       	</tbody>
+			                                        </table>
+			                                  	</td>
+			                    			</tr>
+			                                <tr>
+			                                    <td colspan="3" align="center">
+			                                       <table width="630" align="center" border="0" cellspacing="0" cellpadding="0">
+			                                        <tbody>
+			                                            	<tr><td width="25"></td>
+			                                                <td align="center">
+			                                                    <h1 style="font-family:Segoe UI;font-size:48px;color:#404040;line-height:48px;font-weight:700;margin:0;padding:0">ePark Booking Receipt</h1>
+			                                                </td>
+			                                                <td width="25"></td>
+			                                            </tr>
+			                                            <tr>
+			                                            	<td colspan="3" height="40"></td></tr><tr><td colspan="5" align="center">
+			                                                    <p style="font-family:Segoe UI;color:#404040;font-size:16px;line-height:24px;font-weight:400;padding:0;margin:0">Hurrah! Your booking with ePark is successful. Below are the details you entered. This e-mail serves as a digital receipt of your booking and you can refer to it in case of any queries with ePark. </p><br>
+			                                                    <p style="font-family:Segoe UI;color:#404040;font-size:16px;line-height:22px;font-weight:300;padding:0;margin:0">
+			                                                    On reaching the booked Parking slot, you are instructed to share your booking OTP with the concerned ePark Operator. Once the OTP matches, your booking time duration starts. You will receive a Mobile Notification as well 30mins prior to completion of your Booking Span.
+			                                                </td>
+			                                            </tr>
+			                                            <tr>
+			                                            <td colspan="4">
+			                                           	</td>
+			                                       	</tr>
+			                                        <tr><td colspan="3" height="30"></td></tr>
+			                                 	</tbody>
+			                                    </table>
+			                             	</td>
+			                   			</tr>
+
+			                            <tr bgcolor="#ffffff">
+			                                <td width="30" bgcolor="#eeeeee"></td>
+			                                <td>
+			                                    <table width="570" align="center" border="0" cellspacing="0" cellpadding="0">
+			                                    <tbody>
+			                                    	<tr>
+			                                        	<td colspan="4" align="center">&nbsp;</td>
+			                                      	</tr>
+			                                        <tr>
+			                                        	<td colspan="4" align="center"><h2 style="font-size:24px; font-weight : 500; font-family: Segoe UI;">ePark Booking Receipt</h2></td>
+			                                      	</tr>
+			                                        <tr>
+			                                        	<td colspan="4">&nbsp;</td>
+			                                      	</tr>
+
+			                                      	<!-- ************************************** BILL CONTENTS START **************************************************** -->
+			                                         <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Booking ID :</b></td><td><%= booking._id %></td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Location Name :</b></td><td><%= booking.parking_id.name %></td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                             <td style="width:34%;"><b>Name :</b></td><td><%= booking.user_id.name %></td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Vehicle Registration No. :</b></td><td><%= booking.manualData.reg_number %></td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                            <td style="width:34%;"><b>Booking Start Time :</b></td><td><%= booking.start_time %>:00 Hours </td>
+			                                        </tr>
+
+			                                       <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Booking Span :</b></td><td><%= booking.hours %> Hours</td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Mobile Number :</b></td><td><%= booking.user_id.phone %></td>
+			                                        </tr>
+
+			                                        <tr style="font-family:Segoe UI;">
+			                                           <td style="width:34%;"><b>Total Bill :</b></td><td><%= booking.hours * booking.parking_id.hourly_price %> INR</td>
+			                                        </tr>
+
+			                                        <!-- ************************************** BILL CONTENTS END **************************************************** -->
+
+
+			                                         <tr>
+			                                        	<td width="120" align="right" valign="top"><img src="https://firebasestorage.googleapis.com/v0/b/helpee2images.appspot.com/o/thumbnail.png?alt=media&token=bf59e1d7-279c-4338-92f3-1e2f610d736c" alt="Money" width="120" height="120" class="CToWUd" style="margin-top : 2em; margin-right : 2em;"></td>
+
+			                                            <td align="left" valign="middle">
+			                                            	<h3 style="font-faily: Segoe UI;color:#404040;font-size:14px;line-height:14px;font-weight:bold;padding:0;margin:0; margin-top:3em;">Point to Note :</h3>
+			                                              	<div style="line-height:5px;padding:0;margin:0">&nbsp;</div>
+			                                              	<div style="font-family:Segoe UI;color:#404040;font-size:13px;padding:0;margin:0;">Please note that your Booking shall only be deemed successful and valid once the OTP you share with the assigned Parking Operator matches. For any assistance communicate with us via Chat Assistance in the Android App.</div>
+			                                          		<div style="line-height:10px;padding:0;margin:0">&nbsp;</div>
+			                                           	</td>
+			                                            <td width="30"></td>
+			                                        </tr>
+
+
+
+			                                        <tr>
+			                                        	<td colspan="4">&nbsp;</td>
+			                                        </tr>
+			                                  	</tbody>
+			                                    </table>
+			                                    <table width="570" align="center" border="0" cellspacing="0" cellpadding="0">
+			                                    <tbody>
+
+			                                        <tr>
+			                                        	<td align="center">
+			                                                <div style="text-align:center;width:100%;padding:40px 0">
+			                                                    <table align="center" cellpadding="0" cellspacing="0" style="margin:0 auto;padding:0">
+			                                                    <tbody>
+			                                                    	<tr>
+			                                                        	<td align="center" style="margin:0;text-align:center"><a href="https://phonewala.helpee.in/generic.html" style="font-size:18px;font-family:Segoe Ui;line-height:22px;text-decoration:none;color:#ffffff;font-weight:600;border-radius:2px;background-color:#00a3df;padding:14px 40px;display:block" target="_blank">Your OTP : 1234</a></td>
+			                                                    	</tr>
+			                                                   	</tbody>
+			                                                 	</table>
+			                                              	</div>
+			                                        	</td>
+			                                      </tr><tr><td>&nbsp;</td>
+			                                      </tr></tbody></table></td>
+			                                <td width="30" bgcolor="#eeeeee"></td>
+			                            </tr>
+			                          	</tbody>
+			                            </table>
+			                  			<table align="center" width="750px" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee" style="width:750px!important">
+			                            <tbody>
+			                            	<tr>
+			                                	<td>
+			                                        <table width="630" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+			                                        <tbody>
+			                                        	<tr><td colspan="2" height="30"></td></tr>
+			                                            <tr>
+			                                            	<td width="360" valign="top">
+			                                                	<div style="color:#a3a3a3;font-size:12px;line-height:12px;padding:0;margin:0; font-family: Segoe UI;">&copy; 2017 ePark India.</div>
+			                                                	<div style="line-height:5px;padding:0;margin:0">&nbsp;</div>
+			                                                	<div style="color:#a3a3a3;font-size:12px;line-height:12px;padding:0;margin:0; font-family: Segoe UI;">Made with &hearts; in Kolkata</div>
+			                                        		</td>
+			                                              	<td align="right" valign="top">
+			                                                	<span style="line-height:20px;font-size:10px"><a href="" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/trialdb-b2ab2.appspot.com/o/fb.png?alt=media&token=d16f6308-0ef4-40c6-b6f8-50c66b02ca04" style="width : 3em;" alt="facebook"></a>&nbsp;</span>
+			                                                    <span style="line-height:20px;font-size:10px"><a href="" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/trialdb-b2ab2.appspot.com/o/tw.png?alt=media&token=488376d8-5223-4886-88c5-aac8c5516570" style="width : 3em;" alt="twitter"></a>&nbsp;</span>
+			                                                    <span style="line-height:20px;font-size:10px"><a href="" target="_blank"><img src="https://firebasestorage.googleapis.com/v0/b/trialdb-b2ab2.appspot.com/o/gplus.png?alt=media&token=4ef36a2e-e7be-4470-9572-6e7eefe639d3" style="width : 3em;" alt="googleplus"></a>&nbsp;</span>
+			                                              	</td>
+			                                            </tr>
+			                                            <tr><td colspan="2" height="5"></td></tr>
+
+			                                      	</tbody>
+			                                        </table>
+			                                   	</td>
+			                  				</tr>
+			                          	</tbody>
+			                            </table>
+			                  		</td>
+			                	</tr>
+			              	</tbody>
+			                </table>
+			            </td>
+					</tr>
+			 	</tbody>
+			    </table>
+			</div>
+    </body>
+</html>

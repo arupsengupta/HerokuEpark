@@ -5,9 +5,10 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: true}));
 
 var User = require('./User');
+var Mail = require('../Mail/MailController').welcomeFunc;
 
 //create a new user
-router.post('/', function(req, res){
+router.post('/', function(req, res, next){
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -17,9 +18,11 @@ router.post('/', function(req, res){
   },
   function(err, user){
     if(err) return res.status(500).send("There was a problem adding information to the database");
-    res.status(200).send(user);
+    req.user = user;
+    next();
+    //res.status(200).send(user);
   });
-});
+}, Mail);
 
 //returns all the users in the database
 router.get('/', function(req, res){

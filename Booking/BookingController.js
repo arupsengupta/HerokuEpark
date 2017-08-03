@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: true}));
 
 var Booking = require('./Booking');
+var Mail = require('../Mail/MailController').receiptFunc;
 //var unbookFunc = require('../Schedule/Schedule);
 
 function randomInt (low, high) {
@@ -94,10 +95,15 @@ router.get('/today/:parking_id', function(req, res){
 router.get('/', function(req, res){
   Booking.find({},function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
-
     res.status(200).send(bookings);
   });
 });
+
+// send booking receipt by mail
+router.get('/receipt/:booking_id', function(req, res, next){
+  req.booking_id = req.params.booking_id;
+  next();
+},Mail);
 
 // delete a booking by its id
 router.delete('/:id', function(req, res){

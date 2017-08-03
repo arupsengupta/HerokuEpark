@@ -28,12 +28,14 @@ var j =  schedule.scheduleJob(unbookScheduler.cronExpr, unbookScheduler.func);
 app.get('/',function(req,res){
 	res.sendFile(path.join(__dirname,'public','index.html'));
 });
+
+app.set('view engine', 'ejs');
+
 app.use('/users', UserController);
 app.use('/location',LocationController);
 app.use('/device', SensorController);
 app.use('/booking', BookingController);
 app.use('/operator', OperatorController);
 app.use('/push', PushController.router);
-app.use('/mail',MailController);
 
 module.exports = app;
