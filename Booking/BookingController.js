@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: true}));
 
 var Booking = require('./Booking');
+//var unbookFunc = require('../Schedule/Schedule);
 
 function randomInt (low, high) {
     return Math.floor(Math.random() * (high - low) + low);
@@ -75,9 +76,9 @@ router.get('/today/:parking_id', function(req, res){
 });
 
 //unbook all completed bookings
-// router.get('/unbook', function(req, res, next){
-//   next();
-// },unbookFunc);
+/*router.get('/unbook', function(req, res, next){
+   next();
+},unbookFunc);*/
 
 // get all booking
 router.get('/', function(req, res){
