@@ -43,7 +43,7 @@ router.get('/update', function(req,res,next){
 	Location.findById(req.query.locid,function(err, location){
 		if(location == null) return res.status(400).send("Location not found");
 		var slot = location.parking_arr[req.query.slotid]._id;
-		SensorData.update({location:req.query.locid, slot_id: slot}, {status: flag}, function(err, SensorData){
+		SensorData.update({location:req.query.locid, slot_id: req.query.slotid}, {status: flag}, function(err, SensorData){
 			if(err) return res.status(500);
 			req.slot = parseInt(req.query.slotid) + 1;
 			req.flag = flag;
