@@ -8,29 +8,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                
+
                 <div>
                     <span style="float: left; margin-left: 2vw;"><img src="img/Logo.png" style="width : 4em;"/></span>
                     <span><a href="#home" class="navbar-brand" style="font-family : Segoe UI;font-size: 21px;font-weight: 500;">ePark Admin</a></span>
                 </div>
-                    
+
             </div>
-           
+
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
                             <a href="#home" style="font-family : Segoe UI;"><i class="fa fa-dashboard fa-fw"></i> Home Page</a>
                         </li>
-                        
+
                         <li>
                             <a href="#addLocation" style="font-family : Segoe UI;"><i class="fa fa-plus-square fa-fw"></i> Location Details</a>
                         </li>
-                        
+
                         <li>
                             <a href="#user" style="font-family : Segoe UI;"><i class="fa fa-plus-square fa-fw"></i> User Details</a>
                         </li>
-                        
+
                         <li>
                             <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-stop-circle fa-fw"></i> Sign Out</a>
                         </li>
@@ -136,16 +136,16 @@
                 </div>
             </div>
             <div class="row">
-                       
+
                          <div class="panel panel-default" ng-repeat="results in result">
 				                        <div class="panel-heading">
 				                            <div style="font-family : Segoe UI; font-size : 19px; font-weight:500;">{{results.name}} <span style="font-size: 13px; margin-left: 1vw; color: darkslategrey;">(Location ID : <span style="color : tomato;">{{results._id}}</span>)</span></div><br/>
 				                            <div>
 				                                 <img src="img/wallet.png" style="width : 2em;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Hourly Rate : </span><span style="font-size: 20px;color: green;"> ₹{{results.hourly_price}}/hour</span>
 				                                 <img src="img/slot.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Total Slots : </span><span style="font-size: 20px;color: green;">{{results.number_of_slot}}</span>
-				                                 <img src="img/booked.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Booked Slots : </span><span style="font-size: 20px;color: green;">{{results.booked_slot}}</span>
-				                                 <img src="img/open.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Opening Hours : </span><span style="font-size: 20px;color: green;">{{openingHours}}</span>
-				                                 <img src="img/close.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Closing Hours : </span><span style="font-size: 20px;color: green;">{{closingHours}}</span>
+				                                <!-- <img src="img/booked.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Booked Slots : </span><span style="font-size: 20px;color: green;">{{results.booked_slot}}</span>-->
+				                                 <img src="img/open.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Opening Hours : </span><span style="font-size: 20px;color: green;">{{checkTimeFormatNew(results.opening_hours.start)}}</span>
+				                                 <img src="img/close.png" style="width : 2em; margin-left: 1vw;"/><span style="font-size: 14px; margin-left: 1vw; font-family: Segoe UI;">Closing Hours : </span><span style="font-size: 20px;color: green;">{{checkTimeFormatNew(results.opening_hours.end)}}</span>
 				                            </div>
 				                        </div>
 				                        <!-- /.panel-heading -->
@@ -161,9 +161,9 @@
 				                                        </tr>
 				                                    </thead>
 				                                    <tbody>
-				                                        <tr ng-repeat="slot in parkingSlot">
+				                                        <tr ng-repeat="slot in results.parking_arr">
 				                                            <td style="text-align : center; font-family: Segoe UI; cursor : pointer;">{{slot._id}}</td>
-				                                            <td style="text-align : center;"><img ng-src="{{imageSource}}" style="width : 2em;"/></td>
+				                                            <td style="text-align : center;"><img ng-src="{{slot.status == 'available' ? green : red}}" style="width : 2em;"/></td>
 				                                            <td style="text-align : center;"><button type="button" ng-click="getSlotDetails(results._id, slot._id);" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">Check Sensor Booking</button></td>
 				                                            <td style="text-align : center; cursor : pointer;" ng-click="deleteSensor(slot._id)"><img src="img/remove.png" style="width : 2em;"></td>
 				                                        </tr>
@@ -178,7 +178,7 @@
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-    
+
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
@@ -189,7 +189,7 @@
             <div class="alert alert-success" ng-if="!bookingPresentFlag">
 		         <div style="font-size: 16px; font-family: Segoe UI; text-align: center; font-weight: 500;">There are currently no bookings to Sensor slot - {{slotIDDisplay}}.</div>
 		    </div>
-        
+
             <table class="table" ng-if="bookingPresentFlag">
 				    <tbody>
 				      <tr class="success">
@@ -239,6 +239,6 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
+
     </div>
   </div>

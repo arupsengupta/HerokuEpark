@@ -86,5 +86,5 @@ module.exports = {
   func : unbookFunc,
   expireFunc : expireCheck,
   cronExprUnbook : '5 * * * *',
-  cronExprExpire : '50 * * * *',
+  cronExprExpire : '30 * * * *',
 };
