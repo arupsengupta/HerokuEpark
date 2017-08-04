@@ -38,16 +38,17 @@ router.get('/', function(req,res){
 
 // send notification to operator
 router.post('/notify', function(req, res, next){
-	Operator.findOne({parking_id: req.body.parking_id}, function(err, operator){
-		if(err) return res.status(500).send('Error getting parking operator');
-		if(operator != null){
-			req.msg = '<strong>New Booking : ' + req.body.reg_number + '</strong><br>From: ' + req.body.start + '' + req.body.ampm + ', hours: ' + req.body.hours + ', Slot: ', req.body.index;
-			req.device_token = operator.device_token;
-		}else {
-			return res.status(400).status("Operator not found");
-		}
+	//Operator.findOne({parking_id: req.body.parking_id}, function(err, operator){
+		//if(err) return res.status(500).send('Error getting parking operator');
+		//if(operator != null){
+			req.msg = '<strong>New Booking : ' + req.body.reg_number + '</strong><br>From: ' + req.body.start + '' + req.body.ampm + ', hours: ' + req.body.hours;
+			req.parking_id = req.body.parking_id;
+			//req.device_token = operator.device_token;
+		// }else {
+		// 	return res.status(400).status("Operator not found");
+		// }
 		next();
-	});
+	//});
 }, bookMessageOp);
 
 // get an operator by its id

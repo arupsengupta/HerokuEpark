@@ -6,6 +6,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 var Booking = require('./Booking');
 var Mail = require('../Mail/MailController').receiptFunc;
+var bookOpPush = require('../Push/PushController').bookOp;
 //var unbookFunc = require('../Schedule/Schedule);
 
 function randomInt (low, high) {
@@ -13,7 +14,7 @@ function randomInt (low, high) {
 }
 
 // create a new booking
-router.post('/',function(req, res){
+router.post('/',function(req, res, next){
   var otp = randomInt(1000, 9999);
   var end = parseInt(req.body.start_time) + parseInt(req.body.hours);
 
@@ -39,6 +40,7 @@ router.post('/',function(req, res){
     if(err) return res.status(500).send("Cannot book");
     req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
     res.status(200).send(booking);
+    //res.status(200).send(booking);
   });
 });
 
@@ -114,7 +116,7 @@ router.get('/unbook/:hours', function(req, res){
 	   sendBulkPush(token_arr,msg,'op');
 	}
    });
-	   
+
 	});
    });
 	res.status(200).send('success');

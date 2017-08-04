@@ -49,6 +49,7 @@ var sendReceipt = function(req, res, next){
 	Booking.findOne({_id: req.params.booking_id, type: {$ne : 'manual'}}).populate({path:'parking_id', select:'name hourly_price'}).populate('user_id','name email phone').exec(function(err, booking){
     if(err) return res.status(500).send("Error getting booking details");
 		var email_to = booking.user_id.email;
+		var subject = 'Booking receipt, Order #' + booking._id;
 		res.render('templates/receipt', {booking: booking},function(err, html){
 			if(err){
 				console.log('Error rendering html template: ', err);
@@ -58,7 +59,7 @@ var sendReceipt = function(req, res, next){
 				var mailOptions = {
 					from : 'eparkwb@gmail.com',
 					to : email_to,
-					subject : 'Booking Receipt',
+					subject : subject,
 					generateTextFromHtml : true,
 					//text : 'Welcome to ePark! Have a good day!!'
 					html : html

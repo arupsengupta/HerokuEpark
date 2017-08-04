@@ -6,6 +6,7 @@ var BookingData = require('../Booking/Booking');
 var Location = require('../Location/Location');
 var Operator = require('../Operator/Operator');
 var pushOp = require('../Push/PushController').pushOp;
+var request = require('request');
 
 //get a new sensor data
 router.get('/pushData',function(req, res){
@@ -73,7 +74,10 @@ router.get('/update', function(req,res,next){
     console.log('Unbook started..');
     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
       if(err) return res.status(500).send('Erron unbooking');
-			console.log('PASS 3');
+      var path = 'https://arupepark.herokuapp.com/booking/receipt/'+req.booking_id;
+      request({method:'GET',url:path}, function (error, response, body) {
+         if (error) throw new Error(error);
+      });
     });
   }
   if(!req.flag){

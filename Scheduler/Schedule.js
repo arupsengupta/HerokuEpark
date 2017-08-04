@@ -35,16 +35,20 @@ var expireCheck = function(){
   	console.log('Scheduler called at :', Date.now());
 	Booking.find({date:Date.now(), end_time: hours, active: true, type: {$ne : 'manual'}}).populate({path:'user_id', select: 'device_token'}).exec(function(err, bookings){
 		if(err) return res.status(500).send("Error finding bookings");
-		var token_arr = [];
+
 		if(bookings.length !== 0){
+      var msg = 'Your booking is about to end, please reach the parking place soon';
 			for(var i=0;i<bookings.length;i++){
-			   token_arr.push(bookings[0].user_id.device_token);
+          var token_arr = [];
+          token_arr.push(bookings[i].user_id.device_token);
+          sendBulkPush(token_arr, msg,'user');
+			   //token_arr.push(bookings[0].user_id.device_token);
 			}
-			var msg = 'Your booking is about to end, please reach the parking place soon';
-			if(token_arr.length !== 0){
-			   sendBulkPush(token_arr, msg,'user');
-			   console.log('Bulk push to users successful');
-			}
+			console.log('Bulk push to users successful');
+			// if(token_arr.length !== 0){
+			//    sendBulkPush(token_arr, msg,'user');
+			//    console.log('Bulk push to users successful');
+			// }
 		}
 	});
    Operator.find({},function(err, operators){
@@ -72,7 +76,7 @@ var expireCheck = function(){
 	   console.log('Bulk push to operator successful');
 	}
    });
-	   
+
 	});
    });
 //	Booking.find({date: Date.now(), end_time: hours}).populate('parking_id', 'parking_arr'});
@@ -82,5 +86,5 @@ module.exports = {
   func : unbookFunc,
   expireFunc : expireCheck,
   cronExprUnbook : '5 * * * *',
-  cronExprExpire : '30 * * * *',
+  cronExprExpire : '50 * * * *',
 };

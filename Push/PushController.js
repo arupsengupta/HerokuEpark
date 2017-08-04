@@ -34,6 +34,7 @@ router.get('/:contact/:message', function(req, res){
 
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
+          console.log(body);
           res.status(200).send('success');
         });
      }
@@ -110,6 +111,12 @@ var pushMessageOp = function(req, res, next){
 var bookMessageOp = function(req, res, next){
   var msg = req.msg;
 
+  Operator.find({parking_id: req.parking_id}, function(err, operators){
+    if(err) return res.status(500).send('Error getting operator details');
+    if(operators.length == 0){
+      res.status(500).send('Operator not found');
+    }else {
+      var operator = operators[0];
       var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZGJmZTE1Zi0xM2VkLTQwYzQtOGZhYy0xYmNkMTkxZjAzMTUifQ.RipBfuggwGt3OOikSRhSfchThA8AzOMHKsCez2Csgus";
 
       var options = {
@@ -121,7 +128,7 @@ var bookMessageOp = function(req, res, next){
           'content-type': 'application/json'
         },
         body: {
-          tokens: [ req.device_token ],
+          tokens: [ operator.device_token ],
           profile: 'dev',
           notification: { message: msg } },
           json: true
@@ -129,8 +136,10 @@ var bookMessageOp = function(req, res, next){
 
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
-          res.status(200).send('success');
+          res.status(200).send(req.resp);
         });
+     }
+});
 
 }
 
@@ -140,18 +149,22 @@ var pushBulk = function(token_arr, msg, type){
       var token = type == 'op' ? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZGJmZTE1Zi0xM2VkLTQwYzQtOGZhYy0xYmNkMTkxZjAzMTUifQ.RipBfuggwGt3OOikSRhSfchThA8AzOMHKsCez2Csgus" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwYzVjZmRhYS0zOThmLTQ2NzAtOTgxYy01N2M1ZGVlZjIyZWYifQ.EdCpDA_6w_Ty4pj-nYeHWYwgUoDW6vi3PHvOfo-pG0g";
       var profile = type == 'op' ? 'dev' : 'fcm';
 
+      console.log("Token : ", token);
+      console.log("Profile : ", profile);
+
       var options = {
-        method: 'POST',
-        url: 'https://api.ionic.io/push/notifications',
-        headers: {
-          'cache-control': 'no-cache',
-          authorization: 'Bearer ' + token,
-          'content-type': 'application/json'
-        },
-        body: {
-          tokens: token_arr,
-          profile: profile,
-          notification: { message: msg } },
+          method: 'POST',
+          url: 'https://api.ionic.io/push/notifications',
+          headers: {
+            'cache-control': 'no-cache',
+            authorization: 'Bearer ' + token,
+            'content-type': 'application/json'
+          },
+          body: {
+            tokens: token_arr,
+            profile: profile,
+            notification: { message: msg }
+          },
           json: true
         };
 
