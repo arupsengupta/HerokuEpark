@@ -37,7 +37,7 @@ router.get('/', function(req,res){
 });
 
 // send notification to operator
-router.post('/notify', function(req, res, next){
+router.get('/notify', function(req, res, next){
 	//Operator.findOne({parking_id: req.body.parking_id}, function(err, operator){
 		//if(err) return res.status(500).send('Error getting parking operator');
 		//if(operator != null){
