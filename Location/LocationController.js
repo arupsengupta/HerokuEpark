@@ -6,6 +6,7 @@ router.use(bodyParser.urlencoded({extended: true}));
 
 var Location = require('./Location');
 var Booking = require('../Booking/Booking');
+var SensorData = require('../Sensor/Sensor');
 
 //create a new location
 router.post('/', function(req, res){
@@ -63,7 +64,7 @@ router.get('/:id/:time/:hours', function(req, res){
   Location.findById(req.params.id, function(err, location){
     if(err) return res.status(500).send("Error occurred");
     var currentDate = new Date();
-    console.log(currentDate.getDate());
+    // console.log(currentDate.getDate());
     Booking.find({parking_id: location._id, active: true, date: Date.now},
       function(err, bookings){
         if(err) return res.status(500).send("Error getting booking");
@@ -80,8 +81,14 @@ router.get('/:id/:time/:hours', function(req, res){
             }
           }
         }
-        res.status(200).send(location);
       });
+          SensorData.find({location: location._id, status: true}, function(err, sensor){
+            sensor.forEach(function(sen, i){
+                var ind = parseInt(sen.slot_id);
+                location.parking_arr[ind].status = 'inprocess';
+            });
+            res.status(200).send(location);
+          });
   });
 });
 
