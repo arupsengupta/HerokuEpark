@@ -110,7 +110,7 @@ var pushMessageOp = function(req, res, next){
 
 var bookMessageOp = function(req, res, next){
   var msg = req.msg;
-
+  console.log(msg);
   Operator.find({parking_id: req.parking_id}, function(err, operators){
     if(err) return res.status(500).send('Error getting operator details');
     if(operators.length == 0){
