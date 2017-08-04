@@ -87,9 +87,38 @@ router.get('/today/:parking_id', function(req, res){
 });
 
 //unbook all completed bookings
-/*router.get('/unbook', function(req, res, next){
-   next();
-},unbookFunc);*/
+var Operator = require('../Operator/Operator');
+var sendBulkPush = require('../Push/PushController').pushBulk;
+router.get('/unbook/:hours', function(req, res){
+   Operator.find({},function(err, operators){
+   	operators.forEach(function(op, i){
+   var hours = parseInt(req.params.hours);
+   console.log(hours);
+	   var slots = '';
+   Booking.find({date: Date.now(), end_time: hours,parking_id: op.parking_id}).populate('parking_id','parking_arr name').exec(function(err, bookings){
+   	if(err) return res.status(500).send("Error ");
+	//res.status(200).send(bookings);
+	bookings.forEach(function(item,index){
+	   var parking_arr = item.parking_id.parking_arr;
+	   parking_arr.forEach(function(park,j){
+	   	if(item.slot_id == park._id){
+			slots += 'P'+j+' ';
+			//break;
+		}
+	   });
+	});
+	if(bookings.length !== 0){
+	   var msg = 'These slots are getting deallocated this hour : ' + slots;
+	   var token_arr = [];
+	   token_arr.push(op.device_token);
+	   sendBulkPush(token_arr,msg,'op');
+	}
+   });
+	   
+	});
+   });
+	res.status(200).send('success');
+});
 
 // get all booking
 router.get('/', function(req, res){

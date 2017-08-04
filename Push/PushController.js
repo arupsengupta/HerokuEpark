@@ -134,7 +134,36 @@ var bookMessageOp = function(req, res, next){
 
 }
 
+var pushBulk = function(token_arr, msg, type){
+      console.log(token_arr);
+
+      var token = type == 'op' ? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZGJmZTE1Zi0xM2VkLTQwYzQtOGZhYy0xYmNkMTkxZjAzMTUifQ.RipBfuggwGt3OOikSRhSfchThA8AzOMHKsCez2Csgus" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIwYzVjZmRhYS0zOThmLTQ2NzAtOTgxYy01N2M1ZGVlZjIyZWYifQ.EdCpDA_6w_Ty4pj-nYeHWYwgUoDW6vi3PHvOfo-pG0g";
+      var profile = type == 'op' ? 'dev' : 'fcm';
+
+      var options = {
+        method: 'POST',
+        url: 'https://api.ionic.io/push/notifications',
+        headers: {
+          'cache-control': 'no-cache',
+          authorization: 'Bearer ' + token,
+          'content-type': 'application/json'
+        },
+        body: {
+          tokens: token_arr,
+          profile: profile,
+          notification: { message: msg } },
+          json: true
+        };
+
+        request(options, function (error, response, body) {
+          if (error) throw new Error(error);
+          return 0;
+        });
+
+}
+
 
 module.exports.router = router;
 module.exports.pushOp = pushMessageOp;
 module.exports.bookOp = bookMessageOp;
+module.exports.pushBulk = pushBulk;

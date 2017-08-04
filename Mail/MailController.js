@@ -45,7 +45,8 @@ var sendWelcome = function(req, res, next){
 };
 
 var sendReceipt = function(req, res, next){
-	Booking.findOne({_id: req.booking_id, type: {$ne : 'manual'}}).populate({path:'parking_id', select:'name hourly_price'}).populate('user_id','name email phone').exec(function(err, booking){
+	console.log('send booking receipt ',req.params.booking_id);
+	Booking.findOne({_id: req.params.booking_id, type: {$ne : 'manual'}}).populate({path:'parking_id', select:'name hourly_price'}).populate('user_id','name email phone').exec(function(err, booking){
     if(err) return res.status(500).send("Error getting booking details");
 		var email_to = booking.user_id.email;
 		res.render('templates/receipt', {booking: booking},function(err, html){

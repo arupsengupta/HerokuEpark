@@ -22,7 +22,8 @@ var MailController = require('./Mail/MailController');
 var unbookScheduler = require('./Scheduler/Schedule');
 
 /* scheduler start */
-var j =  schedule.scheduleJob(unbookScheduler.cronExpr, unbookScheduler.func);
+var j =  schedule.scheduleJob(unbookScheduler.cronExprUnbook, unbookScheduler.func);
+var k = schedule.scheduleJob(unbookScheduler.cronExprExpire, unbookScheduler.expireFunc);
 /* scheduler end */
 
 app.get('/',function(req,res){
