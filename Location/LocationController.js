@@ -64,31 +64,27 @@ router.get('/:id/:time/:hours', function(req, res){
   Location.findById(req.params.id, function(err, location){
     if(err) return res.status(500).send("Error occurred");
     var currentDate = new Date();
+    var reqTime = parseInt(req.params.time);
     // console.log(currentDate.getDate());
-    Booking.find({parking_id: location._id, active: true, date: Date.now},
+    Booking.find({parking_id: location._id, active: true, date: Date.now, start_time: {$lte : reqTime}, end_time: {$gt : reqTime}},
       function(err, bookings){
         if(err) return res.status(500).send("Error getting booking");
         for(var b=0; b<bookings.length;b++){
-          var reqTime = parseInt(req.params.time);
-          var reqHours = parseInt(req.params.hours);
-          if((reqTime >= bookings[b].start_time && reqTime < bookings[b].start_time + bookings[b].hours)
-              || (reqTime < bookings[b].start_time && (reqTime + reqHours) > bookings[b].start_time)){
-                // console.log(reqTime + reqHours);
             for(var i=0; i<location.parking_arr.length; i++){
               if(bookings[b].slot_id == location.parking_arr[i]._id){
                 location.parking_arr[i].status = bookings[b].status;
               }
             }
-          }
         }
-      });
-          SensorData.find({location: location._id, status: true}, function(err, sensor){
-            sensor.forEach(function(sen, i){
-                var ind = parseInt(sen.slot_id);
-                location.parking_arr[ind].status = 'inprocess';
-            });
-            res.status(200).send(location);
+        SensorData.find({location: location._id, status: true}, function(err, sensor){
+          sensor.forEach(function(sen, i){
+              var ind = parseInt(sen.slot_id);
+              location.parking_arr[ind].status = 'inprocess';
           });
+          res.status(200).send(location);
+        });
+      });
+
   });
 });
 
