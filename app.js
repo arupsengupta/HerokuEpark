@@ -3,6 +3,9 @@ var db = require('./db');
 var path = require('path');
 var express = require('express');
 var schedule = require('node-schedule');
+var helmet = require('helmet');
+
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
