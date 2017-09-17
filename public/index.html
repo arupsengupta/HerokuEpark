@@ -1,53 +1,249 @@
 <!DOCTYPE html>
-<html ng-app="adminApp">
-    <head>
-	        <meta charset="utf-8">
-		    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		    <meta name="viewport" content="width=device-width, initial-scale=1">
-			<meta name="theme-color" content="#E2574C"/>
-		    <title>ePark Admin | Home</title>
-		    <link rel="shortcut icon" type="image/icon" href="img/Logo.ico"/>
-		    <script src="vendor/angular/angular.min.js"></script>
-		    <script src="vendor/angular/angular-route.min.js"></script>
-		    <script src="js/app.js"></script>
-		    <script src="js/controller.js"></script>
-		    
-		    <!-- Bootstrap Core CSS -->
-		    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		    <!-- MetisMenu CSS -->
-		    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-		    <!-- Custom CSS -->
-		    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-		    <!-- Morris Charts CSS -->
-		    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
-		    <!-- Custom Fonts -->
-		    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		    <!--[if lt IE 9]>
-		        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		    <![endif]-->
-		    
-		    <!-- jQuery -->
-		    <script src="vendor/jquery/jquery.min.js"></script>
-		
-		    <!-- Bootstrap Core JavaScript -->
-		    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-		
-		    <!-- Metis Menu Plugin JavaScript -->
-		    <script src="vendor/metisMenu/metisMenu.min.js"></script>
-		
-		    <!-- Morris Charts JavaScript -->
-		    <script src="vendor/raphael/raphael.min.js"></script>
-		    <script src="vendor/morrisjs/morris.min.js"></script>
-		    <script src="data/morris-data.js"></script>
-		
-		    <!-- Custom Theme JavaScript -->
-		    <script src="dist/js/sb-admin-2.js"></script>
-    </head>
-    
-    <body>
-         <ng-view></ng-view>
-    </body>
-</html>
+<html ng-app="eParkWeb" xml:lang="ko" lang="ko" >
+	<head>
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+	  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	  
+	  <script src="assets/js/qrcode.js"></script>
+	  <script src="assets/js/google-plus-signin.js"></script>
+	  <link href="assets/css/google-plus-signin.css"/>
+	  
+	  <link rel="stylesheet" href="css/style.css"/>
+	  <script src="js/app.js"></script>
+	</head>
+	
+	<body ng-cloak>
+	
+	    <div ng-controller="HomeController">
+	         <md-content>
+			    <md-toolbar class="md-hue-2">
+			      <div class="md-toolbar-tools">
+			        <image flex-xs="10" flex-gt-xs="5" src="images/icon.png" style="margin-right: 1vw; margin-left: 2vw;"/>
+			
+			        <h2 flex md-truncate style="font-weight: 500;">ePark India</h2>
+			                 
+			        <img flex-xs="30" flex-gt-xs="10" src="images/google.png"/>
+			        
+			        <md-button class="md-icon-button" aria-label="More">
+			          <md-icon md-svg-icon="images/icons/ic_settings_white_24px.svg"></md-icon>
+			        </md-button>
+			
+			        <md-menu>
+				        <md-button class="md-icon-button" aria-label="More" ng-click="openMenu($mdMenu, $event)">
+				          <md-icon md-svg-icon="images/icons/ic_more_vert_white_24px.svg"></md-icon>
+				        </md-button>
+				        
+				        <md-menu-content width="4">
+					        <md-menu-item>
+					          <md-button>
+					            <md-icon md-svg-icon="" md-menu-align-target></md-icon>Redial
+					          </md-button>
+					        </md-menu-item>
+			           </md-menu-content>     
+			         </md-menu> 
+			      </div>
+			    </md-toolbar>
+		     </md-content>  
+	    </div>
+	          
+       <md-fab-speed-dial md-open="closed" md-direction="up" class="md-accent md-fab-bottom-right md-fling">
+	        <md-fab-trigger>
+	          <md-button aria-label="menu" class="md-fab md-warn">
+	            <md-icon md-svg-src="images/icons/ic_menu_white_24px.svg"></md-icon>
+	          </md-button>
+	        </md-fab-trigger>
+	
+	        <md-fab-actions>
+	          <md-button aria-label="Call Us" class="md-fab md-raised md-mini">
+	            <md-icon md-svg-src="images/icons/whatsapp.svg" aria-label="Phone"></md-icon>
+	          </md-button>
+	          <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+	            <md-icon md-svg-src="images/icons/facebook.svg" aria-label="Facebook"></md-icon>
+	          </md-button>
+	        </md-fab-actions>
+      </md-fab-speed-dial>
+       
+		<div>
+			  <md-content>
+			    <md-tabs md-dynamic-height md-border-bottom>
+			      
+			      <div ng-controller="BookingController">
+                     <md-tab label="Book Parking Now">
+				          <md-content class="md-padding" layout-xs="column" layout="row">
+                              <div flex-xs flex-gt-xs="50" layout="column">
+							          <md-card>
+									        <img ng-src="{{mapPath}}" class="md-card-image" alt="Washed Out">
+									        <md-card-title>
+									          <md-card-title-text>
+									             <span class="md-headline" style="font-weight : 500; font-size : 23px;">Street 11 (RS Software to Wipro)</span>
+									          </md-card-title-text>
+									        </md-card-title>
+									        <md-card-content>
+									           <p style="font-size : 14px;">Be a part of the future of parking in India. If you need parking in Street 11 of Sector 5, Salt Lake, Kolkata then now in association with the Government of West Bengal, book your parking online as a part of the beta testing of the first ever online parking booking system - ePark. <md-chips><md-chip>Welcome to the future, Kolkata</md-chip><md-chip>#eParkIndia</md-chip><md-chip>#HereToHelp</md-chip></md-chips></p>
+									           <p style="font-weight : 500;">Parking Booking Rate : <span style="font-weight : 500; color : green; font-size : 25px;">Rs.{{rate}}/hour</span></p>
+									        </md-card-content>
+									        <md-card-actions layout="row" layout-align="end center">
+										          <md-button>Why only this street?</md-button>
+										          <md-button>Can I book?</md-button>
+			                               </md-card-actions>
+									 </md-card>  
+						      </div>
+						 
+						       <div flex-xs flex-gt-xs="50" layout="column">
+							          <md-card>
+							               <md-subheader class="md-accent md-no-sticky" style="text-align: center; font-size: 16px;font-weight: 500;">BOOK YOUR PARKING NOW</md-subheader>
+			                               <md-list>
+										        <md-list-item class="md-3-line">
+										          <img src="images/one.png" class="md-avatar"/>
+										          <div class="md-list-item-text" layout="column">
+										            <h3 style="font-weight : 500;">Select your Arrival Time</h3>
+										            <h4 style="white-space : normal; margin-top: 8px; margin-bottom: 8px;">Your have to reach the Parking Slot before the selected time and on reaching only your booking shall start. In case of late arrival, we will hold onto your spot for a maximum of 30 minutes extra beyond which your booking shall be cancelled.</h4>
+										            <p> <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date" md-open-on-focus></md-datepicker></p>
+										          </div>
+										        </md-list-item>
+										    </md-list>  
+										    <md-divider></md-divider>
+										    <md-list>
+										        <md-list-item class="md-3-line">
+										          <img src="images/two.png" class="md-avatar"/>
+										          <div class="md-list-item-text" layout="column">
+										            <h3 style="font-weight : 500;">Select your Vehicle Type</h3>
+										            <h4 style="white-space : normal; margin-top: 8px; margin-bottom: 8px;">Depending on your vehicle type we will assign you your parking spot.</h4>
+										               <md-radio-group ng-model="data.group1">
+													      <md-radio-button value="Two-Wheeler" class="md-primary">Two-Wheeler (Bikes, Scooters etc.)</md-radio-button>
+													      <md-radio-button value="Four-Wheeler">Four-Wheeler (Hatchbacks, Sedans, SUVs etc.)</md-radio-button>
+                                                       </md-radio-group>
+										          </div>
+										        </md-list-item>
+										    </md-list>
+										    <md-divider></md-divider>   
+										    <md-list>
+										        <md-list-item class="md-3-line">
+										          <img src="images/three.png" class="md-avatar" style="margin-left: 1.5vw;"/>
+										          <div class="md-list-item-text" layout="column">
+										            <h3 style="font-weight : 500;">Check the Availability of Spots</h3>
+										            <md-card-actions layout="row" layout-align="left center">
+										                  <md-button style="color : green;">{{availabilityStatus}}</md-button>
+			                                        </md-card-actions>
+										          </div>
+										        </md-list-item>
+										    </md-list>  
+										    <md-list style="text-align : center;">
+										         <md-button class="md-raised md-primary">Book Parking Now</md-button>
+										    </md-list>    
+									 </md-card>  
+						      </div>
+				        </md-content>
+			         </md-tab>			      
+			      </div>
+			      
+			      <div ng-controller="HistoryController">
+				      <md-tab label="Booking History">
+				        <md-content class="md-padding">
+				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">Booking History</h1>
+				          <p></p>
+				        </md-content>
+				      </md-tab>
+			      </div>
+			      
+			      <div ng-controller="ProfileController">
+				      <md-tab label="{{user.firstName}}'s Profile">
+				         <div ng-app="directive.g+signin" style="display : none;">
+				              <google-plus-signin clientid="953338639215-8626htgms9og313m245cn1p9jd0of67s.apps.googleusercontent.com"></google-plus-signin>
+		                  </div>
+				      
+				         <md-content class="md-padding" layout-xs="column" layout="row">
+				          
+						          <div flex-xs flex-gt-xs="50" layout="column">
+								      <md-card md-theme="dark-grey" md-theme-watch>
+								        <md-card-title>
+								          <md-card-title-text>
+								                <span class="md-headline" style="font-weight : 500;">{{user.name}}</span>
+								                <span class="md-subhead" style="font-weight: 500; margin-bottom: 12px;">{{user.email}}</span>
+									            <md-input-container class="md-block" flex-xs flex-gt-xs="40">
+											          <label>Your Mobile Number</label>
+											          <input ng-model="user.mobile"/>
+											    </md-input-container>
+											    
+											     <div layout-gt-xs="row">
+												    <md-input-container class="md-block" flex-xs flex-gt-xs="40" style="margin-top: -10px; margin-right : 2vw;">
+												          <label>Your Vehicle Registration</label>
+												          <input ng-model="user.vehicleReg"/>
+												    </md-input-container>
+												    
+												     <md-input-container class="md-block" flex-xs flex-gt-xs="40" style="margin-top: -10px;">
+											            <label>Type of Vehicle</label>
+											            <md-select name="type" ng-model="user.vehicleType">
+												            <md-option value="Two-Wheeler">Two-Wheeler</md-option>
+												            <md-option value="Four-Wheeler" selected>Four-Wheeler</md-option>
+		                                               </md-select>
+											         </md-input-container>
+											    </div>
+								          </md-card-title-text>
+								          <md-card-title-media>
+								            <div class="md-media-lg card-media"><img ng-src="{{user.imageUrl}}" style="width : 100%;"/></div>
+								          </md-card-title-media>
+								        </md-card-title>
+								        <md-card-actions layout="row" layout-align="end center">
+								          <md-button>Edit details</md-button>
+								          <md-button>Save</md-button>
+								        </md-card-actions>
+								      </md-card>
+		                         </div>
+				          
+				                      <div flex-xs flex-gt-xs="50" layout="column">
+										    <md-card md-theme="dark-grey" md-theme-watch>
+							                   <md-subheader class="md-accent md-no-sticky" style="text-align: center; font-size: 16px;font-weight: 500;">YOUR UNIQUE QR CODE</md-subheader>  
+		                                       <md-card-content>
+		                                          <p style="font-size: 13px; text-align: center;">Hey, <b>{{user.firstName}}</b> this is your own system-generated Unique QR Code. Either download this QR Code in your mobile or use our mobile app and show this to the Parking Operator when you reach the spot. On scanning this QR Code while entering the parking slot, your booking starts. And on scanning this QR Code again while leaving, your booking ends.</p>
+                                                  <div id="qrcode" style="width:50px; height:50px; margin-top:15px;"></div>
+		                                       </md-card-content>
+		                                       <md-card-actions layout="row" layout-align="end center">
+										          <md-button><md-icon md-svg-src="images/icons/ic_menu_white_24px.svg"></md-icon>Download QR Code</md-button>
+										        </md-card-actions>
+		                                    </md-card>
+		                              </div>
+				        </md-content>
+				      </md-tab>
+			      </div>
+			      
+			      <div>
+				      <md-tab label="Download Mobile App">
+				        <md-content class="md-padding">
+				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">Download Our Mobile App</h1>
+				          <p></p>
+				        </md-content>
+				      </md-tab>
+			      </div>
+			      
+			      <div>
+				      <md-tab label="About ePark">
+				        <md-content class="md-padding">
+				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">About ePark</h1>
+				          <p></p>
+				        </md-content>
+				      </md-tab>
+			      </div>
+			      
+			      <div>
+				      <md-tab label="Need Assistance?">
+				        <md-content class="md-padding">
+				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">Reach Out to us</h1>
+				          <p></p>
+				        </md-content>
+				      </md-tab>
+			      </div>
+			      			      
+			    </md-tabs>
+			  </md-content>
+		</div>
+	    
+	</body>
+</html>	
