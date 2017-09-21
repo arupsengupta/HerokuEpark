@@ -13,9 +13,11 @@ app.controller('HistoryController', function($scope){
 	
 });
 
-app.controller('BookingController', function($scope){
+
+app.controller('BookingController', function($scope, $mdDialog){
 	$scope.mapPath = 'images/map.png';
 	$scope.imagePath = 'images/ePark.png';
+	$scope.customFullscreen = false;
 	
 	$scope.rate = 30;
 	$scope.availabilityStatus = "Slots Available";
@@ -27,6 +29,27 @@ app.controller('BookingController', function($scope){
 		 group1 : 'Two-Wheeler',
 		 group2 : 'Four-Wheeler',
     };
+	
+	function DialogController($scope, $mdDialog) {
+	    $scope.hide = function() {
+	      $mdDialog.hide();
+	    };
+
+	    $scope.cancel = function() {
+	      $mdDialog.cancel();
+	    };
+	  }
+	
+	$scope.showAdvanced = function(ev) {
+	    $mdDialog.show({
+	      controller: DialogController,
+	      templateUrl: 'templates/dialog1.tmpl.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	      clickOutsideToClose:true,
+	      fullscreen: $scope.customFullscreen 
+	    });
+	};
 });
 
 app.controller('ProfileController', function($scope){

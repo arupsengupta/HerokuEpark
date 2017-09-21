@@ -90,7 +90,7 @@
 									           <p style="font-weight : 500;">Parking Booking Rate : <span style="font-weight : 500; color : green; font-size : 25px;">Rs.{{rate}}/hour</span></p>
 									        </md-card-content>
 									        <md-card-actions layout="row" layout-align="end center">
-										          <md-button>Why only this street?</md-button>
+										          <md-button ng-click="showAdvanced($event)">Why only this street?</md-button>
 										          <md-button>Can I book?</md-button>
 			                               </md-card-actions>
 									 </md-card>  
@@ -206,7 +206,7 @@
                                                   <div id="qrcode" style="width:50px; height:50px; margin-top:15px;"></div>
 		                                       </md-card-content>
 		                                       <md-card-actions layout="row" layout-align="end center">
-										          <md-button><md-icon md-svg-src="images/icons/ic_menu_white_24px.svg"></md-icon>Download QR Code</md-button>
+										          <md-button><md-icon md-svg-src="images/icons/ic_file_download_black_24px.svg"></md-icon>Download QR Code</md-button>
 										        </md-card-actions>
 		                                    </md-card>
 		                              </div>
@@ -216,18 +216,58 @@
 			      
 			      <div>
 				      <md-tab label="Download Mobile App">
-				        <md-content class="md-padding">
-				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">Download Our Mobile App</h1>
-				          <p></p>
+				        <md-content class="md-padding" layout="row" layout-xs="column">
+				          <div flex-xs flex-gt-xs="50" layout="column">
+				                   <md-card>
+				                        <img src="images/mobapp.png" class="md-card-image" alt="Washed Out">
+				                        <md-card-title>
+								           <md-card-title-text>
+								              <span class="md-headline" style="font-weight : 500;">Download the ePark Mobile App</span>
+								           </md-card-title-text>
+								        </md-card-title>
+				                       <md-card-content>
+				                          <p>To book your parking seamlessly simply go to the Google Playstore and download the official ePark<span style="font-size: 12px; vertical-align: super;">&copy;</span> Android App. Using this app you don't need to provide your mobile number or download the QR Code everyday. Book your parking slot on the go and on reaching simply show the QR Code in the app to get your booking started.</p>
+				                          <p>The ePark App is currently only for Android Users and is under development for the iOS users as well. Currently for the iOS Users we recommend that you use the official ePark Website for all your pre-bookings and profile details management.</p> 
+				                       </md-card-content>
+				                       <md-card-actions layout="row" layout-align="end center">
+										    <md-button><md-icon md-svg-src="images/icons/ic_file_download_black_24px.svg"></md-icon>Download the App</md-button>
+									    </md-card-actions>
+				                   </md-card>
+				              </div>
+				              
+				              <div flex-xs flex-gt-xs="40" layout="column">
+				                  <md-card>
+				                     <img src="images/test.png" class="md-card-image" alt="ePark App Poster">
+				                  </md-card>
+				              </div>
 				        </md-content>
 				      </md-tab>
 			      </div>
 			      
 			      <div>
 				      <md-tab label="About ePark">
-				        <md-content class="md-padding">
-				          <h1 class="md-display-1" style="font-size : 29px; font-weight : 500;">About ePark</h1>
-				          <p></p>
+				        <md-content class="md-padding" layout="row" layout-xs="column">
+				              <div flex-xs flex-gt-xs="50" layout="column">
+				                   <md-card>
+				                        <md-card-title>
+								           <md-card-title-text>
+								              <span class="md-headline" style="font-weight : 500;">About ePark</span>
+								           </md-card-title-text>
+								        </md-card-title>
+				                       <md-card-content>
+				                           <p>The ePark System was created as a part of the Bengalathon Challenge organised by the Government of West Bengal and WEBEL in association with NASSCOM.
+				                              It was there that the system became an award winning solution to the parking apathy in Sector 5 Salt Lake, Kolkata. As a part of that very same initiative
+				                              the ePark System was implemented by the Government of West Bengal with a Beta Testing trial run in the Street 11 of Sector 5 with the cooperation of ___ Agency.</p>
+				                           <p></p>
+				                       </md-card-content>
+				                   </md-card>
+				               </div>
+				               
+				               <div flex-xs flex-gt-xs="40" layout="column">
+				                  <md-card>
+				                  
+				                  </md-card>
+				               </div>       
 				        </md-content>
 				      </md-tab>
 			      </div>
