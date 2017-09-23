@@ -25,29 +25,15 @@
 	         <md-content>
 			    <md-toolbar class="md-hue-2">
 			      <div class="md-toolbar-tools">
-			        <image flex-xs="10" flex-gt-xs="5" src="images/icon.png" style="margin-right: 1vw; margin-left: 2vw;"/>
-			
-			        <h2 flex md-truncate style="font-weight: 500;">ePark India</h2>
-			                 
-			        <img flex-xs="30" flex-gt-xs="10" src="images/google.png"/>
-			        
-			        <md-button class="md-icon-button" aria-label="More">
-			          <md-icon md-svg-icon="images/icons/ic_settings_white_24px.svg"></md-icon>
-			        </md-button>
-			
-			        <md-menu>
-				        <md-button class="md-icon-button" aria-label="More" ng-click="openMenu($mdMenu, $event)">
-				          <md-icon md-svg-icon="images/icons/ic_more_vert_white_24px.svg"></md-icon>
-				        </md-button>
+				        <image flex-xs="10" flex-gt-xs="5" src="images/icon.png" style="margin-right: 1vw; margin-left: 2vw;"/>
+				
+				        <h2 flex md-truncate style="font-weight: 500;">ePark</h2>
+				                 
+				        <img flex-xs="30" flex-gt-xs="10" src="images/google.png"/>
 				        
-				        <md-menu-content width="4">
-					        <md-menu-item>
-					          <md-button>
-					            <md-icon md-svg-icon="" md-menu-align-target></md-icon>Redial
-					          </md-button>
-					        </md-menu-item>
-			           </md-menu-content>     
-			         </md-menu> 
+					    <md-button class="md-icon-button" aria-label="More" ng-click="showListBottomSheet()">
+					       <md-icon md-svg-icon="images/icons/ic_more_vert_white_24px.svg"></md-icon>
+					    </md-button>
 			      </div>
 			    </md-toolbar>
 		     </md-content>  
@@ -90,8 +76,8 @@
 									           <p style="font-weight : 500;">Parking Booking Rate : <span style="font-weight : 500; color : green; font-size : 25px;">Rs.{{rate}}/hour</span></p>
 									        </md-card-content>
 									        <md-card-actions layout="row" layout-align="end center">
-										          <md-button ng-click="showAdvanced($event)">Why only this street?</md-button>
-										          <md-button>Can I book?</md-button>
+										          <md-button ng-click="showStreetModal($event)">Why only this street?</md-button>
+										          <md-button ng-click="showBookingQuesModal($event)">Can I book?</md-button>
 			                               </md-card-actions>
 									 </md-card>  
 						      </div>
@@ -240,34 +226,6 @@
 				                     <img src="images/test.png" class="md-card-image" alt="ePark App Poster">
 				                  </md-card>
 				              </div>
-				        </md-content>
-				      </md-tab>
-			      </div>
-			      
-			      <div>
-				      <md-tab label="About ePark">
-				        <md-content class="md-padding" layout="row" layout-xs="column">
-				              <div flex-xs flex-gt-xs="50" layout="column">
-				                   <md-card>
-				                        <md-card-title>
-								           <md-card-title-text>
-								              <span class="md-headline" style="font-weight : 500;">About ePark</span>
-								           </md-card-title-text>
-								        </md-card-title>
-				                       <md-card-content>
-				                           <p>The ePark System was created as a part of the Bengalathon Challenge organised by the Government of West Bengal and WEBEL in association with NASSCOM.
-				                              It was there that the system became an award winning solution to the parking apathy in Sector 5 Salt Lake, Kolkata. As a part of that very same initiative
-				                              the ePark System was implemented by the Government of West Bengal with a Beta Testing trial run in the Street 11 of Sector 5 with the cooperation of ___ Agency.</p>
-				                           <p></p>
-				                       </md-card-content>
-				                   </md-card>
-				               </div>
-				               
-				               <div flex-xs flex-gt-xs="40" layout="column">
-				                  <md-card>
-				                  
-				                  </md-card>
-				               </div>       
 				        </md-content>
 				      </md-tab>
 			      </div>

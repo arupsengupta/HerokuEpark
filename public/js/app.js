@@ -1,12 +1,11 @@
 var app = angular.module('eParkWeb', ['ngMaterial', 'directive.g+signin', 'ngMessages']);
 
-app.controller('HomeController', function($scope, $mdMenu){
-	var originatorEv;
-
-    $scope.openMenu = function($mdMenu, ev) {
-      originatorEv = ev;
-      $mdMenu.open(ev);
-    };
+app.controller('HomeController', function($scope, $mdBottomSheet){
+	$scope.showListBottomSheet = function() {
+	    $mdBottomSheet.show({
+	      templateUrl: 'templates/bottom-sheet-list-template.html'
+	    });
+	};    
 });
 
 app.controller('HistoryController', function($scope){
@@ -40,10 +39,21 @@ app.controller('BookingController', function($scope, $mdDialog){
 	    };
 	  }
 	
-	$scope.showAdvanced = function(ev) {
+	$scope.showStreetModal = function(ev) {
 	    $mdDialog.show({
 	      controller: DialogController,
-	      templateUrl: 'templates/dialog1.tmpl.html',
+	      templateUrl: 'templates/whyOnlyStreet.html',
+	      parent: angular.element(document.body),
+	      targetEvent: ev,
+	      clickOutsideToClose:true,
+	      fullscreen: $scope.customFullscreen 
+	    });
+	};
+	
+	$scope.showBookingQuesModal = function(ev) {
+	    $mdDialog.show({
+	      controller: DialogController,
+	      templateUrl: 'templates/bookingQues.html',
 	      parent: angular.element(document.body),
 	      targetEvent: ev,
 	      clickOutsideToClose:true,
