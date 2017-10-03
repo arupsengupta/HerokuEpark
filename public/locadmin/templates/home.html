@@ -1,0 +1,52 @@
+<div layout="column" style="height: 100%">
+    <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <md-button ng-show="!showContextMenu" class="md-icon-button" aria-label="menu" ng-click="sideToogle()">
+          <md-icon md-svg-icon="icons/ic_menu_white_24px.svg"></md-icon>
+        </md-button>
+        <md-button ng-show="showContextMenu" class="md-icon-button" aria-label="menu" ng-click="toogleContextMenu()">
+          <md-icon md-svg-icon="icons/ic_close_white_24px.svg"></md-icon>
+        </md-button>
+        <h2 flex md-truncate><span ng-hide="showContextMenu">{{header}}</span></h2>
+        <md-button class="md-icon-button" aria-label="edit" ng-show="showContextMenu && itemSelectedCount===1" ng-click="editSelectedItem()">
+          <md-icon md-svg-icon="icons/ic_mode_edit_white_24px.svg"></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="delete" ng-show="showContextMenu" ng-click="deleteSelectedItem()">
+          <md-icon md-svg-icon="icons/ic_delete_white_24px.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <section layout="row" flex>
+      <md-sidenav class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-whiteframe="4">
+        <md-toolbar class="md-hue-2">
+          <h2 class="md-toolbar-tools"></h2>
+        </md-toolbar>
+        <md-content>
+          <md-list flex>
+            <md-list-item ng-click="navigate('home')">
+              <p>Home</p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ng-click="navigate('home.operators')">
+              <p>Operators</p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ng-click="null">
+              <p>Bookings</p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ng-click="navigate('home.corporate')">
+              <p>Corporate Users</p>
+            </md-list-item>
+            <md-divider ></md-divider>
+            <md-list-item ng-click="null">
+              <p>Payments</p>
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </md-sidenav>
+      <md-content flex>
+        <div ui-view></div>
+      </md-content>
+    </section>
+</div>

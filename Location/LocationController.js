@@ -10,27 +10,18 @@ var SensorData = require('../Sensor/Sensor');
 
 //create a new location
 router.post('/', function(req, res){
-  var locArr = [];
-  for(var i=0; i<req.body.parking_slot; i++){
-    var obj = {
-      status: "available"
-    };
-    locArr.push(obj);
-  }
-
   Location.create({
     name: req.body.name,
-    lat: req.body.lat,
-    lng: req.body.lng,
+    address: req.body.address,
+    location: {
+      lat: req.body.lat,
+      lng: req.body.lng
+    },
+    number_of_slot: req.body.parking_slot,
     opening_hours : {
         start: req.body.opening_hours_start,
         end: req.body.opening_hours_end
-    },
-    address: req.body.address,
-    hourly_price: req.body.hourly_price,
-    parking_arr: locArr,
-    number_of_slot: req.body.parking_slot,
-    booked_slot: 0
+    }
   },
   function(err, location){
     if(err) return res.status(500).send("There was a problem adding information to the database");

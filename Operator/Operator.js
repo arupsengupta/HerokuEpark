@@ -2,10 +2,12 @@ var mongoose = require('mongoose');
 
 var OperatorSchema = new mongoose.Schema({
 	name : String,
+	password: String,
 	contact : String,
+	address: 	String,
 	parking_id : String,
-	pass : String,
-	device_token : {type: String, default: ''}
+	device_token : String,
+	active_flag: {type: Boolean, default: true}
 });
 
 mongoose.model('Operator',OperatorSchema);

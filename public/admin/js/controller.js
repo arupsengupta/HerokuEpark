@@ -64,7 +64,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 
 	$http({
 		  method: 'GET',
-		  url: 'https://arupepark.herokuapp.com/location',
+			url: 'http://localhost:8080/location',
+		  // url: 'https://arupepark.herokuapp.com/location',
 		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		}).then(function successCallback(response){
 			for(var i=0;i<response.data.length;i++){
@@ -78,7 +79,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.deleteLocation = function(locationID){
 		$http({
 			  method: 'DELETE',
-			  url: 'https://arupepark.herokuapp.com/location/' + locationID
+				url: 'http://localhost:8080/location/' + locationID
+			  // url: 'https://arupepark.herokuapp.com/location/' + locationID
 		}).then(function successCallback(response){
 			alert("Location successfully deleted");
 			$window.location.reload();
@@ -90,7 +92,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.createLocation = function(){
 		$http({
 			  method: 'POST',
-			  url: 'https://arupepark.herokuapp.com/location',
+			  // url: 'https://arupepark.herokuapp.com/location',
+				url: 'http://localhost:8080/location',
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
 			  data: $.param({
 							  "name": $scope.newLocation.name,
@@ -153,30 +156,6 @@ app.controller('AdminController', function($scope, $http){
 			$scope.faultySensorCount = $scope.totalSensorCount - $scope.healthySensorCount;
 			$scope.green = 'img/green.png';
 			$scope.red = 'img/red.png';
-			//  $scope.totalSensorCount = response.data[0].number_of_slot;
-			//  for(var i=0;i<response.data.length;i++){
-			// 	 if((i+1) < response.data.length){
-			// 		 $scope.totalSensorCount = $scope.totalSensorCount + response.data[i+1].number_of_slot;
-			// 	 }else{
-			// 		 $scope.totalSensorCount = $scope.totalSensorCount;
-			// 	 }
-			// 	 $scope.result.push(response.data[i]);
-				//  $scope.openingHoursTest = response.data[i].opening_hours.start;
-				//  $scope.closingHoursTest = response.data[i].opening_hours.end;
-				//  $scope.openingHours = $scope.checkTimeFormatNew($scope.openingHoursTest);
-				//  $scope.closingHours = $scope.checkTimeFormatNew($scope.closingHoursTest);
-			 //
-			// 	 for(var j=0; j<response.data[i].parking_arr.length; j++){
-			// 		 $scope.parkingSlot.push(response.data[i].parking_arr[j]);
-			// 		 if(response.data[i].parking_arr[j].status == 'available'){
-			// 			 $scope.imageSource = 'img/green.png';
-			// 			 $scope.healthySensorCount = $scope.healthySensorCount + 1;
-			// 		 }else{
-			// 			 $scope.imageSource = 'img/red.png';
-			// 			 $scope.faultySensorCount = $scope.faultySensorCount + 1;
-			// 		 }
-			// 	 }
-			//  }
 		 }, function errorCallback(response){
 			 alert(JSON.stringify(response));
 		});
@@ -282,5 +261,71 @@ app.controller('AdminController', function($scope, $http){
 				 alert(JSON.stringify(response2));
 			});
 	};
+
+});
+
+app.controller('LocationAdminController', function($scope, $http, $window){
+	$scope.locationlist = [];
+	$scope.adminList = [];
+	$scope.admin = {
+		location: {
+			name: ''
+		},
+		vendor: {
+			tenure: 1,
+			start_date : new Date()
+		}
+	};
+	$scope.admin.vendor.end_date = new Date($scope.admin.vendor.start_date.getFullYear() + 1, $scope.admin.vendor.start_date.getMonth(), $scope.admin.vendor.start_date.getDate());
+
+	$http.get('http://localhost:8080/location').then(function(success){
+		$scope.locationlist = success.data;
+	});
+
+	$http.get('http://localhost:8080/locationAdmin').then(function(success){
+		$scope.adminList = success.data;
+	});
+
+	$scope.$watch('admin', function(newValue, oldValue, scope){
+		scope.admin.vendor.end_date = new Date(newValue.vendor.start_date.getFullYear() + newValue.vendor.tenure, newValue.vendor.start_date.getMonth(), newValue.vendor.start_date.getDate());
+	}, true);
+
+	$scope.addLoationAdmin = function(){
+		$http({
+			method:'POST',
+			url: 'http://localhost:8080/locationAdmin',
+			headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
+			data: $.param({
+				"location_id" : $scope.admin.location.id,
+				"name" : $scope.admin.name,
+				"email" : $scope.admin.email,
+				"mobile" : $scope.admin.mobile,
+				"vendor_name" : $scope.admin.vendor.name,
+				"vendor_add" : $scope.admin.vendor.address,
+				"vendor_reg" : $scope.admin.vendor.reg,
+				"vendor_tenure" : $scope.admin.vendor.tenure,
+				"start_date" : $scope.admin.vendor.start_date,
+				"end_date" : $scope.admin.vendor.end_date
+			})
+		}).then(function success(data){
+			alert("Location successfully created");
+			$window.location.reload();
+		}, function error(){
+			alert("Error in adding location admin");
+		});
+	};
+
+	$scope.removeAdmin = function(index){
+		$http({
+			method: 'PUT',
+			url: 'http://localhost:8080/locationAdmin/' +  $scope.adminList[index]._id
+		}).then(function(success){
+			alert("Admin removed successfully");
+			$window.location.reload();
+		}, function(err){
+			alert("Error in removing admin");
+		});
+	};
+
 
 });

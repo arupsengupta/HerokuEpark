@@ -1,0 +1,23 @@
+<md-list flex>
+  <md-subheader class="md-no-sticky">Operator List</md-subheader>
+  <md-divider ></md-divider>
+  <md-list-item class="md-2-line"
+      ng-repeat="operator in operatorList"
+      on-long-press="itemOnLongPress($index)"
+      on-touch-end="itemOnTouchEnd($index)"
+      ng-class="{'active' : operator.selected}"
+      listindex="{{$index}}">
+      <div class="md-list-item-text noselect" layout="column">
+        <h3>{{operator.name}}</h3>
+        <p>{{operator.address}}</p>
+      </div>
+      <md-button class="md-secondary md-icon-button" ng-click="null" aria-label="call" ng-disabled="itemSelectedCount > 0">
+        <md-icon md-svg-icon="icons/ic_call_black_24px.svg"></md-icon>
+      </md-button>
+      <md-divider ></md-divider>
+  </md-list-item>
+
+</md-list>
+<md-button ng-hide="itemSelectedCount > 0" aria-label="addnew" class="md-fab md-primary md-fab-bottom-right" ng-click="addOperator()">
+  <md-icon md-svg-icon="icons/ic_add_white_24px.svg"></md-icon>
+</md-button>

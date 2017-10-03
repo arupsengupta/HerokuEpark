@@ -1,0 +1,55 @@
+<md-dialog>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Corporate</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="closeModal()">
+          <md-icon md-svg-src="icons/ic_close_white_24px.svg" aria-label="close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form name="addCorporateForm" ng-submit="addCorporateModal()">
+          <md-input-container class="md-block">
+            <label>Company Name</label>
+            <input type="text" name="name" ng-model="corporate.name" required>
+            <div ng-messages="addCorporateForm.name.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Office Address</label>
+            <input type="text" name="address" ng-model="corporate.address" required>
+            <div ng-messages="addCorporateForm.name.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Contact Person Name</label>
+            <input type="text" name="contactperson" ng-model="corporate.contact.name" required>
+            <div ng-messages="addCorporateForm.contactperson.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Contact Person's Mobile</label>
+            <input type="text" name="contactmobile" ng-model="corporate.contact.number" required>
+            <div ng-messages="addCorporateForm.contactmobile.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Contact Person Email</label>
+            <input type="text" name="contactemail" ng-model="corporate.contact.email" required>
+            <div ng-messages="addCorporateForm.contactemail.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-button flex type="submit" class="md-raised md-primary">Submit</md-button>
+          </div>
+        </form>
+      </div>
+    </md-dialog-content>
+</md-dialog>

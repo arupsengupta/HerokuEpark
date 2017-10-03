@@ -1,0 +1,19 @@
+<md-content layout="column">
+  <md-card md-theme='dark-blue' ng-repeat="company in corporateList">
+    <md-card-title>
+      <md-card-title-text>
+        <span class="md-headline">{{company.name}}</span>
+        <span class="md-subhead">{{company.contact.name}}</span>
+      </md-card-title-text>
+    </md-card-title>
+    <md-card-actions layout="row" layout-align="end center">
+      <md-button >Call</md-button>
+      <md-button ng-href="#/home/corporate/{{$index}}">View</md-button>
+      <md-button>Remove</md-button>
+    </md-card-actions>
+  </md-card>
+  <div ui-view></div>
+</md-content>
+<md-button aria-label="addnew" class="md-fab md-primary md-fab-bottom-right" ng-click="addCorporate()">
+  <md-icon md-svg-icon="icons/ic_add_white_24px.svg"></md-icon>
+</md-button>

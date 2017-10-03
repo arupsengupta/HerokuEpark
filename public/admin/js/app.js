@@ -15,8 +15,12 @@ app.config(function($routeProvider, $locationProvider){
 		templateUrl : 'templates/userDetails.html',
 		controller : 'UserController'
 	})
-    .when('/addLocation', {
+  .when('/addLocation', {
 		templateUrl : 'templates/addLocation.html',
 		controller : 'AddLocationController'
+	})
+	.when('/addLocationAdmin', {
+		templateUrl : 'templates/locationadmin.html',
+		controller : 'LocationAdminController'
 	});
 });

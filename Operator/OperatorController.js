@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
-router.use(bodyParser.urlencoded({extended:true}));
+//router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
 
 var Operator = require('./Operator');
 var bookMessageOp = require('../Push/PushController').bookOp;
@@ -10,10 +11,10 @@ var bookMessageOp = require('../Push/PushController').bookOp;
 // create an operator
 router.post('/', function(req, res){
 	Operator.create({
-		name: req.body.name,
-		contact: req.body.contact,
-		parking_id: req.body.parking_id,
-		pass: req.body.pwd
+		name : req.body.name,
+		contact : req.body.contact,
+		address: 	req.body.address,
+		parking_id : req.body.parking_id
 	},function(err, operator){
 		if(err) return res.status(500).send('Error saving details');
 		res.status(200).send(operator);
@@ -30,7 +31,7 @@ router.post('/login',function(req,res){
 
 // get all operator
 router.get('/', function(req,res){
-	Operator.find({},function(err, operators){
+	Operator.find({active_flag: true},function(err, operators){
 		if(err) return res.status(500).send('Error getting operator list');
 		res.status(200).send(operators);
 	});
@@ -65,6 +66,22 @@ router.get('/token/:phone/:token', function(req, res){
     if(err) return res.status(500).send('Error saving device token');
     res.status(200).send('Success');
   });
+});
+
+// mark inactive an opeartor
+router.put('/', function(req,res){
+	Operator.update({'_id' : {$in : req.body.id}},{$set: {active_flag: false}},{multi: true}).exec(function(err, result){
+		if(err) return res.status(500).send("Error updating opeartor");
+		res.status(200).send('success');
+	});
+});
+
+//update operator by its id
+router.put('/:id', function(req, res){
+	Operator.findByIdAndUpdate(req.params.id, req.body, {new:true}, function(err, operator){
+		if(err) return res.status(500).send("Error updating operator");
+		res.status(200).send(operator);
+	});
 });
 
 // remove an operator

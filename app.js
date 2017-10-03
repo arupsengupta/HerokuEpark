@@ -23,6 +23,8 @@ var OperatorController = require('./Operator/OperatorController');
 var PushController = require('./Push/PushController');
 var MailController = require('./Mail/MailController');
 var unbookScheduler = require('./Scheduler/Schedule');
+var LocationAdminController = require('./LocationAdmin/LocationAdminController');
+var CorporateController = require('./Corporate/CorporateController');
 
 /* scheduler start */
 var j =  schedule.scheduleJob(unbookScheduler.cronExprUnbook, unbookScheduler.func);
@@ -41,5 +43,7 @@ app.use('/device', SensorController);
 app.use('/booking', BookingController);
 app.use('/operator', OperatorController);
 app.use('/push', PushController.router);
+app.use('/locationAdmin', LocationAdminController);
+app.use('/corporate', CorporateController);
 
 module.exports = app;

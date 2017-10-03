@@ -1,0 +1,158 @@
+<div id="wrapper">
+
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <div>
+                    <span style="float: left; margin-left: 2vw;"><img src="img/Logo.png" style="width : 4em;"/></span>
+                    <span><a href="#home" class="navbar-brand" style="font-family : Segoe UI;font-size: 21px;font-weight: 500;">ePark Admin</a></span>
+                </div>
+
+            </div>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="#home" style="font-family : Segoe UI;"><i class="fa fa-dashboard fa-fw"></i> Home Page</a>
+                        </li>
+
+                        <li>
+                            <a href="#addLocation" style="font-family : Segoe UI;"><i class="fa fa-plus-square fa-fw"></i> Location Details</a>
+                        </li>
+
+                        <li>
+                            <button class="btn btn-default btn-block" type="button" data-target="#userlist" style="font-family : Segoe UI; text-align:left;" data-toggle="collapse"><i class="fa fa-plus-square fa-fw"></i> User Details</button>
+                            <div class="collapse" id="userlist">
+                              <ul class="nav nav-pills nav-stacked">
+                                <li>
+                                  <a href="#user" style="font-family : Segoe UI;">User Details</a>
+                                </li>
+                                <li>
+                                  <a href="#addLocationAdmin" style="font-family : Segoe UI;">Location Admin Details</a>
+                                </li>
+                              </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a href="#/" style="font-family : Segoe UI;"><i class="fa fa-stop-circle fa-fw"></i> Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" style="min-height : 70vw;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header" style="font-family : Segoe UI;">Add new location admin</h1>
+                </div>
+            </div>
+
+            <div class="col-lg-16">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" style="font-family: Segoe UI;text-align: center;font-size: 16px;">
+                            Enter the details in the form below
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                   <div class="form-group">
+								      <label class="control-label col-sm-2" for="location-name">Location Name:</label>
+								      <div class="col-sm-10">
+								        <select class="form-control" ng-model="admin.location.id" ng-options="x._id as x.name for x in locationlist"></select>
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="name">Name:</label>
+								      <div class="col-sm-2">
+								        <input type="text" class="form-control" placeholder="Enter contact person name" ng-model="admin.name" id="name">
+								      </div>
+								      <label class="control-label col-sm-2" for="email">Email:</label>
+								      <div class="col-sm-2">
+								        <input type="text" class="form-control" placeholder="Enter contact email id" ng-model="admin.email" id="email">
+								      </div>
+                      <label class="control-label col-sm-2" for="mobile">Mobile:</label>
+								      <div class="col-sm-2">
+								        <input type="text" class="form-control" placeholder="Enter mobile number" ng-model="admin.mobile" id="mobile">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="vendor-name">Vendor Name:</label>
+								      <div class="col-sm-2">
+								        <input type="text" class="form-control" placeholder="Enter vendor name" ng-model="admin.vendor.name" id="vendor-name">
+								      </div>
+                      <label class="control-label col-sm-2" for="vendor-reg">Vendor Registraion Number:</label>
+								      <div class="col-sm-2">
+								        <input type="text" class="form-control" placeholder="Enter registration number" ng-model="admin.vendor.reg" id="vendor-reg">
+								      </div>
+                      <label class="control-label col-sm-2" for="vendor-tenure">Contract Tenure(years):</label>
+								      <div class="col-sm-2">
+								        <input type="number" class="form-control" placeholder="0" ng-model="admin.vendor.tenure" id="vendor-tenure">
+								      </div>
+								    </div>
+                    <div class="form-group">
+								      <label class="control-label col-sm-2" for="address">Vendor Office Address:</label>
+								      <div class="col-sm-10">
+								        <input type="text" class="form-control" placeholder="EP Block, Salt Lake, Kolkata-700064 etc." ng-model="admin.vendor.address" id="address">
+								      </div>
+								    </div>
+								    <div class="form-group">
+								      <label class="control-label col-sm-2" for="start-date">Contract Start Date:</label>
+								      <div class="col-sm-2">
+								        <input type="date" class="form-control" placeholder="Enter Contract Start Date" ng-model="admin.vendor.start_date" id="start-date">
+								      </div>
+								      <label class="control-label col-sm-2" for="end-date">Contract End Date:</label>
+								      <div class="col-sm-2">
+								        <input type="date" class="form-control" placeholder="Enter Contract End Date" ng-model="admin.vendor.end_date" id="end-date" disabled>
+								      </div>
+								    </div>
+								    <div class="form-group" style="text-align : center; margin-top : 2em;">
+								       <button type="button" class="btn btn-success btn-lg" ng-click="addLoationAdmin();">Create new Location Admin</button>
+								    </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer" style="font-family: Segoe UI;text-align: center;">
+                            Ensure that the details that are entered are not erroneous. In case of erroneous entries, please update or delete the same below.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header" style="font-family : Segoe UI;">Existing Location Admin List</h1>
+	                </div>
+                </div>
+
+                <table class="table table-bordered table-striped">
+						    <thead>
+						      <tr>
+						        <th style="text-align : center; font-family : Segoe UI;">Admin Name</th>
+						        <th style="text-align : center; font-family : Segoe UI;">Vendor</th>
+						        <th style="text-align : center; font-family : Segoe UI;">Location</th>
+                    <th style="text-align : center; font-family : Segoe UI;">Tenure</th>
+                    <th style="text-align : center; font-family : Segoe UI;">Contract End Date</th>
+                    <th style="text-align : center; font-family : Segoe UI;">Action</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="admin in adminList">
+						        <td style="text-align : center; font-family : Segoe UI;">{{admin.name}}</td>
+						        <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.name}}</td>
+                    <td style="text-align : center; font-family : Segoe UI;">{{admin.location_id.name}}</td>
+                    <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.contract_tenure}} years</td>
+                    <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.contract_end_date}}</td>
+						        <td style="text-align : center;" ng-click="removeAdmin($index)"><img src="img/remove.png" style="cursor : pointer; width : 2em;"></td>
+						      </tr>
+						    </tbody>
+                </table>
+
+         </div>
+
+</div>

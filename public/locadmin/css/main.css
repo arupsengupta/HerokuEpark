@@ -1,0 +1,7 @@
+.active{
+  background-color: #ddddee;
+}
+
+.noselect{
+  user-select: none;
+}
