@@ -40,7 +40,7 @@ app.controller('OperatorController', function($scope, $mdDialog, $http, $rootSco
   $scope.getOperatorList = function(){
     $http({
       method: 'GET',
-      url: 'http://localhost:8080/operator'
+      url: 'https://arupepark.herokuapp.com/operator'
     }).then(function(success){
       $scope.operatorList = success.data;
     });
@@ -85,7 +85,7 @@ app.controller('OperatorController', function($scope, $mdDialog, $http, $rootSco
     }
     $http({
       method: 'PUT',
-      url: 'http://localhost:8080/operator',
+      url: 'https://arupepark.herokuapp.com/operator',
       headers: {'Content-Type':'application/json'},
       data: {
         id: idArr
@@ -158,7 +158,7 @@ app.controller('AddOperatorController', function($scope, $mdDialog, $http, $root
   $scope.addOperatorModal = function(){
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/operator',
+      url: 'https://arupepark.herokuapp.com/operator',
       headers: {'Content-Type' : 'application/json'},
       data: $scope.operator
     }).then(function(success){
@@ -203,7 +203,7 @@ app.controller('EditOperatorController', function($scope, $mdDialog, $http, $roo
   $scope.addOperatorModal = function(){
     $http({
       method: 'PUT',
-      url: 'http://localhost:8080/operator/' + $scope.operator._id,
+      url: 'https://arupepark.herokuapp.com/operator/' + $scope.operator._id,
       headers: {'Content-Type' : 'application/json'},
       data: $scope.operator
     }).then(function(success){
@@ -258,7 +258,7 @@ app.controller('CorporateController', function($scope, $mdDialog, $http){
   $scope.getCorporateList = function(){
     $http({
       method: 'GET',
-      url: 'http://localhost:8080/corporate'
+      url: 'https://arupepark.herokuapp.com/corporate'
     }).then(function(success){
       $scope.corporateList = success.data;
     },function(err){
@@ -288,7 +288,7 @@ app.controller('AddCorporateController', function($scope, $mdDialog, $http, $roo
   $scope.addCorporateModal = function(){
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/corporate',
+      url: 'https://arupepark.herokuapp.com/corporate',
       headers: {'Content-Type' : 'application/json'},
       data: $scope.corporate
     }).then(function(success){
