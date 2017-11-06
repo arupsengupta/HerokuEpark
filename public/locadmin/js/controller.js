@@ -32,7 +32,12 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope){
   };
 });
 
+app.controller('HomeController', function($scope){
+  $scope.$parent.header = 'Home';
+});
+
 app.controller('OperatorController', function($scope, $mdDialog, $http, $rootScope){
+
   $scope.operator = {};
   $scope.operatorList = [];
   $scope.$parent.itemSelectedCount = 0;
@@ -324,7 +329,71 @@ app.controller('AddCorporateController', function($scope, $mdDialog, $http, $roo
   };
 });
 
-app.controller('CorporateViewController', function($scope, $stateParams){
-  //$scope.corporate = $scope.$parent.corporateList[$stateParams.id];
-  console.log($scope.corporate);
+app.controller('CorporateViewController', function($scope, $stateParams, $http){
+  var id = $stateParams.id;
+  $http({
+    method: 'GET',
+    url: 'https://arupepark.herokuapp.com/corporate/' + id
+  }).then(function(success){
+    $scope.company = success.data;
+  },function(err){
+  });
+});
+
+app.controller('ProfileController', function($scope){
+  $scope.$parent.header = 'Profile';
+});
+
+app.controller('BookingController', function($scope, $mdDialog){
+  $scope.$parent.header = 'Bookings';
+  $scope.booking = {
+    range: 'Date',
+    date: new Date()
+  };
+
+  $scope.addBooking = function(){
+    if($scope.tab.selectedIndex === 1){
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        controller: 'AddBookingController',
+        templateUrl: 'templates/modal/addMonthlyBooking.html',
+        parent: angular.element(document.body),
+        fullscreen: true
+      });
+    }else if($scope.tab.selectedIndex === 2){
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        controller: 'AddCorporateBookingController',
+        templateUrl: 'templates/modal/addCorporateBooking.html',
+        parent: angular.element(document.body),
+        fullscreen: true
+      });
+    }
+  }
+});
+
+app.controller('AddBookingController', function($scope, $mdDialog){
+  $scope.closeModal = function(){
+    $mdDialog.hide();
+  };
+});
+
+app.controller('AddCorporateBookingController', function($scope, $mdDialog, $timeout, $http){
+  $scope.closeModal = function(){
+    $mdDialog.hide();
+  };
+
+  $scope.loadCompany = function(){
+    return $timeout(function(){
+      $http({
+        method: 'GET',
+        url: 'https://arupepark.herokuapp.com/corporate'
+      }).then(function(success){
+        $scope.corporateList = success.data;
+      },function(err){
+      });
+    }, 650);
+  };
 });

@@ -1,0 +1,87 @@
+
+  <md-tabs md-dynamic-height md-stretch-tabs="yes">
+    <md-tab label="Account">
+      <md-content class="md-padding">
+        <form name="profileForm">
+          <md-input-container class="md-block">
+            <label>Company</label>
+            <input type="text" name="company" ng-model="company.name" required>
+            <div ng-messages="profileForm.company.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Address Line 1</label>
+            <input type="text" name="address1" ng-model="company.address1" required>
+            <div ng-messages="profileForm.address1.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Address Line 2(Optional)</label>
+            <input type="text" name="address2" ng-model="company.address2">
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Phone Number</label>
+            <input type="number" name="phone" ng-model="company.phone" required>
+            <div ng-messages="profileForm.phone.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Email</label>
+            <input type="text" name="email" ng-model="company.email" required>
+            <div ng-messages="profileForm.email.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <md-button flex type="submit" class="md-raised md-primary">Submit</md-button>
+          </div>
+        </form>
+      </md-content>
+    </md-tab>
+    <md-tab label="Manage">
+      <md-content class="md-padding">
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Start Time(hours)</label>
+            <md-icon md-svg-src="icons/ic_timer_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.hours.start">
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>End Time(hours)</label>
+            <md-icon md-svg-src="icons/ic_timer_off_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.hours.end">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>No of slots</label>
+            <md-icon md-svg-src="icons/ic_directions_bike_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.slots.twowheeler">
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>No of slots</label>
+            <md-icon md-svg-src="icons/ic_directions_car_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.slots.fourwheeler">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-input-container flex="50">
+            <label>Fare(hourly)</label>
+            <md-icon md-svg-src="icons/ic_directions_bike_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.fare.twowheeler">
+          </md-input-container>
+          <md-input-container flex="50">
+            <label>Fare(hourly)</label>
+            <md-icon md-svg-src="icons/ic_directions_car_black_24px.svg"></md-icon>
+            <input type="number" ng-model="manage.fare.fourwheeler">
+          </md-input-container>
+        </div>
+        <div layout="row">
+          <md-button flex type="submit" class="md-raised md-primary">Update</md-button>
+        </div>
+      </md-content>
+    </md-tab>
+  </md-tabs>

@@ -23,15 +23,19 @@
         </md-toolbar>
         <md-content>
           <md-list flex>
-            <md-list-item ng-click="navigate('home')">
+            <md-list-item ng-click="navigate('home.home')">
               <p>Home</p>
             </md-list-item>
             <md-divider ></md-divider>
+            <md-list-item ng-click="navigate('home.profile')">
+              <p>Profile</p>
+            </md-list-item>
+            <md-divider></md-divider>
             <md-list-item ng-click="navigate('home.operators')">
               <p>Operators</p>
             </md-list-item>
             <md-divider ></md-divider>
-            <md-list-item ng-click="null">
+            <md-list-item ng-click="navigate('home.bookings')">
               <p>Bookings</p>
             </md-list-item>
             <md-divider ></md-divider>
@@ -39,9 +43,6 @@
               <p>Corporate Users</p>
             </md-list-item>
             <md-divider ></md-divider>
-            <md-list-item ng-click="null">
-              <p>Payments</p>
-            </md-list-item>
           </md-list>
         </md-content>
       </md-sidenav>

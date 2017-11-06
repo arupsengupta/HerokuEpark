@@ -30,6 +30,13 @@ router.get('/', function(req, res){
   });
 });
 
+router.get('/:id', function(req, res){
+  Corporate.findById(req.params.id, function(err, corporate){
+    if(err) return res.status(500).send("Error getting corporate details");
+    res.status(200).send(corporate);
+  });
+});
+
 //delete a corporate user by id
 router.put('/:id', function(req, res){
   Corporate.update({_id: req.params.id},{$set: {active_flag: false}}).exec(function(err, corporate){

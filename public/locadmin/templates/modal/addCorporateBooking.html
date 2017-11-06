@@ -1,0 +1,48 @@
+<md-dialog>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Company Booking</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="closeModal()">
+          <md-icon md-svg-src="icons/ic_close_white_24px.svg" aria-label="close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form name="addCorporateBookingForm" ng-submit="addCorporateBooking()">
+          <md-input-container class="md-block">
+            <label>Name</label>
+            <md-select placeholder="Select Company" ng-model="corporate.id" md-on-open="loadCompany()" required>
+              <md-option ng-value="item._id" ng-repeat="item in corporateList">{{item.name}}</md-option>
+            </md-select>
+          </md-input-container>
+          <div layout="row">
+            <md-input-container flex="50">
+              <label>No. of slots</label>
+              <md-icon md-svg-src="icons/ic_directions_bike_black_24px.svg"></md-icon>
+              <input type="number" ng-model="corporate.slots.two">
+            </md-input-container>
+            <md-input-container flex="50">
+              <label>No. of slots</label>
+              <md-icon md-svg-src="icons/ic_directions_car_black_24px.svg"></md-icon>
+              <input type="number" ng-model="corporate.slots.four">
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <div flex="50">
+              <h4>Start Date</h4>
+              <md-datepicker md-max-date="corporate.daterange.enddate" ng-model="corporate.daterange.startdate" md-placeholder="Enter Date" required></md-datepicker>
+            </div>
+            <div flex="50">
+              <h4>End Date</h4>
+              <md-datepicker md-min-date="corporate.daterange.startdate" ng-model="corporate.daterange.enddate" md-placeholder="Enter Date"></md-datepicker>
+            </div>
+          </div>
+          <div layout="row" style="padding-top: 10px;">
+            <md-button flex type="submit" class="md-raised md-primary">Submit</md-button>
+          </div>
+        </form>
+      </div>
+    </md-dialog-content>
+</md-dialog>

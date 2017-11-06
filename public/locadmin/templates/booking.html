@@ -1,0 +1,72 @@
+<md-content>
+  <md-tabs md-stretch-tabs="yes" md-dynamic-height md-selected="tab.selectedIndex">
+    <md-tab label="Daily">
+      <md-content layout-padding>
+        <md-subheader>Daily Bookings</md-subheader>
+        <section>
+          <md-radio-group layout="row" ng-model="booking.range" class="md-primary">
+            <md-radio-button flex="50" value="Date">Date</md-radio-button>
+            <md-radio-button flex="50" value="Range">Range</md-radio-button>
+          </md-radio-group>
+          <div layout="row" ng-show="booking.range == 'Date'">
+            <div flex="50">
+              <h4>Select Date</h4>
+              <md-datepicker ng-model="booking.date" md-placeholder="Enter Date"></md-datepicker>
+            </div>
+          </div>
+          <div layout="row" ng-show="booking.range == 'Range'">
+            <div flex="50">
+              <h4>Start Date</h4>
+              <md-datepicker md-max-date="booking.daterange.enddate" ng-model="booking.daterange.startdate" md-placeholder="Enter Date"></md-datepicker>
+            </div>
+            <div flex="50">
+              <h4>End Date</h4>
+              <md-datepicker md-min-date="booking.daterange.startdate" ng-model="booking.daterange.enddate" md-placeholder="Enter Date"></md-datepicker>
+            </div>
+          </div>
+          <div layout="column">
+            <md-card>
+              <md-card-content>
+                <md-list flex>
+                  <md-list-item class="md-3-line">
+                    <img src="icons/ic_directions_car_black_24px.svg" class="md-avatar" alt="four wheeler">
+                    <div class="md-list-item-text noselect" layout="column">
+                      <h3>Number of bookings: 100</h3>
+                      <h4>Booking hours: 200</h4>
+                      <p>Total fare: 2000</p>
+                    </div>
+                  </md-list-item>
+                  <md-list-item class="md-3-line">
+                    <img src="icons/ic_directions_bike_black_24px.svg" class="md-avatar" alt="two wheeler">
+                    <div class="md-list-item-text noselect" layout="column">
+                      <h3>Number of bookings: 100</h3>
+                      <h4>Booking hours: 200</h4>
+                      <p>Total fare: 2000</p>
+                    </div>
+                  </md-list-item>
+                </md-list>
+              </md-card-content>
+            </md-card>
+          </div>
+        </section>
+      </md-content>
+    </md-tab>
+    <md-tab label="Monthly">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Monthly Booking List</md-subheader>
+        <md-divider></md-divider>
+
+      </md-list>
+    </md-tab>
+    <md-tab label="Corporate">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Corporate Booking List</md-subheader>
+        <md-divider></md-divider>
+
+      </md-list>
+    </md-tab>
+  </md-tabs>
+</md-content>
+<md-button ng-hide="tab.selectedIndex == 0" aria-label="addnew" class="md-fab md-primary md-fab-bottom-right" ng-click="addBooking()">
+  <md-icon md-svg-icon="icons/ic_add_white_24px.svg"></md-icon>
+</md-button>

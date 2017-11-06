@@ -1,0 +1,61 @@
+<md-dialog>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Monthly Booking</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="closeModal()">
+          <md-icon md-svg-src="icons/ic_close_white_24px.svg" aria-label="close dialog"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <form name="addBookingForm" ng-submit="addMonthlyBooking()">
+          <md-input-container class="md-block">
+            <label>Name</label>
+            <input type="text" name="name" ng-model="customer.name" required>
+            <div ng-messages="addBookingForm.name.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label>Contact</label>
+            <input type="text" name="number" ng-model="customer.contact" required>
+            <div ng-messages="addBookingForm.number.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <md-radio-group layout="row" ng-model="customer.vehicle.type" class="md-primary">
+              <md-radio-button flex="50" value="two">
+                <md-icon md-svg-src="icons/ic_directions_bike_black_24px.svg"></md-icon>
+              </md-radio-button>
+              <md-radio-button flex="50" value="four">
+                <md-icon md-svg-src="icons/ic_directions_car_black_24px.svg"></md-icon>
+              </md-radio-button>
+            </md-radio-group>
+          </md-input-container>
+          <md-input-container  class="md-block">
+            <label>Vehicle No.</label>
+            <input type="text" name="vehicle" ng-model="customer.vehicle.no" required>
+            <div ng-messages="addBookingForm.vehicle.$error">
+              <div ng-message="required">This is required</div>
+            </div>
+          </md-input-container>
+          <div layout="row">
+            <div flex="50">
+              <h4>Start Date</h4>
+              <md-datepicker md-max-date="customer.daterange.enddate" ng-model="customer.daterange.startdate" md-placeholder="Enter Date" required></md-datepicker>
+            </div>
+            <div flex="50">
+              <h4>End Date</h4>
+              <md-datepicker md-min-date="customer.daterange.startdate" ng-model="customer.daterange.enddate" md-placeholder="Enter Date"></md-datepicker>
+            </div>
+          </div>
+          <div layout="row" style="padding-top: 10px;">
+            <md-button flex type="submit" class="md-raised md-primary">Submit</md-button>
+          </div>
+        </form>
+      </div>
+    </md-dialog-content>
+</md-dialog>
