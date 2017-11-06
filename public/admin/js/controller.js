@@ -64,8 +64,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 
 	$http({
 		  method: 'GET',
-			url: 'http://localhost:8080/location',
-		  // url: 'https://arupepark.herokuapp.com/location',
+			//url: 'http://localhost:8080/location',
+		  url: 'https://arupepark.herokuapp.com/location',
 		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		}).then(function successCallback(response){
 			for(var i=0;i<response.data.length;i++){
@@ -79,8 +79,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.deleteLocation = function(locationID){
 		$http({
 			  method: 'DELETE',
-				url: 'http://localhost:8080/location/' + locationID
-			  // url: 'https://arupepark.herokuapp.com/location/' + locationID
+				//url: 'http://localhost:8080/location/' + locationID
+			  url: 'https://arupepark.herokuapp.com/location/' + locationID
 		}).then(function successCallback(response){
 			alert("Location successfully deleted");
 			$window.location.reload();
@@ -92,8 +92,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.createLocation = function(){
 		$http({
 			  method: 'POST',
-			  // url: 'https://arupepark.herokuapp.com/location',
-				url: 'http://localhost:8080/location',
+			  url: 'https://arupepark.herokuapp.com/location',
+				//url: 'http://localhost:8080/location',
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
 			  data: $.param({
 							  "name": $scope.newLocation.name,
@@ -278,11 +278,11 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	};
 	$scope.admin.vendor.end_date = new Date($scope.admin.vendor.start_date.getFullYear() + 1, $scope.admin.vendor.start_date.getMonth(), $scope.admin.vendor.start_date.getDate());
 
-	$http.get('http://localhost:8080/location').then(function(success){
+	$http.get('https://arupepark.herokuapp.com/location').then(function(success){
 		$scope.locationlist = success.data;
 	});
 
-	$http.get('http://localhost:8080/locationAdmin').then(function(success){
+	$http.get('https://arupepark.herokuapp.com/locationAdmin').then(function(success){
 		$scope.adminList = success.data;
 	});
 
@@ -293,7 +293,7 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	$scope.addLoationAdmin = function(){
 		$http({
 			method:'POST',
-			url: 'http://localhost:8080/locationAdmin',
+			url: 'https://arupepark.herokuapp.com/locationAdmin',
 			headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 			data: $.param({
 				"location_id" : $scope.admin.location.id,
@@ -318,7 +318,7 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	$scope.removeAdmin = function(index){
 		$http({
 			method: 'PUT',
-			url: 'http://localhost:8080/locationAdmin/' +  $scope.adminList[index]._id
+			url: 'https://arupepark.herokuapp.com/locationAdmin/' +  $scope.adminList[index]._id
 		}).then(function(success){
 			alert("Admin removed successfully");
 			$window.location.reload();

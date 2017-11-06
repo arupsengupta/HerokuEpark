@@ -6,5 +6,31 @@
         <span class="md-subhead">{{company.address}}</span>
       </md-card-title-text>
     </md-card-title>
+    <md-card-content layout="row">
+      <md-list flex>
+        <md-subheader class="md-no-sticky">Contact person</md-no-sticky>
+        <md-list-item class="md-2-line">
+          <md-icon md-svg-icon="icons/ic_person_white_24px.svg" class="md-avatar-icon"></md-icon>
+          <div class="md-list-item-text">
+            <h3>Name</h3>
+            <p>{{company.contact.name}}</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <md-icon md-svg-icon="icons/ic_email_white_24px.svg" class="md-avatar-icon"></md-icon>
+          <div class="md-list-item-text">
+            <h3>Email</h3>
+            <p>{{company.contact.email}}</p>
+          </div>
+        </md-list-item>
+        <md-list-item class="md-2-line">
+          <md-icon md-svg-icon="icons/ic_call_white_24px.svg" class="md-avatar-icon"></md-icon>
+          <div class="md-list-item-text">
+            <h3>Phone</h3>
+            <p>{{company.contact.number}}</p>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-card-content>
   </md-card>
 </md-content>
