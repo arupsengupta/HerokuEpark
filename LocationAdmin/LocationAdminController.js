@@ -43,6 +43,14 @@ router.get('/:id', function(req, res){
   });
 });
 
+//return an admin by its phone number
+router.get('/con/:contact', function(req, res){
+  LocationAdmin.findOne({mobile: req.params.contact, active_flag: true}).populate('location_id').exec(function(err, admin){
+    if(err) return res.status(500).send("Error getting admin");
+    res.status(200).send(admin);
+  });
+});
+
 //delete an admin by its id
 router.put('/:id', function(req, res){
   LocationAdmin.where({_id:req.params.id}).update({$set: {active_flag: false}}).exec(function(err, admin){
