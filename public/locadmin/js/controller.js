@@ -1,18 +1,9 @@
 var app = angular.module('eParkLocAdmin');
 
 app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http){
-  $rootScope.parking_id = '59cf5fff2e9aee114c11884d';
+  $rootScope.parking_id = '';
   $scope.user = {
-    mobile: 9878787878
-  };
-
-  $scope.getDetails = function(){
-    $http({
-      method: 'GET',
-      url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
-    }).then(function(success){
-      $scope.user = success.data;
-    });
+    mobile: 9874112233
   };
 
   $scope.header = 'RS Software';
@@ -43,12 +34,20 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http
       $scope.$$childTail.editOperator();
     }
   };
-
-  $scope.getDetails();
 });
 
-app.controller('HomeController', function($scope){
+app.controller('HomeController', function($scope,$http,$rootScope){
   $scope.$parent.header = 'Home';
+  $scope.getDetails = function(){
+    $http({
+      method: 'GET',
+      url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
+    }).then(function(success){
+      $scope.$parent.user = success.data;
+      $rootScope.parking_id = $scope.$parent.user.location_id._id;
+    });
+  };
+  $scope.getDetails();
 });
 
 app.controller('OperatorController', function($scope, $mdDialog, $http, $rootScope){
@@ -179,7 +178,8 @@ app.controller('AddOperatorController', function($scope, $mdDialog, $http, $root
     $http({
       method: 'POST',
       url: 'https://arupepark.herokuapp.com/operator',
-      headers: {'Content-Type' : 'application/json'},
+      headers: {'Content-Type' : 'application/json',
+    'Access-Control-Allow-Origin': '*'},
       data: $scope.operator
     }).then(function(success){
       if(success.status === 200){
@@ -358,17 +358,17 @@ app.controller('CorporateViewController', function($scope, $stateParams, $http){
 app.controller('ProfileController', function($scope, $http){
   $scope.$parent.header = 'Profile';
   $scope.company = angular.copy($scope.user);
+  $scope.manage = $scope.company.location_id;
+  // $scope.getManageDetails = function(){
+  //   $http({
+  //     method: 'GET',
+  //     url: 'https://arupepark.herokuapp.com/location/' + $scope.company.location_id._id
+  //   }).then(function(success){
+  //     $scope.manage = success.data;
+  //   });
+  // };
 
-  $scope.getManageDetails = function(){
-    $http({
-      method: 'GET',
-      url: 'https://arupepark.herokuapp.com/location/' + $scope.company.location_id._id
-    }).then(function(success){
-      $scope.manage = success.data;
-    });
-  };
-
-  $scope.getManageDetails();
+  //$scope.getManageDetails();
 
   console.log($scope.user);
 });
