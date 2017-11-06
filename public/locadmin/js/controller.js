@@ -2,6 +2,10 @@ var app = angular.module('eParkLocAdmin');
 
 app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope){
   $rootScope.parking_id = '59cf5fff2e9aee114c11884d';
+  $scope.user = {
+    id: '59cfdd90a458633568ed5931'
+  };
+  
   $scope.header = 'RS Software';
   $scope.showContextMenu = false;
   $scope.itemSelectedCount = 0;

@@ -37,7 +37,7 @@ router.get('/', function(req, res){
 
 //return an admin by its id
 router.get('/:id', function(req, res){
-  LocationAdmin.find({_id: req.params.id, active_flag: true}).populate('location_id').exec(function(err, admin){
+  LocationAdmin.findOne({_id: req.params.id, active_flag: true}).populate('location_id').exec(function(err, admin){
     if(err) return res.status(500).send("Error getting admin");
     res.status(200).send(admin);
   });
