@@ -55,7 +55,10 @@ app.controller('AddLocationController', function($scope, $http, $window){
 		latitude : 0,
 		longitude : 0,
 		rate : 0,
-		numberOfSlots : 0,
+		numberOfSlots : {
+			two: 0,
+			four: 0
+		},
 		startingTime : 0,
 		closingTime : 0
 	};
