@@ -1,6 +1,6 @@
 var app = angular.module('eParkLocAdmin');
 
-app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope){
+app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http){
   $rootScope.parking_id = '59cf5fff2e9aee114c11884d';
   $scope.user = {
     mobile: 9878787878
@@ -43,6 +43,8 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope){
       $scope.$$childTail.editOperator();
     }
   };
+
+  $scope.getDetails();
 });
 
 app.controller('HomeController', function($scope){
@@ -353,8 +355,22 @@ app.controller('CorporateViewController', function($scope, $stateParams, $http){
   });
 });
 
-app.controller('ProfileController', function($scope){
+app.controller('ProfileController', function($scope, $http){
   $scope.$parent.header = 'Profile';
+  $scope.company = angular.copy($scope.user);
+
+  $scope.getManageDetails = function(){
+    $http({
+      method: 'GET',
+      url: 'https://arupepark.herokuapp.com/location/' + $scope.company.location_id._id
+    }).then(function(success){
+      $scope.manage = success.data;
+    });
+  };
+
+  $scope.getManageDetails();
+
+  console.log($scope.user);
 });
 
 app.controller('BookingController', function($scope, $mdDialog){

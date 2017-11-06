@@ -8,7 +8,7 @@ var User = require('./User');
 var Mail = require('../Mail/MailController').welcomeFunc;
 
 //create a new user
-router.post('/', function(req, res, next){
+router.post('/', function(req, res){
   User.create({
     name: req.body.name,
     email: req.body.email,
@@ -22,7 +22,7 @@ router.post('/', function(req, res, next){
     next();
     //res.status(200).send(user);
   });
-}, Mail);
+});
 
 //returns all the users in the database
 router.get('/', function(req, res){

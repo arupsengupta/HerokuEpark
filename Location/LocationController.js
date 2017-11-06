@@ -17,7 +17,10 @@ router.post('/', function(req, res){
       lat: req.body.lat,
       lng: req.body.lng
     },
-    number_of_slot: req.body.parking_slot,
+    number_of_slot: {
+      two: req.body.parking_slot_two,
+      four: req.body.parking_slot_four
+    },
     opening_hours : {
         start: req.body.opening_hours_start,
         end: req.body.opening_hours_end

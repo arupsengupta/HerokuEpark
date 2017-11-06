@@ -101,7 +101,8 @@ app.controller('AddLocationController', function($scope, $http, $window){
 							  "lng": $scope.newLocation.longitude,
 							  "address": $scope.newLocation.address,
 							  "hourly_price": $scope.newLocation.rate,
-							  "parking_slot": $scope.newLocation.numberOfSlots,
+							  "parking_slot_two": $scope.newLocation.numberOfSlots.two,
+								"parking_slot_four": $scope.newLocation.numberOfSlots.four,
 							  "booked_slot": 0,
 							  "opening_hours_start": $scope.newLocation.startingTime,
 							  "opening_hours_end": $scope.newLocation.closingTime

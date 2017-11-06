@@ -5,14 +5,14 @@
         <form name="profileForm">
           <md-input-container class="md-block">
             <label>Company</label>
-            <input type="text" name="company" ng-model="company.name" required>
+            <input type="text" name="company" ng-model="company.organization_details.name" required>
             <div ng-messages="profileForm.company.$error">
               <div ng-message="required">This is required</div>
             </div>
           </md-input-container>
           <md-input-container class="md-block">
             <label>Address Line 1</label>
-            <input type="text" name="address1" ng-model="company.address1" required>
+            <input type="text" name="address1" ng-model="company.organization_details.office_address" required>
             <div ng-messages="profileForm.address1.$error">
               <div ng-message="required">This is required</div>
             </div>
@@ -23,7 +23,7 @@
           </md-input-container>
           <md-input-container class="md-block">
             <label>Phone Number</label>
-            <input type="number" name="phone" ng-model="company.phone" required>
+            <input type="number" name="phone" ng-model="company.mobile" required>
             <div ng-messages="profileForm.phone.$error">
               <div ng-message="required">This is required</div>
             </div>
@@ -47,12 +47,12 @@
           <md-input-container flex="50">
             <label>Start Time(hours)</label>
             <md-icon md-svg-src="icons/ic_timer_black_24px.svg"></md-icon>
-            <input type="number" ng-model="manage.hours.start">
+            <input type="number" ng-model="manage.opening_hours.start">
           </md-input-container>
           <md-input-container flex="50">
             <label>End Time(hours)</label>
             <md-icon md-svg-src="icons/ic_timer_off_black_24px.svg"></md-icon>
-            <input type="number" ng-model="manage.hours.end">
+            <input type="number" ng-model="manage.opening_hours.end">
           </md-input-container>
         </div>
         <div layout="row">

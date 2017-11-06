@@ -6,10 +6,17 @@ var LocationSchema = new mongoose.Schema({
     lat: Number,
     lng: Number
   },
-  number_of_slot: Number,
+  number_of_slot: {
+    two: Number,
+    four: Number
+  },
   opening_hours: {
     start: Number,
     end: Number
+  },
+  fare: {
+    two: Number,
+    four: Number
   }
 });
 
