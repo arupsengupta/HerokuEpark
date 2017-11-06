@@ -35,6 +35,9 @@ router.get('/', function(req, res){
 router.post('/login',function(req, res){
   User.find({phone: req.body.phone}, function(err, users){
     if(err) return res.status(500).send("There was a problem finfing the usre");
+    if(users.length == 0){
+      return res.status(401);
+    }
     console.log(users[0].password + ', '+ req.body.pwd);
     if(users[0].password === req.body.pwd){
       res.status(200).send(users[0]);

@@ -178,8 +178,7 @@ app.controller('AddOperatorController', function($scope, $mdDialog, $http, $root
     $http({
       method: 'POST',
       url: 'https://arupepark.herokuapp.com/operator',
-      headers: {'Content-Type' : 'application/json',
-    'Access-Control-Allow-Origin': '*'},
+      headers: {'Content-Type' : 'application/json'},
       data: $scope.operator
     }).then(function(success){
       if(success.status === 200){
