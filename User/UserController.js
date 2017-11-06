@@ -19,8 +19,8 @@ router.post('/', function(req, res){
   function(err, user){
     if(err) return res.status(500).send("There was a problem adding information to the database");
     req.user = user;
-    next();
-    //res.status(200).send(user);
+    //next();
+    res.status(200).send(user);
   });
 });
 
