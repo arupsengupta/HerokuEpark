@@ -108,7 +108,7 @@ app.controller('OperatorController', function($scope, $mdDialog, $http, $rootSco
   $scope.getOperatorList = function(){
     $http({
       method: 'GET',
-      url: 'https://arupepark.herokuapp.com/operator/loc/' + $scope.$parent.user.location_id
+      url: 'https://arupepark.herokuapp.com/operator/loc/' + $scope.$parent.user.location_id._id
     }).then(function(success){
       $scope.operatorList = success.data;
     });
@@ -221,7 +221,8 @@ app.controller('AddOperatorController', function($scope, $mdDialog, $http, $root
     $mdDialog.hide();
   };
 
-  $scope.operator.parking_id = $rootScope.parking_id;
+  $scope.operator.parking_id = $scope.$parent.user.location_id._id;
+  //console.log($scope.$parent.user.location_id);
 
   $scope.addOperatorModal = function(){
     $http({
@@ -350,10 +351,10 @@ app.controller('AddCorporateController', function($scope, $mdDialog, $http, $roo
   };
 
   $scope.corporate = {
-    parking_id : $rootScope.parking_id
+    parking_id : $scope.$parent.user.location_id._id
   };
 
-  console.log($rootScope.parking_id);
+  //console.log($scope.$parent.user.location_id);
 
   $scope.addCorporateModal = function(){
     $http({
