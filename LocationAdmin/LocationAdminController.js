@@ -53,7 +53,11 @@ router.get('/:id', function(req, res){
 router.get('/con/:contact', function(req, res){
   LocationAdmin.findOne({mobile: req.params.contact, active_flag: true}).exec(function(err, admin){
     if(err) return res.status(500).send("Error getting admin");
-    res.status(200).send(admin);
+    if(admin === null){
+      res.status(403).send("cannot login");
+    }else{
+      res.status(200).send(admin);
+    }
   });
 });
 

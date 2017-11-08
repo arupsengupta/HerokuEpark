@@ -1,6 +1,6 @@
-var app = angular.module('eParkLocAdmin',['ngMaterial','ui.router','ngMessages']);
+var app = angular.module('eParkLocAdmin',['ngMaterial','ui.router','ngMessages','LocalStorageModule']);
 
-app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, $provide){
+app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider, $provide, localStorageServiceProvider){
   $stateProvider.state('home',{
     url: '/home',
     templateUrl: 'templates/home.html',
@@ -35,6 +35,11 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $htt
     templateUrl: 'templates/corporate-view.html',
     url: '/corporate/:id',
     controller: 'CorporateViewController'
+  })
+  .state('login',{
+    templateUrl: 'templates/login.html',
+    url: '/login',
+    controller: 'LoginController'
   });
 
   $urlRouterProvider.otherwise('/home/main');
@@ -45,10 +50,20 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $htt
   $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
   $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
   $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+
+  localStorageServiceProvider.setPrefix('eParkLocAdmin');
 });
 
-app.run(function($rootScope){
+app.run(function($rootScope, localStorageService){
   $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl){
+    
+    if(newUrl.includes('login')){
+      if(localStorageService.isSupported){
+        if(localStorageService.get('user') != null){
+          event.preventDefault();
+        }
+      }
+    }
     if($rootScope.$$childHead.showContextMenu !== undefined){
       if($rootScope.$$childHead.showContextMenu){
         $rootScope.$$childHead.itemSelectedCount = 0;

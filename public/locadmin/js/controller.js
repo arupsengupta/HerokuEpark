@@ -1,6 +1,38 @@
 var app = angular.module('eParkLocAdmin');
 
-app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http){
+app.controller('LoginController', function($scope, $http, localStorageService, $state){
+  $scope.login = function(){
+    $http({
+      method: 'GET',
+      url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
+    }).then(function(success){
+      if(success.status === 200){
+        if(localStorageService.isSupported){
+          localStorageService.set('user',success.data._id);
+          $state.go('home.home');
+        }
+      }else {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .clickOutsideToClose(true)
+            .title('Login Error')
+            .textContent('Cannot login. Please try again!!')
+            .ok('Ok')
+        );
+      }
+    });
+  };
+});
+
+app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http, localStorageService){
+  if(localStorageService.isSupported){
+    if(localStorageService.get('user') == null){
+      //$state.replace();
+      $state.go('login');
+    }
+  }
+
   $rootScope.parking_id = '';
   $scope.user = {
     mobile: 9748216349
@@ -15,8 +47,13 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http
   };
 
   $scope.navigate = function(path){
-    $scope.sideToogle();
-    $state.go(path);
+    if(path === 'logout'){
+      localStorageService.remove('user');
+      $state.go('login');
+    }else {
+      $scope.sideToogle();
+      $state.go(path);
+    }
   };
 
   $scope.toogleContextMenu = function(){
@@ -46,9 +83,10 @@ app.controller('HomeController', function($scope,$http,$rootScope){
       $scope.$parent.user = success.data;
       $http({
         method: 'GET',
-        url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id;
+        url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id
       }).then(function(success){
-          $rootScope.parking_id = success.data[0].locid._id;
+        $scope.$parent.user.location_id = success.data[0].locid;
+        $rootScope.parking_id = success.data[0].locid._id;
       });
     });
   };
@@ -135,7 +173,7 @@ app.controller('OperatorController', function($scope, $mdDialog, $http, $rootSco
           .textContent('Cannot remove opeartor')
           .ok('Ok')
       );
-    })
+    });
   };
 
   $scope.itemOnLongPress = function(index) {

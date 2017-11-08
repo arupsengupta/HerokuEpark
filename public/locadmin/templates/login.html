@@ -1,0 +1,19 @@
+<md-content layout="column" layout-padding layout-align="center center" style="height: 100%">
+  <div layout="row" class="md-media-md card-media">
+    <img src="img/icon.png" alt="logo" width="200" height="200">
+  </div>
+  <div layout="row" style="width: 75%">
+    <form name="loginForm" flex ng-submit="login()">
+      <md-input-container class="md-block">
+        <label>Mobile Number</label>
+        <input type="number" name="mobile" ng-model="user.mobile" required>
+        <div ng-messages="loginForm.mobile.$error">
+          <div ng-message="required">This is required</div>
+        </div>
+      </md-input-container>
+      <div layout="row">
+        <md-button flex type="submit" class="md-raised md-primary">LOGIN</md-button>
+      </div>
+    </form>
+  </div>
+</md-content>
