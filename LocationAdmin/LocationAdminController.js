@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
 
 var LocationAdmin = require('./LocationAdmin');
+var LocAdminMap = require('../LocAdminMap/LocAdminMap');
 
 //create a new location admin
 router.post('/', function(req, res){
@@ -12,7 +13,6 @@ router.post('/', function(req, res){
     name: req.body.name,
     mobile: req.body.mobile,
     email: req.body.email,
-    location_id: req.body.location_id,
     organization_details: {
       name: req.body.vendor_name,
       reg_number: req.body.vendor_reg,
@@ -23,7 +23,13 @@ router.post('/', function(req, res){
     }
   }, function(err, locationAdmin){
     if(err) return res.status(500).send(err);
-    res.status(200).send("success");
+    LocAdminMap.create({
+      locid: req.body.location_id,
+      adminid: locationAdmin._id
+    }, function(err, data){
+      if(err) return res.status(500).send(err);
+      res.status(200).send("success");
+    });
   });
 });
 

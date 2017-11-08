@@ -24,7 +24,6 @@ var LocationAdminSchema = new mongoose.Schema({
   password: {type: String, get: decrypt, set: encrypt},
   mobile: Number,
   email: {type: String, get: decrypt, set: encrypt},
-  location_id: {type: Schema.Types.ObjectId, ref: 'Location'},
   device_id: String,
   last_login: String,
   last_ip: String,

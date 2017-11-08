@@ -15,9 +15,10 @@ var LocationSchema = new mongoose.Schema({
     end: Number
   },
   fare: {
-    two: Number,
-    four: Number
-  }
+    two: {type:Number, default: 0},
+    four: {type:Number, default: 0}
+  },
+  active_flag: {type: Boolean, default: true}
 });
 
 mongoose.model('Location',LocationSchema);
