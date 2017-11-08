@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var Location = require('../Location/Location');
 
 var CorporateSchema = new mongoose.Schema({
   name: String,
@@ -8,6 +10,7 @@ var CorporateSchema = new mongoose.Schema({
     number: Number,
     email: String
   },
+  location_id: {type: Schema.Types.ObjectId, ref: 'Location'},
   active_flag: {type:Boolean, default: true}
 });
 

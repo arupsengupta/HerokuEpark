@@ -8,7 +8,7 @@ app.controller('LoginController', function($scope, $http, localStorageService, $
     }).then(function(success){
       if(success.status === 200){
         if(localStorageService.isSupported){
-          localStorageService.set('user',success.data._id);
+          localStorageService.set('user',success.data);
           $state.go('home.home');
         }
       }else {
@@ -30,13 +30,12 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http
     if(localStorageService.get('user') == null){
       //$state.replace();
       $state.go('login');
+    }else {
+      $scope.user = localStorageService.get('user');
     }
   }
 
   $rootScope.parking_id = '';
-  $scope.user = {
-    mobile: 9748216349
-  };
 
   $scope.header = 'RS Software';
   $scope.showContextMenu = false;
@@ -76,18 +75,25 @@ app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http
 app.controller('HomeController', function($scope,$http,$rootScope){
   $scope.$parent.header = 'Home';
   $scope.getDetails = function(){
+    // $http({
+    //   method: 'GET',
+    //   url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
+    // }).then(function(success){
+    //   $scope.$parent.user = success.data;
+    //   $http({
+    //     method: 'GET',
+    //     url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id
+    //   }).then(function(success){
+    //     $scope.$parent.user.location_id = success.data[0].locid;
+    //     $rootScope.parking_id = success.data[0].locid._id;
+    //   });
+    // });
     $http({
       method: 'GET',
-      url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
+      url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id
     }).then(function(success){
-      $scope.$parent.user = success.data;
-      $http({
-        method: 'GET',
-        url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id
-      }).then(function(success){
-        $scope.$parent.user.location_id = success.data[0].locid;
-        $rootScope.parking_id = success.data[0].locid._id;
-      });
+      $scope.$parent.user.location_id = success.data[0].locid;
+      $rootScope.parking_id = success.data[0].locid._id;
     });
   };
   $scope.getDetails();
@@ -102,7 +108,7 @@ app.controller('OperatorController', function($scope, $mdDialog, $http, $rootSco
   $scope.getOperatorList = function(){
     $http({
       method: 'GET',
-      url: 'https://arupepark.herokuapp.com/operator'
+      url: 'https://arupepark.herokuapp.com/operator/loc/' + $scope.$parent.user.location_id
     }).then(function(success){
       $scope.operatorList = success.data;
     });
@@ -343,9 +349,11 @@ app.controller('AddCorporateController', function($scope, $mdDialog, $http, $roo
     $mdDialog.hide();
   };
 
-  $scope.operator = {
+  $scope.corporate = {
     parking_id : $rootScope.parking_id
   };
+
+  console.log($rootScope.parking_id);
 
   $scope.addCorporateModal = function(){
     $http({

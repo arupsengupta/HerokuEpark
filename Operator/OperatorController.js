@@ -37,6 +37,14 @@ router.get('/', function(req,res){
 	});
 });
 
+// get all operator of a locaton
+router.get('/loc/:id', function(req,res){
+	Operator.find({parking_id: req.params.id, active_flag: true},function(err, operators){
+		if(err) return res.status(500).send('Error getting operator list');
+		res.status(200).send(operators);
+	});
+});
+
 // send notification to operator
 router.post('/notify', function(req, res, next){
 	//Operator.findOne({parking_id: req.body.parking_id}, function(err, operator){

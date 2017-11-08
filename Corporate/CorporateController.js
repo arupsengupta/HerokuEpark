@@ -15,7 +15,8 @@ router.post('/', function(req, res){
       name: req.body.contact.name,
       number: req.body.contact.number,
       email: req.body.contact.email
-    }
+    },
+    location_id: req.body.parking_id
   },function(err, corporate){
     if(err) return res.status(500).send("Error saving details");
     res.status(200).send(corporate);
