@@ -51,7 +51,7 @@ router.get('/:id', function(req, res){
 
 //return an admin by its phone number
 router.get('/con/:contact', function(req, res){
-  LocationAdmin.findOne({mobile: req.params.contact, active_flag: true}).populate('location_id').exec(function(err, admin){
+  LocationAdmin.findOne({mobile: req.params.contact, active_flag: true}).exec(function(err, admin){
     if(err) return res.status(500).send("Error getting admin");
     res.status(200).send(admin);
   });
@@ -62,6 +62,13 @@ router.get('/map/list', function(req, res){
   LocAdminMap.find({active_flag: true}).populate('locid','name -_id').populate('adminid','name -_id').exec(function(err, maplist){
     if(err) return res.status(500).send(err);
     res.status(200).send(maplist);
+  });
+});
+
+router.get('/map/loc/:id', function(req, res){
+  LocAdminMap.find({active_flag: true, adminid: req.params.id}).populate('locid').exec(function(err, loclist){
+    if(err) return res.status(500).send(err);
+    res.status(200).send(loclist);
   });
 });
 

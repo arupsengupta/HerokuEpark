@@ -3,7 +3,7 @@ var app = angular.module('eParkLocAdmin');
 app.controller('MainCtrl',function($scope, $mdSidenav, $state, $rootScope, $http){
   $rootScope.parking_id = '';
   $scope.user = {
-    mobile: 9874112233
+    mobile: 9748216349
   };
 
   $scope.header = 'RS Software';
@@ -44,7 +44,12 @@ app.controller('HomeController', function($scope,$http,$rootScope){
       url: 'https://arupepark.herokuapp.com/locationAdmin/con/' + $scope.user.mobile
     }).then(function(success){
       $scope.$parent.user = success.data;
-      $rootScope.parking_id = $scope.$parent.user.location_id._id;
+      $http({
+        method: 'GET',
+        url: 'https://arupepark.herokuapp.com/locationAdmin/map/loc/' + $scope.$parent.user._id;
+      }).then(function(success){
+          $rootScope.parking_id = success.data[0].locid._id;
+      });
     });
   };
   $scope.getDetails();

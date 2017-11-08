@@ -135,7 +135,6 @@
 						      <tr>
 						        <th style="text-align : center; font-family : Segoe UI;">Admin Name</th>
 						        <th style="text-align : center; font-family : Segoe UI;">Vendor</th>
-						        <th style="text-align : center; font-family : Segoe UI;">Location</th>
                     <th style="text-align : center; font-family : Segoe UI;">Tenure</th>
                     <th style="text-align : center; font-family : Segoe UI;">Contract End Date</th>
                     <th style="text-align : center; font-family : Segoe UI;">Action</th>
@@ -145,7 +144,6 @@
 						      <tr ng-repeat="admin in adminList">
 						        <td style="text-align : center; font-family : Segoe UI;">{{admin.name}}</td>
 						        <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.name}}</td>
-                    <td style="text-align : center; font-family : Segoe UI;">{{admin.location_id.name}}</td>
                     <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.contract_tenure}} years</td>
                     <td style="text-align : center; font-family : Segoe UI;">{{admin.organization_details.contract_end_date}}</td>
 						        <td style="text-align : center;" ng-click="removeAdmin($index)"><img src="img/remove.png" style="cursor : pointer; width : 2em;"></td>
