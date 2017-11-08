@@ -31,6 +31,14 @@ router.get('/', function(req, res){
   });
 });
 
+//get all corporate users list of a location
+router.get('/loc/:id', function(req, res){
+  Corporate.find({location_id:req.params.id, active_flag: true}, function(err, corporateList){
+    if(err) return res.status(500).send("Error getting corporate list");
+    res.status(200).send(corporateList);
+  });
+});
+
 router.get('/:id', function(req, res){
   Corporate.findById(req.params.id, function(err, corporate){
     if(err) return res.status(500).send("Error getting corporate details");

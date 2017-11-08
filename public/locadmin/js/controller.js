@@ -327,7 +327,7 @@ app.controller('CorporateController', function($scope, $mdDialog, $http){
   $scope.getCorporateList = function(){
     $http({
       method: 'GET',
-      url: 'https://arupepark.herokuapp.com/corporate'
+      url: 'https://arupepark.herokuapp.com/corporate/loc/' + $scope.$parent.user.location_id._id
     }).then(function(success){
       $scope.corporateList = success.data;
     },function(err){
