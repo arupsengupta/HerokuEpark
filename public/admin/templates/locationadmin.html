@@ -153,6 +153,28 @@
 						    </tbody>
                 </table>
 
+                <div class="row">
+	                <div class="col-lg-12">
+	                    <h1 class="page-header" style="font-family : Segoe UI;">Admin Location Mapping</h1>
+	                </div>
+                </div>
+
+                <table class="table table-bordered table-striped">
+						    <thead>
+						      <tr>
+						        <th style="text-align : center; font-family : Segoe UI;">Admin Name</th>
+						        <th style="text-align : center; font-family : Segoe UI;">Location</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="map in adminLocMap">
+						        <td style="text-align : center; font-family : Segoe UI;">{{map.locid.name}}</td>
+						        <td style="text-align : center; font-family : Segoe UI;">{{map.adminid.name}}</td>
+						        <!-- <td style="text-align : center;" ng-click="removeMap($index)"><img src="img/remove.png" style="cursor : pointer; width : 2em;"></td> -->
+						      </tr>
+						    </tbody>
+                </table>
+
          </div>
 
 </div>

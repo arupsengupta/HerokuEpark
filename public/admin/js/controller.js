@@ -271,6 +271,7 @@ app.controller('AdminController', function($scope, $http){
 app.controller('LocationAdminController', function($scope, $http, $window){
 	$scope.locationlist = [];
 	$scope.adminList = [];
+	$scope.adminLocMap = [];
 	$scope.admin = {
 		location: {
 			name: ''
@@ -288,6 +289,10 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 
 	$http.get('https://arupepark.herokuapp.com/locationAdmin').then(function(success){
 		$scope.adminList = success.data;
+	});
+
+	$http.get('https://arupepark.herokuapp.com/locationAdmin/map/list').then(function(success){
+		$scope.adminLocMap = success.data;
 	});
 
 	$scope.$watch('admin', function(newValue, oldValue, scope){

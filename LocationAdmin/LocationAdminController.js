@@ -35,7 +35,7 @@ router.post('/', function(req, res){
 
 //return all location admin
 router.get('/', function(req, res){
-  LocationAdmin.find({active_flag: true}).populate('location_id').exec(function(err, adminList){
+  LocationAdmin.find({active_flag: true}).exec(function(err, adminList){
     if(err) return res.status(500).send("Error getting admin list");
     res.status(200).send(adminList);
   });
@@ -54,6 +54,14 @@ router.get('/con/:contact', function(req, res){
   LocationAdmin.findOne({mobile: req.params.contact, active_flag: true}).populate('location_id').exec(function(err, admin){
     if(err) return res.status(500).send("Error getting admin");
     res.status(200).send(admin);
+  });
+});
+
+//return location admin map
+router.get('/map/list', function(req, res){
+  LocAdminMap.find({active_flag: true}).populate('locid','name -_id').populate('adminid','name -_id').exec(function(err, maplist){
+    if(err) return res.status(500).send(err);
+    res.status(200).send(maplist);
   });
 });
 
