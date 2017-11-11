@@ -410,16 +410,19 @@ app.controller('ProfileController', function($scope, $http){
   $scope.$parent.header = 'Profile';
   $scope.company = angular.copy($scope.user);
   $scope.manage = $scope.company.location_id;
-  // $scope.getManageDetails = function(){
-  //   $http({
-  //     method: 'GET',
-  //     url: 'https://arupepark.herokuapp.com/location/' + $scope.company.location_id._id
-  //   }).then(function(success){
-  //     $scope.manage = success.data;
-  //   });
-  // };
 
-  //$scope.getManageDetails();
+  $scope.updateManage = function(){
+    $http({
+      method: 'POST',
+      url: 'http://localhost:8080/location/manage/' + $scope.manage._id,
+      headers: {'Content-Type' : 'application/json'},
+      data: $scope.manage
+    }).then(function(success){
+      if(success.status === 200){
+        console.log(success.data);
+      }
+    })
+  };
 
   console.log($scope.user);
 });

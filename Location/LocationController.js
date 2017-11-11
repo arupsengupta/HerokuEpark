@@ -92,19 +92,15 @@ router.put('/:id', function(req, res){
 
 //update location
 router.put('/manage/:id', function(req, res){
+  console.log(req.body);
+  console.log(req.params.id);
   Location.where({_id: req.params.id ,active_flag: true}).update({$set: {
-    number_of_slot: {
-      two: req.body.number_of_slot.two,
-      four: req.body.number_of_slot.four
-    },
-    opening_hours : {
-        start: req.body.opening_hours.start,
-        end: req.body.opening_hours.end
-    },
-    fare: {
-      two: req.body.fare.twowheeler,
-      four: req.body.fare.fourwheeler
-    }
+    'number_of_slot.two' : req.body.number_of_slot.two,
+    'number_of_slot.four': req.body.number_of_slot.four,
+    'opening_hours.start': req.body.opening_hours.start,
+    'opening_hours.end': req.body.opening_hours.end,
+    'fare.two': req.body.fare.twowheeler,
+    'fare.four': req.body.fare.fourwheeler
   }}).exec(function(err, location){
     if(err) return res.status(500).send(err);
     res.status(200).send(location);
