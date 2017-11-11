@@ -44,7 +44,7 @@ app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $htt
 
   $urlRouterProvider.otherwise('/home/main');
 
-  // $httpProvider.interceptors.push('loadingInterceptor');
+  //$httpProvider.interceptors.push('loadingInterceptor');
 
   $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
   $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
