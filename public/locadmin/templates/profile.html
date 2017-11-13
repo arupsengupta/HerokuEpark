@@ -2,7 +2,7 @@
   <md-tabs md-dynamic-height md-stretch-tabs="yes">
     <md-tab label="Account">
       <md-content class="md-padding">
-        <form name="profileForm">
+        <form name="profileForm" ng-submit="updateProfile()">
           <md-input-container class="md-block">
             <label>Company</label>
             <input type="text" name="company" ng-model="company.organization_details.name" required>
@@ -16,10 +16,6 @@
             <div ng-messages="profileForm.address1.$error">
               <div ng-message="required">This is required</div>
             </div>
-          </md-input-container>
-          <md-input-container class="md-block">
-            <label>Address Line 2(Optional)</label>
-            <input type="text" name="address2" ng-model="company.address2">
           </md-input-container>
           <md-input-container class="md-block">
             <label>Phone Number</label>
@@ -36,7 +32,7 @@
             </div>
           </md-input-container>
           <div layout="row">
-            <md-button flex type="submit" class="md-raised md-primary">Submit</md-button>
+            <md-button flex type="submit" class="md-raised md-primary">Update</md-button>
           </div>
         </form>
       </md-content>
@@ -71,12 +67,12 @@
           <md-input-container flex="50">
             <label>Fare(hourly)</label>
             <md-icon md-svg-src="icons/ic_directions_bike_black_24px.svg"></md-icon>
-            <input type="number" ng-model="manage.fare.twowheeler">
+            <input type="number" ng-model="manage.fare.two">
           </md-input-container>
           <md-input-container flex="50">
             <label>Fare(hourly)</label>
             <md-icon md-svg-src="icons/ic_directions_car_black_24px.svg"></md-icon>
-            <input type="number" ng-model="manage.fare.fourwheeler">
+            <input type="number" ng-model="manage.fare.four">
           </md-input-container>
         </div>
         <div layout="row">

@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 
-router.use(bodyParser.urlencoded({extended: false}));
+//router.use(bodyParser.urlencoded({extended: false}));
+router.use(bodyParser.json());
 
 var LocationAdmin = require('./LocationAdmin');
 var LocAdminMap = require('../LocAdminMap/LocAdminMap');
@@ -73,6 +74,20 @@ router.get('/map/loc/:id', function(req, res){
   LocAdminMap.find({active_flag: true, adminid: req.params.id}).populate('locid').exec(function(err, loclist){
     if(err) return res.status(500).send(err);
     res.status(200).send(loclist);
+  });
+});
+
+//update profile details by id
+router.put('/profile/:id', function(req, res){
+  LocationAdmin.update({_id: req.params.id}, {
+    $set: {
+      'organization_details.name' : req.body.name,
+      'organization_details.office_address' : req.body.office_address
+      // 'email' : req.body.email
+    }
+  }, {new: true}, function(err, admin){
+    if(err) return res.status(500).send(err);
+    res.status(200).send(admin);
   });
 });
 

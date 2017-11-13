@@ -7,6 +7,7 @@ var Location = require('../Location/Location');
 function decrypt(text){
   if (text === null || typeof text === 'undefined') {return text;};
   var decipher = crypto.createDecipher('aes-256-cbc', process.env.SERVER_SECRET);
+  console.log(text);
   var dec = decipher.update(text,'hex','utf8');
   dec += decipher.final('utf8');
   return dec;
@@ -23,7 +24,8 @@ var LocationAdminSchema = new mongoose.Schema({
   name: String,
   password: {type: String, get: decrypt, set: encrypt},
   mobile: Number,
-  email: {type: String, get: decrypt, set: encrypt},
+  // email: {type: String, get: decrypt, set: encrypt},
+  email: {type: String},
   device_id: String,
   last_login: String,
   last_ip: String,
