@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var DateOnly = require('mongoose-dateonly')(mongoose);
+//var DateOnly = require('mongoose-dateonly')(mongoose);
 var Location = require("../Location/Location");
 var User = require("../User/User");
 
@@ -16,7 +16,7 @@ var BookingSchema = new mongoose.Schema({
     value : Number,
     matched : {type: Boolean, default: false}
   },
-  date: {type: DateOnly, default: Date.now},
+  date: {type: Date, default: Date.now},
   status: {type: String, default: 'pending'},
   type: {type: String, default: 'app'},
   manualData : {
