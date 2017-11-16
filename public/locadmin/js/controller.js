@@ -406,20 +406,60 @@ app.controller('CorporateViewController', function($scope, $stateParams, $http){
   });
 });
 
-app.controller('ProfileController', function($scope, $http){
+app.controller('ProfileController', function($scope, $http, $mdDialog){
   $scope.$parent.header = 'Profile';
   $scope.company = angular.copy($scope.user);
   $scope.manage = $scope.company.location_id;
-  // $scope.getManageDetails = function(){
-  //   $http({
-  //     method: 'GET',
-  //     url: 'https://arupepark.herokuapp.com/location/' + $scope.company.location_id._id
-  //   }).then(function(success){
-  //     $scope.manage = success.data;
-  //   });
-  // };
 
-  //$scope.getManageDetails();
+  $scope.updateManage = function(){
+    $http({
+      method: 'PUT',
+      url: 'http://localhost:8080/location/manage/' + $scope.manage._id,
+      headers: {'Content-Type' : 'application/json'},
+      data: $scope.manage
+    }).then(function(success){
+      if(success.status === 200){
+        $scope.$parent.user.location_id = success.data;
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title('Confirmation')
+            .textContent('Company details updated succcessfully')
+            .ok('OK')
+        );
+      }
+    });
+  };
+
+  $scope.updateProfile = function(){
+    $http({
+      method: 'PUT',
+      url: 'http://localhost:8080/locationAdmin/profile/' + $scope.company._id,
+      headers: {'Content-Type' : 'application/json'},
+      data: {
+        name: $scope.company.organization_details.name,
+        office_address: $scope.company.organization_details.office_address
+      }
+    }).then(function(success){
+      if(success.status === 200){
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title('Confirmation')
+            .textContent('Company details updated succcessfully')
+            .ok('OK')
+        );
+      }
+    }, function(err){
+      $mdDialog.show(
+        $mdDialog.alert()
+          .parent(angular.element(document.body))
+          .title('Error')
+          .textContent('Cannot update company details')
+          .ok('OK')
+      );
+    });
+  };
 
   console.log($scope.user);
 });
