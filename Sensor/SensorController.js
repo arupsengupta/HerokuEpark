@@ -36,12 +36,14 @@ router.get('/test',function(req,res){
 });
 
 router.get('/update', function(req, res){
-  req.app.io.emit('device',{parking_id: req.query.locid, slot_id : req.query.slotid});
+
   var value = req.query.value;
   var flag = value.includes("true");
   if(flag){
+    req.app.io.emit('device',{parking_id: req.query.locid, slot_id : req.query.slotid, value : true});
     res.status(200).send('Car Arrived');
   }else{
+    req.app.io.emit('device',{parking_id: req.query.locid, slot_id : req.query.slotid, value: false});
     res.status(200).send('Car Left');
   }
 });
