@@ -35,71 +35,82 @@ router.get('/test',function(req,res){
 	});
 });
 
-// update sensor status
-router.get('/update', function(req,res,next){
-	var value = req.query.value;
-	// check whether value contains true
-	var flag = value.includes("true");
-	Location.findById(req.query.locid,function(err, location){
-		if(location == null) return res.status(400).send("Location not found");
-		var slot = location.parking_arr[req.query.slotid]._id;
-		SensorData.update({location:req.query.locid, slot_id: req.query.slotid}, {status: flag}, function(err, SensorData){
-			if(err) return res.status(500);
-			req.slot = parseInt(req.query.slotid) + 1;
-			req.flag = flag;
-			console.log('PASS 1');
-			next();
-		});
-		req.slotid = slot;
-	});
-},function(req, res, next){
-  var date = new Date();
-  var time = date.getHours();
-  var end = time+1;
+router.get('/update', function(req, res){
+  req.app.io.emit('device',{parking_id: req.query.locid, slot_id : req.query.slotid});
+  var value = req.query.value;
+  var flag = value.includes("true");
+  if(flag){
+    res.status(200).send('Car Arrived');
+  }else{
+    res.status(200).send('Car Left');
+  }
+});
 
-  BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, end_time: {$gte : time}, active: true},function(err, booking){
-    if(err) return res.status(500).send('Error Occurred');
-	  console.log(booking);
-    if(booking.length == 0){
-        req.resp = 'false';
-    }else {
-        req.booking_id = booking[0]._id;
-        req.resp = booking[0].manualData.reg_number;
-    }
-	console.log('PASS 2');
-    next();
-  });
-},function(req, res, next){
-  if(!req.flag && req.resp !== 'false'){
-    console.log('Unbook started..');
-    BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
-      if(err) return res.status(500).send('Erron unbooking');
-      var path = 'https://arupepark.herokuapp.com/booking/receipt/'+req.booking_id;
-      request({method:'GET',url:path}, function (error, response, body) {
-         if (error) throw new Error(error);
-      });
-    });
-  }
-  if(!req.flag){
-    req.resp = 'unbooked';
-  }
-  next();
-},function(req, res, next){
-	Operator.findOne({parking_id: req.query.locid},function(err, operator){
-		if(err) return res.status(500);
-		req.contact = operator.contact;
-		req.msg = req.flag ? 'A car has been arrived on slot number ' +
-              req.slot : 'A car been removed from slot number ' + req.slot;
-		req.title = 'Car Arrived';
-    var date = new Date();
-    if(req.flag){
-      req.app.io.emit('inprocess',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
-    }else{
-      req.app.io.emit('vacant',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
-    }
-		next();
-	});
-}, pushOp);
+// update sensor status
+// router.get('/update', function(req,res,next){
+// 	var value = req.query.value;
+// 	// check whether value contains true
+// 	var flag = value.includes("true");
+// 	Location.findById(req.query.locid,function(err, location){
+// 		if(location == null) return res.status(400).send("Location not found");
+// 		var slot = location.parking_arr[req.query.slotid]._id;
+// 		SensorData.update({location:req.query.locid, slot_id: req.query.slotid}, {status: flag}, function(err, SensorData){
+// 			if(err) return res.status(500);
+// 			req.slot = parseInt(req.query.slotid) + 1;
+// 			req.flag = flag;
+// 			console.log('PASS 1');
+// 			next();
+// 		});
+// 		req.slotid = slot;
+// 	});
+// },function(req, res, next){
+//   var date = new Date();
+//   var time = date.getHours();
+//   var end = time+1;
+//
+//   BookingData.find({parking_id: req.query.locid, slot_id: req.slotid, date: Date.now(), start_time: {$lte : time}, end_time: {$gte : time}, active: true},function(err, booking){
+//     if(err) return res.status(500).send('Error Occurred');
+// 	  console.log(booking);
+//     if(booking.length == 0){
+//         req.resp = 'false';
+//     }else {
+//         req.booking_id = booking[0]._id;
+//         req.resp = booking[0].manualData.reg_number;
+//     }
+// 	console.log('PASS 2');
+//     next();
+//   });
+// },function(req, res, next){
+//   if(!req.flag && req.resp !== 'false'){
+//     console.log('Unbook started..');
+//     BookingData.findByIdAndUpdate(req.booking_id, {status: 'completed',active: false}, function(err, data){
+//       if(err) return res.status(500).send('Erron unbooking');
+//       var path = 'https://arupepark.herokuapp.com/booking/receipt/'+req.booking_id;
+//       request({method:'GET',url:path}, function (error, response, body) {
+//          if (error) throw new Error(error);
+//       });
+//     });
+//   }
+//   if(!req.flag){
+//     req.resp = 'unbooked';
+//   }
+//   next();
+// },function(req, res, next){
+// 	Operator.findOne({parking_id: req.query.locid},function(err, operator){
+// 		if(err) return res.status(500);
+// 		req.contact = operator.contact;
+// 		req.msg = req.flag ? 'A car has been arrived on slot number ' +
+//               req.slot : 'A car been removed from slot number ' + req.slot;
+// 		req.title = 'Car Arrived';
+//     var date = new Date();
+//     if(req.flag){
+//       req.app.io.emit('inprocess',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
+//     }else{
+//       req.app.io.emit('vacant',{parking_id: req.query.locid, slot_id : req.slotid, start_time: date.getHours(), hours: 1});
+//     }
+// 		next();
+// 	});
+// }, pushOp);
 
 // get all sensor data
 router.get('/view', function(req, res){

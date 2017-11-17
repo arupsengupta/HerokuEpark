@@ -79,11 +79,11 @@ router.get('/map/loc/:id', function(req, res){
 
 //update profile details by id
 router.put('/profile/:id', function(req, res){
-  LocationAdmin.update({_id: req.params.id}, {
+  LocationAdmin.findByIdAndUpdate(req.params.id, {
     $set: {
       'organization_details.name' : req.body.name,
       'organization_details.office_address' : req.body.office_address
-      // 'email' : req.body.email
+      //'email' : req.body.email
     }
   }, {new: true}, function(err, admin){
     if(err) return res.status(500).send(err);

@@ -44,6 +44,8 @@ router.post('/',function(req, res, next){
   });
 });
 
+// create a new booking by
+
 
 // cancel a booking by user
 router.put('/:booking_id', function(req, res){

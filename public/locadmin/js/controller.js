@@ -442,6 +442,8 @@ app.controller('ProfileController', function($scope, $http, $mdDialog){
       }
     }).then(function(success){
       if(success.status === 200){
+        $scope.$parent.user.organization_details.name = success.data.organization_details.name;
+        $scope.$parent.user.organization_details.office_address = success.data.organization_details.office_address;
         $mdDialog.show(
           $mdDialog.alert()
             .parent(angular.element(document.body))
@@ -460,8 +462,6 @@ app.controller('ProfileController', function($scope, $http, $mdDialog){
       );
     });
   };
-
-  console.log($scope.user);
 });
 
 app.controller('BookingController', function($scope, $mdDialog){
