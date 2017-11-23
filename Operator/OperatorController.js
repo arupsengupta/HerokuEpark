@@ -68,6 +68,14 @@ router.get('/:id',function(req, res){
 	});
 });
 
+// get an operator by its phone number
+router.get('/con/:number',function(req, res){
+	Operator.findOne({contact: req.params.number},function(err, operator){
+		if(err) return res.status(500).send('Error getting operator');
+		res.status(200).send(operator);
+	});
+});
+
 // insert device token for push notification (Operator App)
 router.get('/token/:phone/:token', function(req, res){
 	Operator.update({contact: req.params.phone}, {device_token: req.params.token}, function(err, resp){
