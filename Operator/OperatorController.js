@@ -72,6 +72,7 @@ router.get('/:id',function(req, res){
 router.get('/con/:number',function(req, res){
 	Operator.findOne({contact: req.params.number, active_flag: true}).populate('parking_id').exec(function(err, operator){
 		if(err) return res.status(500).send('Error getting operator');
+		console.log(operator);
 		res.status(200).send(operator);
 	});
 });

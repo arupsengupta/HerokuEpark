@@ -54,6 +54,15 @@ router.get('/:id', function(req, res){
   });
 });
 
+// get available count by parking id
+router.get('/availcount/:id', function(req, res){
+  Location.findById(req.params.id,'number_of_slot',function(err, location){
+    if(err) return res.status(500).send(err);
+    // console.log(location);
+    res.status(200).send(location.number_of_slot);
+  });
+});
+
 // get a location details by time and hours
 router.get('/:id/:time/:hours', function(req, res){
   Location.findById(req.params.id, function(err, location){
