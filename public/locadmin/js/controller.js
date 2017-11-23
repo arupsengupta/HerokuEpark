@@ -414,7 +414,7 @@ app.controller('ProfileController', function($scope, $http, $mdDialog){
   $scope.updateManage = function(){
     $http({
       method: 'PUT',
-      url: 'http://localhost:8080/location/manage/' + $scope.manage._id,
+      url: 'https://arupepark.herokuapp.com/location/manage/' + $scope.manage._id,
       headers: {'Content-Type' : 'application/json'},
       data: $scope.manage
     }).then(function(success){
@@ -434,7 +434,7 @@ app.controller('ProfileController', function($scope, $http, $mdDialog){
   $scope.updateProfile = function(){
     $http({
       method: 'PUT',
-      url: 'http://localhost:8080/locationAdmin/profile/' + $scope.company._id,
+      url: 'https://arupepark.herokuapp.com/locationAdmin/profile/' + $scope.company._id,
       headers: {'Content-Type' : 'application/json'},
       data: {
         name: $scope.company.organization_details.name,
