@@ -1,28 +1,22 @@
 var mongoose = require('mongoose');
 //var DateOnly = require('mongoose-dateonly')(mongoose);
 var Location = require("../Location/Location");
+var Operator = require('../Operator/Operator');
 var User = require("../User/User");
 
 var BookingSchema = new mongoose.Schema({
   user_id : {type: String, ref: 'User'},
   parking_id : {type:String, ref:'Location'},
-  slot_id : String,
-  start_time : Number,
-  hours : Number,
-  end_time : Number,
-  extra_mins : {type: Number, default: 0},
+  operator_id : {type: String, ref:'Operator'},
+  start_time : String,
+  mins : Number,
+  end_time : String,
   active: {type: Boolean, default: true},
-  otp: {
-    value : Number,
-    matched : {type: Boolean, default: false}
-  },
-  date: {type: Date, default: Date.now},
-  status: {type: String, default: 'pending'},
-  type: {type: String, default: 'app'},
+  date: {type: Date, default: new Date()},
+  status: {type: String, default: 'Booked'},
+  type: {type: String, default: 'manual'},
   manualData : {
-    name: String,
     reg_number : String,
-    contact: String
   }
 });
 

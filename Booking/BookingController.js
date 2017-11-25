@@ -1,47 +1,63 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var date = require('date-and-time');
 
 router.use(bodyParser.urlencoded({extended: true}));
+router.use(bodyParser.json());
 
 var Booking = require('./Booking');
 var Mail = require('../Mail/MailController').receiptFunc;
 var bookOpPush = require('../Push/PushController').bookOp;
-//var unbookFunc = require('../Schedule/Schedule);
-
-function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
-}
 
 // create a new booking
-router.post('/',function(req, res, next){
-  var otp = randomInt(1000, 9999);
-  var end = parseInt(req.body.start_time) + parseInt(req.body.hours);
+router.post('/',function(req, res){
+  var now = new Date();
+  var loc_start_time = date.format(now, 'HH:mm');
 
   Booking.create({
-    user_id: req.body.user_id,
     parking_id: req.body.parking_id,
-    slot_id: req.body.slot_id,
-    start_time: req.body.start_time,
-    end_time: end,
-    hours: req.body.hours,
-    otp: {
-      value: otp,
-      matched: false
-    },
-    status: req.body.status,
-    type: req.body.type,
+    operator_id: req.body.operator_id,
+    start_time: loc_start_time,
+    type: 'manual',
+    vehicle_type: req.body.wheels,
     manualData: {
-      name: req.body.name,
       reg_number: req.body.reg_number,
-      contact: req.body.contact
     }
   },function(err, booking){
     if(err) return res.status(500).send("Cannot book");
-    req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
+    //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
     res.status(200).send(booking);
     //res.status(200).send(booking);
   });
+});
+
+// book using QR scan
+router.post('/qr/:id',function(req, res){
+  var now = new Date();
+  var loc_start_time = date.format(now, 'HH:mm');
+
+  User.findById(req.params.id, function(err, user){
+    if(err) return res.status(500).send('Error getting user details');
+    if(user){
+      Booking.create({
+        user_id: user._id,
+        parking_id: req.body.parking_id,
+        operator_id: req.body.operator_id,
+        start_time: loc_start_time,
+        type: 'app'
+      },function(err, booking){
+        if(err) return res.status(500).send("Cannot book");
+        //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
+        res.status(200).send(booking);
+        //res.status(200).send(booking);
+      });
+    }else{
+      res.status(403).send('User not found');
+    }
+  });
+
+
 });
 
 // create a new booking by
