@@ -15,6 +15,7 @@ var BookingSchema = new mongoose.Schema({
   date: {type: Date, default: new Date()},
   status: {type: String, default: 'Booked'},
   type: {type: String, default: 'manual'},
+  vehicle_type: Number
   manualData : {
     reg_number : String,
   }
