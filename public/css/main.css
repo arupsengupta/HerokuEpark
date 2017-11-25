@@ -1407,7 +1407,7 @@ a.menu-toggle {
 .process-content .image-part {
 	margin: 0 auto;
 	height: 660px;
-	background-image: url("../images/appdesign.jpg");
+	background-image: url("../images/app.png");
 	background-repeat: no-repeat;
 	background-position: center;
 	-webkit-background-size: contain;
@@ -2109,7 +2109,7 @@ a.menu-toggle {
 }
 @media only screen and (max-width:600px) {
 	.cta-content .stores li .button {
-		width: 70%;
+		width: 82%;
 	}
 }
 @media only screen and (max-width:400px) {
