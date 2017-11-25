@@ -19,6 +19,8 @@ router.post('/',function(req, res){
     parking_id: req.body.parking_id,
     operator_id: req.body.operator_id,
     start_time: loc_start_time,
+    end_time: '',
+    mins: 0,
     type: 'manual',
     vehicle_type: req.body.wheels,
     manualData: {
