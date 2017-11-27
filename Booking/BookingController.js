@@ -22,6 +22,7 @@ router.post('/',function(req, res){
     end_time: '',
     mins: 0,
     type: 'manual',
+    date: new Date(),
     vehicle_type: req.body.wheels,
     manualData: {
       reg_number: req.body.reg_number,
