@@ -88,6 +88,7 @@ router.put('/changeStatus/:booking_id', function(req, res){
 // get all booking of current date
 router.get('/today', function(req, res){
   //console.log(Date.now().toString());
+  var now = new Date();
   var current_date = date.format(now, 'DD-MM-YYYY');
   Booking.find({date: current_date, active: true} , function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
