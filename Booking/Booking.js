@@ -19,7 +19,7 @@ var BookingSchema = new mongoose.Schema({
   manualData : {
     reg_number : String,
   },
-  timestamp: {type: Number, default: new Date().getTime()}
+  timestamp: {type: Number, default: Date.now())
 });
 
 mongoose.model('Booking', BookingSchema);
