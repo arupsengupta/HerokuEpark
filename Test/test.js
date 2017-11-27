@@ -5,3 +5,5 @@ console.log(date.format(now, 'YYYY/MM/DD HH:mm:ss'));
 var date1 =  date.parse('01:45', 'HH:mm');
 var date2 =  date.parse('12:45', 'HH:mm');
 console.log(date.subtract(date2, date1).toMinutes());
+var current_date = date.format(now, 'DD-MM-YYYY');
+console.log(current_date);

@@ -14,6 +14,7 @@ var bookOpPush = require('../Push/PushController').bookOp;
 router.post('/',function(req, res){
   var now = new Date();
   var loc_start_time = date.format(now, 'HH:mm');
+  var current_date = date.format(now, 'DD-MM-YYYY');
 
   Booking.create({
     parking_id: req.body.parking_id,
@@ -21,6 +22,7 @@ router.post('/',function(req, res){
     start_time: loc_start_time,
     end_time: '',
     mins: 0,
+    date: current_date,
     type: 'manual',
     vehicle_type: req.body.wheels,
     manualData: {
@@ -86,7 +88,8 @@ router.put('/changeStatus/:booking_id', function(req, res){
 // get all booking of current date
 router.get('/today', function(req, res){
   //console.log(Date.now().toString());
-  Booking.find({date: Date.now()} , function(err, bookings){
+  var current_date = date.format(now, 'DD-MM-YYYY');
+  Booking.find({date: current_date, active: true} , function(err, bookings){
     if(err) return res.status(500).send("Cannot read booking details");
     res.status(200).send(bookings);
   });

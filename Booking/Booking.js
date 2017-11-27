@@ -12,7 +12,7 @@ var BookingSchema = new mongoose.Schema({
   end_time : String,
   mins : Number,
   active: {type: Boolean, default: true},
-  date: {type: Date, default: Date.now},
+  date: {type: String},
   status: {type: String, default: 'Booked'},
   type: {type: String, default: 'manual'},
   vehicle_type: Number,
