@@ -27,7 +27,8 @@ router.post('/',function(req, res){
     vehicle_type: req.body.wheels,
     manualData: {
       reg_number: req.body.reg_number,
-    }
+    },
+    timestamp: Date.now()
   },function(err, booking){
     if(err) return res.status(500).send("Cannot book");
     //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
