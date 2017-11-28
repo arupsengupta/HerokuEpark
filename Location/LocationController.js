@@ -63,8 +63,14 @@ router.get('/availcount/:id', function(req, res){
 
   Location.findById(req.params.id,'number_of_slot',function(err, location){
     if(err) return res.status(500).send(err);
-      var bookedCarCount = Booking.where({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 4}).count();
-      var bookedBikeCount = Booking.where({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 2}).count();
+      var bookedCarCount = 0;
+	  Booking.count({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 4},function(err, c){
+	  	bookedCarCount = c;
+	  }).count();
+      var bookedBikeCount = 0;
+	  Booking.count({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 2},function(err, c){
+	  	bookedBikeCount = c;
+	  });
       var availCount = {
         two : location.number_of_slot.two - bookedBikeCount,
         four : location.number_of_slot.four - bookedCarCount
