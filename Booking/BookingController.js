@@ -8,6 +8,7 @@ router.use(bodyParser.json());
 
 var Booking = require('./Booking');
 var Location = require('../Location/Location');
+var User = require('../User/User');
 var Mail = require('../Mail/MailController').receiptFunc;
 var bookOpPush = require('../Push/PushController').bookOp;
 
