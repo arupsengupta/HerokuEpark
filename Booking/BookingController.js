@@ -16,25 +16,50 @@ router.post('/',function(req, res){
   var loc_start_time = date.format(now, 'HH:mm');
   var current_date = date.format(now, 'DD-MM-YYYY');
 
-  Booking.create({
-    parking_id: req.body.parking_id,
-    operator_id: req.body.operator_id,
-    start_time: loc_start_time,
-    end_time: '',
-    mins: 0,
-    date: current_date,
-    type: 'manual',
-    vehicle_type: req.body.wheels,
-    manualData: {
-      reg_number: req.body.reg_number,
-    },
-    timestamp: Date.now()
-  },function(err, booking){
-    if(err) return res.status(500).send("Cannot book");
-    //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
-    res.status(200).send(booking);
-    //res.status(200).send(booking);
+  Booking.findOne({date: current_date, parking_id: req.body.parking_id, operator_id: req.body.operator_id, active: true, 'manualData.reg_number': req.body.reg_number, vehicle_type: req.body.wheels}).populate('parking_id').exec(function(err, booking){
+    if(err) return res.status(503).send(err);
+    // console.log(booking);
+    if(booking){
+      var start_time =  date.parse(booking.start_time, 'HH:mm');
+      var end_time =  date.parse(loc_start_time, 'HH:mm');
+      var duration = date.subtract(end_time, start_time).toMinutes();
+      var hours = parseInt(duration / 60) + 1;
+      var cost = 0;
+      if(booking.vehicle_type === 2){
+        cost = booking.parking_id.fare.two * hours;
+      }else{
+        cost = booking.parking_id.fare.four * hours;
+      }
+
+      Booking.findByIdAndUpdate(booking._id, {status: 'completed', end_time: loc_start_time, mins: duration, active: false, fare: cost}, {new: true}, function(err, result){
+    		if(err) return res.status(500).send("Error occured while booking");
+    		console.log('Booking has been completed');
+    		res.status(200).send(result);
+    	});
+    }else{
+      Booking.create({
+        parking_id: req.body.parking_id,
+        operator_id: req.body.operator_id,
+        start_time: loc_start_time,
+        end_time: '',
+        mins: 0,
+        date: current_date,
+        type: 'manual',
+        vehicle_type: req.body.wheels,
+        manualData: {
+          reg_number: req.body.reg_number,
+        },
+        timestamp: Date.now()
+      },function(err, newBooking){
+        if(err) return res.status(500).send("Cannot book");
+        //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
+        res.status(200).send(newBooking);
+        //res.status(200).send(booking);
+      });
+    }
   });
+
+
 });
 
 // book using QR scan

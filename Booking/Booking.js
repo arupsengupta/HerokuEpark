@@ -19,7 +19,8 @@ var BookingSchema = new mongoose.Schema({
   manualData : {
     reg_number : String,
   },
-  timestamp: {type: Number}
+  timestamp: {type: Number},
+  fare: {type: Number}
 });
 
 mongoose.model('Booking', BookingSchema);

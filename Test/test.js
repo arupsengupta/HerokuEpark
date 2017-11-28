@@ -7,3 +7,6 @@ var date2 =  date.parse('12:45', 'HH:mm');
 console.log(date.subtract(date2, date1).toMinutes());
 var current_date = date.format(now, 'DD-MM-YYYY');
 console.log(current_date);
+var num = 70;
+var hours = parseInt(num / 60) + 1;
+console.log(hours);
