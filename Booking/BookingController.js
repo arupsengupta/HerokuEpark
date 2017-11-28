@@ -14,15 +14,15 @@ var bookOpPush = require('../Push/PushController').bookOp;
 // create a new booking
 router.post('/',function(req, res){
   var now = new Date();
-  var loc_start_time = date.format(now, 'HH:mm');
+  var loc_start_time = date.format(now, 'hh:mm A');
   var current_date = date.format(now, 'DD-MM-YYYY');
 
   Booking.findOne({date: current_date, parking_id: req.body.parking_id, operator_id: req.body.operator_id, active: true, 'manualData.reg_number': req.body.reg_number, vehicle_type: req.body.wheels}).populate('parking_id').exec(function(err, booking){
     if(err) return res.status(503).send(err);
     // console.log(booking);
     if(booking){
-      var start_time =  date.parse(booking.start_time, 'HH:mm');
-      var end_time =  date.parse(loc_start_time, 'HH:mm');
+      var start_time =  date.parse(booking.start_time, 'hh:mm A');
+      var end_time =  date.parse(loc_start_time, 'hh:mm A');
       var duration = date.subtract(end_time, start_time).toMinutes();
       var hours = parseInt(duration / 60) + 1;
       var cost = 0;
