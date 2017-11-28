@@ -34,8 +34,7 @@ router.post('/',function(req, res){
 
       Booking.findByIdAndUpdate(booking._id, {status: 'completed', end_time: loc_start_time, mins: duration, active: false, fare: cost}, {new: true}, function(err, result){
     		if(err) return res.status(500).send("Error occured while booking");
-    		console.log('Booking has been completed');
-
+    		// console.log('Booking has been completed');
         Location.findById(req.body.parking_id,'number_of_slot',function(err, location){
           if(err) return res.status(500).send(err);
             var bookedCarCount = 0;
