@@ -21,7 +21,7 @@ io.on('connection',function(socket){
 });
 
 app.use('/changeMarker', function(req, res){
-  mysocket.emit('test', 'changeMarker');
+  mysocket.emit('new-booking', {two: '20', four: '100'});
   res.status(200).send('OK');
 });
 
