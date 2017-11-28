@@ -34,17 +34,23 @@ router.post('/',function(req, res){
       Booking.findByIdAndUpdate(booking._id, {status: 'completed', end_time: loc_start_time, mins: duration, active: false, fare: cost}, {new: true}, function(err, result){
     		if(err) return res.status(500).send("Error occured while booking");
     		console.log('Booking has been completed');
-        Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 4},function(err, c){
-    	  	bookedCarCount = c;
-          Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 2},function(err, c){
-      	  	bookedBikeCount = c;
-            var availCount = {
-              two : location.number_of_slot.two - bookedBikeCount,
-              four : location.number_of_slot.four - bookedCarCount
-            };
-            req.app.io.emit('count-changed',{parking_id: booking.parking_id, value: availCount});
+
+        Location.findById(req.body.parking_id,'number_of_slot',function(err, location){
+          if(err) return res.status(500).send(err);
+            var bookedCarCount = 0;
+            var bookedBikeCount = 0;
+      	  Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 4},function(err, c){
+      	  	bookedCarCount = c;
+            Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 2},function(err, c){
+        	  	bookedBikeCount = c;
+              var availCount = {
+                two : location.number_of_slot.two - bookedBikeCount,
+                four : location.number_of_slot.four - bookedCarCount
+              };
+              req.app.io.emit('count-changed',{parking_id: booking.parking_id._id, value: availCount});
+        	  });
       	  });
-    	  });
+        });
     		res.status(200).send(result);
     	});
     }else{
@@ -63,20 +69,25 @@ router.post('/',function(req, res){
         timestamp: Date.now()
       },function(err, newBooking){
         if(err) return res.status(500).send("Cannot book");
-        //req.app.io.emit('pending',{parking_id: booking.parking_id, slot_id : booking.slot_id, start_time: booking.start_time, hours: booking.hours});
-        Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 4},function(err, c){
-    	  	bookedCarCount = c;
-          Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 2},function(err, c){
-      	  	bookedBikeCount = c;
-            var availCount = {
-              two : location.number_of_slot.two - bookedBikeCount,
-              four : location.number_of_slot.four - bookedCarCount
-            };
-            req.app.io.emit('count-changed',{parking_id: booking.parking_id, value: availCount});
+
+        Location.findById(req.body.parking_id,'number_of_slot',function(err, location){
+          if(err) return res.status(500).send(err);
+            var bookedCarCount = 0;
+            var bookedBikeCount = 0;
+      	  Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 4},function(err, c){
+      	  	bookedCarCount = c;
+            Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 2},function(err, c){
+        	  	bookedBikeCount = c;
+              var availCount = {
+                two : location.number_of_slot.two - bookedBikeCount,
+                four : location.number_of_slot.four - bookedCarCount
+              };
+              req.app.io.emit('count-changed',{parking_id: booking.parking_id._id, value: availCount});
+        	  });
       	  });
-    	  });
+        });
+
         res.status(200).send(newBooking);
-        //res.status(200).send(booking);
       });
     }
   });
