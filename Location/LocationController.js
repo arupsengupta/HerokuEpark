@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
+var date = require('date-and-time');
 
 //router.use(bodyParser.urlencoded({extended: true}));
 router.use(bodyParser.json());
@@ -56,11 +57,20 @@ router.get('/:id', function(req, res){
 
 // get available count by parking id
 router.get('/availcount/:id', function(req, res){
+  var now = new Date();
+  var loc_start_time = date.format(now, 'HH:mm');
+  var current_date = date.format(now, 'DD-MM-YYYY');
+
   Location.findById(req.params.id,'number_of_slot',function(err, location){
     if(err) return res.status(500).send(err);
-    
+      var bookedCarCount = Booking.where({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 4}).count();
+      var bookedBikeCount = Booking.where({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 2}).count();
+      var availCount = {
+        two : location.number_of_slot.two - bookedBikeCount,
+        four : location.number_of_slot.four - bookedCarCount
+      };
     // console.log(location);
-    res.status(200).send(location.number_of_slot);
+    res.status(200).send(availCount);
   });
 });
 
