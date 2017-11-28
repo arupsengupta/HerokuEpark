@@ -66,7 +66,7 @@ router.get('/availcount/:id', function(req, res){
       var bookedCarCount = 0;
 	  Booking.count({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 4},function(err, c){
 	  	bookedCarCount = c;
-	  }).count();
+	  });
       var bookedBikeCount = 0;
 	  Booking.count({date: current_date, parking_id: location._id ,status: 'booked', active: true, vehicle_type: 2},function(err, c){
 	  	bookedBikeCount = c;
