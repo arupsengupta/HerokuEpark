@@ -60,7 +60,6 @@ router.get('/availcount/:id', function(req, res){
   var now = new Date();
   var loc_start_time = date.format(now, 'HH:mm');
   var current_date = date.format(now, 'DD-MM-YYYY');
-  return res.status(500).send("Error 500");
 
   Location.findById(req.params.id,'number_of_slot',function(err, location){
     if(err) return res.status(500).send(err);
