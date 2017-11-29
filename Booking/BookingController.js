@@ -18,7 +18,7 @@ router.post('/',function(req, res){
   var loc_start_time = date.format(now, 'hh:mm A');
   var current_date = date.format(now, 'DD-MM-YYYY');
 
-  Booking.findOne({date: current_date, parking_id: req.body.parking_id, active: true, 'manualData.reg_number': req.body.reg_number, vehicle_type: req.body.wheels}).populate('parking_id').exec(function(err, booking){
+  Booking.findOne({date: current_date, parking_id: req.body.parking_id, active: true, 'manualData.reg_number': new RegExp(req.body.reg_number, 'i'), vehicle_type: req.body.wheels}).populate('parking_id').exec(function(err, booking){
     if(err) return res.status(503).send(err);
     // console.log(booking);
     if(booking){
