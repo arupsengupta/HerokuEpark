@@ -99,7 +99,7 @@ router.post('/end', function(req, res){
   var now = new Date();
   var loc_start_time = date.format(now, 'hh:mm A');
   var current_date = date.format(now, 'DD-MM-YYYY');
-
+  console.log('Booking id : ' + req.bodu.booking_id);
   Booking.findById(req.body.booking_id).populate('parking_id').exec(function(err, booking){
     if(err) return res.status(500).send('Error getting booking details');
     console.log(booking);
