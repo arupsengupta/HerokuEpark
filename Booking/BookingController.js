@@ -164,7 +164,7 @@ router.post('/qr/:id',function(req, res){
       Booking.findByIdAndUpdate(booking._id, {status: 'completed', end_time: loc_start_time, mins: duration, active: false, fare: cost}, {new: true}, function(err, result){
     		if(err) return res.status(500).send("Error occured while booking");
     		// console.log('Booking has been completed');
-        Location.findById(req.body.parking_id,'number_of_slot',function(err, location){
+        Location.findById(req.body.parking_id,'number_of_slot name',function(err, location){
           if(err) return res.status(500).send(err);
             var bookedCarCount = 0;
             var bookedBikeCount = 0;
@@ -178,7 +178,7 @@ router.post('/qr/:id',function(req, res){
               };
               req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
               req.app.io.emit('list-changed',{parking_id: location._id, obj: result});
-              req.app.io.emit('qr-book',{user_id: req.params.id, obj: result});
+              req.app.io.emit('qr-book',{user_id: req.params.id, obj: result, name: location.name});
         	  });
       	  });
         });
@@ -204,7 +204,7 @@ router.post('/qr/:id',function(req, res){
             timestamp: Date.now()
           },function(err, booking){
             if(err) return res.status(500).send("Cannot book");
-            Location.findById(req.body.parking_id,'number_of_slot',function(err, location){
+            Location.findById(req.body.parking_id,'number_of_slot name',function(err, location){
               if(err) return res.status(500).send(err);
                 var bookedCarCount = 0;
                 var bookedBikeCount = 0;
@@ -218,7 +218,7 @@ router.post('/qr/:id',function(req, res){
                   };
                   req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
                   req.app.io.emit('list-changed',{parking_id: location._id, obj: booking});
-                  req.app.io.emit('qr-book',{user_id: req.params.id, obj: booking});
+                  req.app.io.emit('qr-book',{user_id: req.params.id, obj: booking, name: location.name});
             	  });
           	  });
             });
