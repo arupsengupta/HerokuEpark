@@ -14,6 +14,7 @@ router.post('/', function(req, res){
     email: req.body.email,
     phone: req.body.phone,
     vehicle_no: req.body.number,
+    vehicle_type: req.body.type,
     password: req.body.pwd
   },
   function(err, user){
