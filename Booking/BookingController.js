@@ -48,7 +48,7 @@ router.post('/',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: result});
         	  });
       	  });
         });
@@ -83,7 +83,7 @@ router.post('/',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: newBooking});
         	  });
       	  });
         });
@@ -130,7 +130,7 @@ router.post('/end', function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: booking});
             });
           });
         });
@@ -176,7 +176,7 @@ router.post('/qr/:id',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: result});
         	  });
       	  });
         });
@@ -214,7 +214,7 @@ router.post('/qr/:id',function(req, res){
                     two : location.number_of_slot.two - bookedBikeCount,
                     four : location.number_of_slot.four - bookedCarCount
                   };
-                  req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+                  req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: booking});
             	  });
           	  });
             });
