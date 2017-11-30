@@ -92,8 +92,6 @@ router.post('/',function(req, res){
       });
     }
   });
-
-
 });
 
 
@@ -104,6 +102,7 @@ router.post('/end', function(req, res){
 
   Booking.findById(req.body.booking_id).populate('parking_id').exec(function(err, booking){
     if(err) return res.status(500).send('Error getting booking details');
+    console.log(booking);
     if(booking){
       var start_time =  date.parse(booking.start_time, 'hh:mm A');
       var end_time =  date.parse(loc_start_time, 'hh:mm A');
