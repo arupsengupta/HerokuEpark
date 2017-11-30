@@ -96,6 +96,52 @@ router.post('/',function(req, res){
 
 });
 
+
+router.post('/end', function(req, res){
+  var now = new Date();
+  var loc_start_time = date.format(now, 'hh:mm A');
+  var current_date = date.format(now, 'DD-MM-YYYY');
+
+  Booking.findById(req.body.booking_id).populate('parking_id').exec(function(err, booking){
+    if(err) return res.status(500).send('Error getting booking details');
+    if(booking){
+      var start_time =  date.parse(booking.start_time, 'hh:mm A');
+      var end_time =  date.parse(loc_start_time, 'hh:mm A');
+      var duration = date.subtract(end_time, start_time).toMinutes();
+      var hours = parseInt(duration / 60) + 1;
+      var cost = 0;
+      if(booking.vehicle_type === 2){
+        cost = booking.parking_id.fare.two * hours;
+      }else{
+        cost = booking.parking_id.fare.four * hours;
+      }
+      Booking.findByIdAndUpdate(req.body.booking_id,{status: 'completed', end_time: loc_start_time, mins: duration, active: false, fare: cost}, {new: true}, function(err, booking){
+        if(err) return res.status(500).send("Error occured while booking");
+        // console.log('Booking has been completed');
+        Location.findById(booking.parking_id,'number_of_slot',function(err, location){
+          if(err) return res.status(500).send(err);
+            var bookedCarCount = 0;
+            var bookedBikeCount = 0;
+          Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 4},function(err, c){
+            bookedCarCount = c;
+            Booking.count({date: current_date, parking_id: location._id ,status: 'Booked', active: true, vehicle_type: 2},function(err, c){
+              bookedBikeCount = c;
+              var availCount = {
+                two : location.number_of_slot.two - bookedBikeCount,
+                four : location.number_of_slot.four - bookedCarCount
+              };
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+            });
+          });
+        });
+        res.status(200).send(booking);
+      });
+    }else{
+      res.status(404).send('Not found');
+    }
+  });
+});
+
 // book using QR scan
 router.post('/qr/:id',function(req, res){
   var now = new Date();
