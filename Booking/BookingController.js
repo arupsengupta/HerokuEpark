@@ -48,7 +48,8 @@ router.post('/',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: result});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('list-changed',{parking_id: location._id, obj: result});
         	  });
       	  });
         });
@@ -83,7 +84,8 @@ router.post('/',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: newBooking});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('list-changed',{parking_id: location._id, obj: newBooking});
         	  });
       	  });
         });
@@ -99,10 +101,8 @@ router.post('/end', function(req, res){
   var now = new Date();
   var loc_start_time = date.format(now, 'hh:mm A');
   var current_date = date.format(now, 'DD-MM-YYYY');
-  console.log('Booking id : ' + req.body.booking_id);
   Booking.findById(req.body.booking_id).populate('parking_id').exec(function(err, booking){
     if(err) return res.status(500).send('Error getting booking details');
-    console.log(booking);
     if(booking){
       var start_time =  date.parse(booking.start_time, 'hh:mm A');
       var end_time =  date.parse(loc_start_time, 'hh:mm A');
@@ -129,7 +129,8 @@ router.post('/end', function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: booking});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('list-changed',{parking_id: location._id, obj: booking});
             });
           });
         });
@@ -175,7 +176,8 @@ router.post('/qr/:id',function(req, res){
                 two : location.number_of_slot.two - bookedBikeCount,
                 four : location.number_of_slot.four - bookedCarCount
               };
-              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: result});
+              req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+              req.app.io.emit('list-changed',{parking_id: location._id, obj: result});
         	  });
       	  });
         });
