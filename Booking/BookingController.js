@@ -178,6 +178,7 @@ router.post('/qr/:id',function(req, res){
               };
               req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
               req.app.io.emit('list-changed',{parking_id: location._id, obj: result});
+              req.app.io.emit('qr-book',{user_id: req.params.id, obj: result});
         	  });
       	  });
         });
@@ -215,7 +216,9 @@ router.post('/qr/:id',function(req, res){
                     two : location.number_of_slot.two - bookedBikeCount,
                     four : location.number_of_slot.four - bookedCarCount
                   };
-                  req.app.io.emit('count-changed',{parking_id: location._id, value: availCount, obj: booking});
+                  req.app.io.emit('count-changed',{parking_id: location._id, value: availCount});
+                  req.app.io.emit('list-changed',{parking_id: location._id, obj: booking});
+                  req.app.io.emit('qr-book',{user_id: req.params.id, obj: booking});
             	  });
           	  });
             });
