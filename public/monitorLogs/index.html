@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="monitoringApp">
+  <head>
+	  <title>Monitoring Logs of ePark</title>
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <script src="angular.min.js"></script>
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	  <script src="app.js"></script>
+  </head>
+
+  <body ng-controller="LoggingController">
+		  <div class="container">
+				  <h2 style="font-size: 21px; font-family: Segoe UI;">Complete Transaction Logs</h2>
+				  <p style="font-size: 13px; font-family: Segoe UI;">Every booking transaction occurring in DN Block Parking Lot using the ePark System</p>            
+				  <br/>
+				  <h2 style="font-size: 21px; font-family: Segoe UI;">Taposh Burman</h2>
+				  <table class="table table-hover table-bordered">
+				    <thead style="background-color: antiquewhite;">
+				      <tr>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking ID</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Number</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Type</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking Date</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Start Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">End Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Duration</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Status</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Fare</th>
+				      </tr>
+				    </thead>
+				    
+				    <tbody>
+				        <tr ng-repeat="result in results">
+					        <td style="font-family: Segoe UI; text-align : center;">{{result._id}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.manualData.reg_number}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.vehicle_type}} wheeler</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.date}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.start_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.end_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.mins}} mins</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result.status}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">₹ {{result.fare}}</td>
+				        </tr>
+				    </tbody>
+				  </table>
+				  
+				  <br/>
+				  <h2 style="font-size: 21px; font-family: Segoe UI;">Sanjay Santra</h2>
+				  <table class="table table-hover table-bordered">
+				    <thead style="background-color: antiquewhite;">
+				      <tr>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking ID</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Number</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Type</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking Date</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Start Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">End Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Duration</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Status</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Fare</th>
+				      </tr>
+				    </thead>
+				    
+				    <tbody>
+				        <tr ng-repeat="result1 in results1">
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1._id}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.manualData.reg_number}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.vehicle_type}} wheeler</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.date}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.start_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.end_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.mins}} mins</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result1.status}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">₹ {{result1.fare}}</td>
+				        </tr>
+				    </tbody>
+				  </table>
+		 </div>
+    </body>
+</html>
