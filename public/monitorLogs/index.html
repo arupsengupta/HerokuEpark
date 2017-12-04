@@ -14,7 +14,7 @@
   <body ng-controller="LoggingController">
 		  <div class="container">
 				  <h2 style="font-size: 21px; font-family: Segoe UI;">Complete Transaction Logs</h2>
-				  <p style="font-size: 13px; font-family: Segoe UI;">Every booking transaction occurring in DN Block Parking Lot using the ePark System</p>            
+				  <p style="font-size: 13px; font-family: Segoe UI;">Every booking transaction occurring in Street 11 DN Block Parking Lot using the ePark System</p>            
 				  <br/>
 				  <h2 style="font-size: 21px; font-family: Segoe UI;">Taposh Burman</h2>
 				  <table class="table table-hover table-bordered">
@@ -41,7 +41,8 @@
 					        <td style="font-family: Segoe UI; text-align : center;">{{result.start_time}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">{{result.end_time}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">{{result.mins}} mins</td>
-					        <td style="font-family: Segoe UI; text-align : center;">{{result.status}}</td>
+					        <td ng-if="result.status == 'Booked'" style="color : red; font-family: Segoe UI; text-align : center;">{{result.status}}</td>
+					        <td ng-if="result.status == 'completed'" style="color : green; font-family: Segoe UI; text-align : center;">{{result.status}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">₹ {{result.fare}}</td>
 				        </tr>
 				    </tbody>
@@ -73,7 +74,8 @@
 					        <td style="font-family: Segoe UI; text-align : center;">{{result1.start_time}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">{{result1.end_time}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">{{result1.mins}} mins</td>
-					        <td style="font-family: Segoe UI; text-align : center;">{{result1.status}}</td>
+					        <td ng-if="result1.status == 'Booked'" style="color : red; font-family: Segoe UI; text-align : center;">{{result1.status}}</td>
+					        <td ng-if="result1.status == 'completed'" style="color : green; font-family: Segoe UI; text-align : center;">{{result1.status}}</td>
 					        <td style="font-family: Segoe UI; text-align : center;">₹ {{result1.fare}}</td>
 				        </tr>
 				    </tbody>
