@@ -80,6 +80,39 @@
 				        </tr>
 				    </tbody>
 				  </table>
+				  
+				  <br/>
+				  <h2 style="font-size: 21px; font-family: Segoe UI;">Partha</h2>
+				  <table class="table table-hover table-bordered">
+				    <thead style="background-color: antiquewhite;">
+				      <tr>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking ID</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Number</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Vehicle Type</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Booking Date</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Start Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">End Time</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Duration</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Status</th>
+				        <th style="font-family: Segoe UI; text-align : center;">Fare</th>
+				      </tr>
+				    </thead>
+				    
+				    <tbody>
+				        <tr ng-repeat="result2 in results2">
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2._id}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.manualData.reg_number}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.vehicle_type}} wheeler</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.date}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.start_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.end_time}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">{{result2.mins}} mins</td>
+					        <td ng-if="result2.status == 'Booked'" style="background-color : red; color : white; font-family: Segoe UI; text-align : center;">{{result2.status}}</td>
+					        <td ng-if="result2.status == 'completed'" style="background-color : green; color : white; font-family: Segoe UI; text-align : center;">{{result2.status}}</td>
+					        <td style="font-family: Segoe UI; text-align : center;">₹ {{result2.fare}}</td>
+				        </tr>
+				    </tbody>
+				  </table>
 		 </div>
     </body>
 </html>
