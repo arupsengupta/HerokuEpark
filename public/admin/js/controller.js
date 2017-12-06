@@ -20,7 +20,7 @@ app.controller('UserController', function($scope, $http, $window){
 
 	$http({
 		  method: 'GET',
-		  url: 'https://arupepark.herokuapp.com/users',
+		  url: 'http://www.eparkindia.com/users',
 		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		}).then(function successCallback(response){
 			for(var i=0;i<response.data.length;i++){
@@ -33,7 +33,7 @@ app.controller('UserController', function($scope, $http, $window){
 	$scope.deleteUser = function(userID){
 		$http({
 			  method: 'DELETE',
-			  url: 'https://arupepark.herokuapp.com/users/' + userID
+			  url: 'http://www.eparkindia.com/users/' + userID
 		}).then(function successCallback(response){
 			alert("User account deleted succcessfully");
 			$window.location.reload();
@@ -68,7 +68,7 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$http({
 		  method: 'GET',
 			//url: 'http://localhost:8080/location',
-		  url: 'https://arupepark.herokuapp.com/location',
+		  url: 'http://www.eparkindia.com/location',
 		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		}).then(function successCallback(response){
 			for(var i=0;i<response.data.length;i++){
@@ -83,7 +83,7 @@ app.controller('AddLocationController', function($scope, $http, $window){
 		$http({
 			  method: 'DELETE',
 				//url: 'http://localhost:8080/location/' + locationID
-			  url: 'https://arupepark.herokuapp.com/location/' + locationID
+			  url: 'http://www.eparkindia.com/location/' + locationID
 		}).then(function successCallback(response){
 			alert("Location successfully deleted");
 			$window.location.reload();
@@ -95,7 +95,7 @@ app.controller('AddLocationController', function($scope, $http, $window){
 	$scope.createLocation = function(){
 		$http({
 			  method: 'POST',
-			  url: 'https://arupepark.herokuapp.com/location',
+			  url: 'http://www.eparkindia.com/location',
 				//url: 'http://localhost:8080/location',
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
 			  data: $.param({
@@ -146,7 +146,7 @@ app.controller('AdminController', function($scope, $http){
 
 	$http({
 		  method: 'GET',
-		  url: 'https://arupepark.herokuapp.com/location',
+		  url: 'http://www.eparkindia.com/location',
 		  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 		}).then(function successCallback(response){
 			$scope.result = response.data;
@@ -184,7 +184,7 @@ app.controller('AdminController', function($scope, $http){
 
 		$http({
 			  method: 'GET',
-			  url: 'https://arupepark.herokuapp.com/booking',
+			  url: 'http://www.eparkindia.com/booking',
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 			}).then(function successCallback(response1){
 				for(var i=0;i<response1.data.length;i++){
@@ -249,7 +249,7 @@ app.controller('AdminController', function($scope, $http){
 	    $scope.bookedUserMob = "";
 		$http({
 			  method: 'GET',
-			  url: 'https://arupepark.herokuapp.com/users',
+			  url: 'http://www.eparkindia.com/users',
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
 			}).then(function successCallback(response2){
 				for(var i=0;i<response2.data.length;i++){
@@ -283,15 +283,15 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	};
 	$scope.admin.vendor.end_date = new Date($scope.admin.vendor.start_date.getFullYear() + 1, $scope.admin.vendor.start_date.getMonth(), $scope.admin.vendor.start_date.getDate());
 
-	$http.get('https://arupepark.herokuapp.com/location').then(function(success){
+	$http.get('http://www.eparkindia.com/location').then(function(success){
 		$scope.locationlist = success.data;
 	});
 
-	$http.get('https://arupepark.herokuapp.com/locationAdmin').then(function(success){
+	$http.get('http://www.eparkindia.com/locationAdmin').then(function(success){
 		$scope.adminList = success.data;
 	});
 
-	$http.get('https://arupepark.herokuapp.com/locationAdmin/map/list').then(function(success){
+	$http.get('http://www.eparkindia.com/locationAdmin/map/list').then(function(success){
 		$scope.adminLocMap = success.data;
 	});
 
@@ -302,7 +302,7 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	$scope.addLoationAdmin = function(){
 		$http({
 			method:'POST',
-			url: 'https://arupepark.herokuapp.com/locationAdmin',
+			url: 'http://www.eparkindia.com/locationAdmin',
 			headers: {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},
 			data: $.param({
 				"location_id" : $scope.admin.location.id,
@@ -327,7 +327,7 @@ app.controller('LocationAdminController', function($scope, $http, $window){
 	$scope.removeAdmin = function(index){
 		$http({
 			method: 'PUT',
-			url: 'https://arupepark.herokuapp.com/locationAdmin/' +  $scope.adminList[index]._id
+			url: 'http://www.eparkindia.com/locationAdmin/' +  $scope.adminList[index]._id
 		}).then(function(success){
 			alert("Admin removed successfully");
 			$window.location.reload();
